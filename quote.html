@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trade & Quotes — Light World Electricals</title>
+  <meta name="description" content="Request a quote for electrical materials. Bulk prices for electricians, contractors and builders in Kumasi and Accra.">
+  <meta name="theme-color" content="#14213d">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="quote">
+  <header id="site-header"></header>
+
+  <main class="section">
+    <div class="container quote-layout">
+      <div>
+        <p class="eyebrow dark">For electricians, contractors &amp; builders</p>
+        <h1>Request a quote</h1>
+        <p>Send us your materials list (or a photo of it on WhatsApp) and we'll reply with our best price, usually within one working day.</p>
+
+        <div id="quote-result" hidden></div>
+        <form id="quote-form" class="checkout">
+          <div class="two-col">
+            <label>Full name <input name="name" required autocomplete="name"></label>
+            <label>Company <small>(optional)</small> <input name="company" autocomplete="organization"></label>
+            <label>Phone number <input name="phone" type="tel" required autocomplete="tel" pattern="[0-9+\(\) \-]{9,}" title="Enter a valid phone number"></label>
+            <label>Email <small>(optional)</small> <input name="email" type="email" autocomplete="email"></label>
+            <label>I am a…
+              <select name="type">
+                <option>Electrician</option>
+                <option>Contractor / builder</option>
+                <option>Business / company</option>
+                <option>Homeowner</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label>Delivery location <input name="location" required placeholder="e.g. Kumasi – Ahodwo, or Accra – Spintex"></label>
+          </div>
+          <label>Materials needed <small>(one item per line, with quantity)</small>
+            <textarea name="items" rows="7" required placeholder="e.g.&#10;10 rolls 2.5mm single core cable&#10;40 double sockets&#10;1 x 12-way distribution board"></textarea>
+          </label>
+          <div class="two-col">
+            <label>Needed by <small>(optional)</small> <input name="needed" type="date"></label>
+            <label>Project details <small>(optional)</small> <input name="project" placeholder="e.g. 4-bedroom house wiring"></label>
+          </div>
+          <button type="submit" class="btn btn-wa btn-lg btn-block">Send quote request via WhatsApp</button>
+        </form>
+      </div>
+
+      <aside class="trade-side">
+        <div class="about-box">
+          <h3>Why trade with <span>Light World</span></h3>
+          <ul>
+            <li>Bulk prices on most products, shown on each product page</li>
+            <li>Proforma invoices for your clients (print one from the cart)</li>
+            <li>Free delivery to sites in Kumasi &amp; Accra on large orders</li>
+            <li>Advice on cable sizes, breakers and load calculations</li>
+          </ul>
+        </div>
+        <div class="bulk-box" id="bulk">
+          <h3>Bulk price examples</h3>
+          <ul id="bulk-examples"></ul>
+          <a href="shop.html">See all products →</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

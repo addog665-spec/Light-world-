@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart &amp; Checkout — Light World</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <title>Cart & Checkout — Light World Electricals</title>
+  <meta name="description" content="Light World Electricals, Kumasi — lighting, cables, switches, breakers, fans, tools and solar. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta name="theme-color" content="#14213d">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="cart">
@@ -12,48 +14,65 @@
 
   <main class="section">
     <div class="container cart-layout">
-      <div>
+      <div class="no-print">
         <h1>Your cart</h1>
+        <div id="order-result" hidden></div>
         <div id="cart-items"></div>
         <div id="cart-summary" class="summary"></div>
       </div>
 
-      <form id="checkout" class="checkout" hidden>
+      <form id="checkout" class="checkout no-print" hidden>
         <h2>Checkout</h2>
         <label>Full name
           <input name="name" required autocomplete="name">
         </label>
+        <label>Company <small>(optional — for invoices)</small>
+          <input name="company" autocomplete="organization">
+        </label>
         <label>Phone number
-          <input name="phone" type="tel" required autocomplete="tel">
+          <input name="phone" type="tel" required autocomplete="tel" placeholder="024 000 0000"
+                 pattern="[0-9+\(\) \-]{9,}" title="Enter a valid phone number">
+        </label>
+        <label><span id="email-label">Email (optional)</span>
+          <input name="email" type="email" autocomplete="email">
         </label>
 
         <fieldset>
-          <legend>Delivery or pickup</legend>
-          <label class="radio"><input type="radio" name="method" value="delivery" checked> Deliver to me</label>
-          <label class="radio"><input type="radio" name="method" value="pickup"> Pick up in store</label>
+          <legend>Pickup or delivery</legend>
+          <label class="radio"><input type="radio" name="method" value="pickup" checked>
+            <span>Pick up at our Kumasi shop <small>Free</small></span></label>
+          <label class="radio"><input type="radio" name="method" value="kumasi">
+            <span>Delivery within Kumasi <small id="kumasi-note"></small></span></label>
+          <label class="radio"><input type="radio" name="method" value="accra">
+            <span>Delivery within Accra <small id="accra-note"></small></span></label>
+          <label class="radio"><input type="radio" name="method" value="other">
+            <span>Elsewhere in Ghana <small>We'll call to arrange</small></span></label>
         </fieldset>
 
-        <label id="address-field">Delivery address
-          <textarea name="address" id="address" rows="2" required autocomplete="street-address"></textarea>
+        <label id="address-field" hidden><span class="label-text">Delivery address</span>
+          <textarea name="address" rows="2" autocomplete="street-address"></textarea>
+        </label>
+        <label id="gps-field" hidden>GhanaPost GPS address <small>(optional)</small>
+          <input name="gps" placeholder="e.g. AK-123-4567">
         </label>
 
-        <label>Payment method
-          <select name="payment">
-            <option>Cash on delivery / pickup</option>
-            <option>Mobile money / bank transfer</option>
-            <option>Card on delivery / pickup</option>
-          </select>
-        </label>
+        <fieldset>
+          <legend>Payment</legend>
+          <label class="radio"><input type="radio" name="payment" value="later" checked>
+            <span>Pay on delivery / pickup <small>Cash, card or MoMo</small></span></label>
+          <label class="radio" id="pay-online-option"><input type="radio" name="payment" value="online">
+            <span>Pay online now <small id="online-note">Card or mobile money via Paystack</small></span></label>
+        </fieldset>
 
-        <label>Order notes (optional)
+        <label>Order notes <small>(optional)</small>
           <textarea name="notes" rows="2" placeholder="e.g. preferred delivery time"></textarea>
         </label>
 
-        <button type="submit" value="whatsapp" class="btn btn-wa btn-block">Send order via WhatsApp</button>
-        <button type="submit" value="email" class="btn btn-ghost btn-block">Send order by email</button>
-        <p class="hint">Your order goes straight to us. We'll confirm stock, total and payment details before anything is charged.</p>
+        <button type="submit" class="btn btn-wa btn-block btn-lg" id="place-order">Place order via WhatsApp</button>
+        <p class="hint">You'll get an order number and invoice. We'll confirm stock and delivery with you before dispatch.</p>
       </form>
     </div>
+    <div class="container"><div id="invoice" class="print-only"></div></div>
   </main>
 
   <footer id="site-footer"></footer>
