@@ -340,6 +340,18 @@ function initHome() {
     .map(([name, n]) => `<a class="brand-tile" href="shop.html?q=${encodeURIComponent(name)}">
       <strong>${escapeHtml(name)}</strong><small>${n} product${n === 1 ? "" : "s"}</small></a>`)
     .join("");
+  if (SHOP.reviews?.length) {
+    document.getElementById("reviews-section").hidden = false;
+    document.getElementById("reviews-sample-note").hidden = !SHOP.reviewsAreSamples;
+    document.getElementById("review-grid").innerHTML = SHOP.reviews.map((r) => {
+      const stars = Math.max(0, Math.min(5, r.stars ?? 5));
+      return `<figure class="review">
+        <div class="stars" aria-label="${stars} out of 5 stars">${"★".repeat(stars)}<span>${"★".repeat(5 - stars)}</span></div>
+        <blockquote>“${escapeHtml(r.text)}”</blockquote>
+        <figcaption><strong>${escapeHtml(r.name)}</strong><small>${escapeHtml(r.role || "")}</small></figcaption>
+      </figure>`;
+    }).join("");
+  }
   document.getElementById("featured-grid").innerHTML = PRODUCTS.filter((p) => p.featured).map(productCard).join("");
 
   document.getElementById("delivery-info").innerHTML = `

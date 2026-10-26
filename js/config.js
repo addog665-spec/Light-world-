@@ -28,4 +28,20 @@ const SHOP = {
   // While it is empty, the "Pay online" option is hidden and customers pay on delivery/pickup.
   // NEVER put your SECRET key (sk_...) here.
   paystackPublicKey: "",
+
+  // ---------- Customer reviews (home page) ----------
+  // TODO: these are SAMPLE reviews for the test site. Replace them with real reviews from your
+  // customers (with their permission), then set reviewsAreSamples to false to remove the "Sample" label.
+  // Use [] to hide the section.
+  reviewsAreSamples: true,
+  reviews: [
+    { name: "Kwame A.", role: "Electrician, Asokwa", stars: 5,
+      text: "I buy all my cables and breakers here. Genuine stock, fair prices, and they always have what I need for a job." },
+    { name: "Akosua M.", role: "Homeowner, Bantama", stars: 5,
+      text: "They helped me choose the right bulbs and sockets for my new house and delivered the next morning." },
+    { name: "Yaw B.", role: "Building contractor, Kumasi", stars: 5,
+      text: "Sent my materials list on WhatsApp and got a quote the same day. The bulk price beat everywhere else I asked." },
+    { name: "Efua O.", role: "Shop owner, Adum", stars: 4,
+      text: "Good rechargeable bulbs for when the lights go off. Friendly staff who explain everything." },
+  ],
 };
