@@ -17,6 +17,7 @@
 //              (if left out, the category icon is shown instead)
 //  stock       optional — set to 0 to show "Out of stock"
 //  featured    optional — true shows it on the home page
+//  badge       optional — a short label on the photo, e.g. "Best seller" or "New"
 //
 //  examplePhoto optional — a stock photo of the same kind of item, shown labelled
 //              "Example photo" until you have your own photo (only use one that
@@ -55,7 +56,7 @@ const PRODUCTS = [
   { id: "newman-bulb-10w", name: "Newman LED Bulb 10W", brand: "Newman", category: "lighting", price: 10, examplePhoto: "images/stock/led-bulb.jpg",
     description: "Affordable energy-saving LED bulb for bedrooms, toilets and porches.",
     specs: { Power: "10W", Type: "LED" } },
-  { id: "newman-bulb-30w", name: "Newman LED Bulb 30W (B22)", brand: "Newman", category: "lighting", price: 30, featured: true,
+  { id: "newman-bulb-30w", name: "Newman LED Bulb 30W (B22)", brand: "Newman", category: "lighting", price: 30, badge: "Best seller", featured: true,
     image: "images/products/newman-bulb-30w.jpg",
     description: "High-power daylight LED bulb for halls, shops, compounds and workshops. Comes with a 2-year warranty.",
     specs: { Power: "30W", Cap: "B22 pin", Colour: "Daylight", Brightness: "2,700 lumens", Efficiency: "90 lm/W",
@@ -69,11 +70,11 @@ const PRODUCTS = [
   { id: "brothers-union-50w", name: "Brothers Union LED Bulb 50W", brand: "Brothers Union", category: "lighting", price: 70,
     description: "High-power LED bulb for large rooms, shops and outdoor areas.",
     specs: { Power: "50W", Type: "LED" } },
-  { id: "newman-rechargeable-bulb", name: "Newman Rechargeable LED Bulb 20W (with Battery)", brand: "Newman", category: "lighting", price: 35, featured: true,
+  { id: "newman-rechargeable-bulb", name: "Newman Rechargeable LED Bulb 20W (with Battery)", brand: "Newman", category: "lighting", price: 35, badge: "Best seller", featured: true,
     image: "images/products/newman-rechargeable-20w.jpg",
     description: "LED bulb with a built-in battery that keeps giving light when the power goes off.",
     specs: { Power: "20W", Cap: "B22 pin", Backup: "Built-in battery", "Energy saving": "90%", Warranty: "2 years" } },
-  { id: "newman-rechargeable-30w", name: "Newman Rechargeable LED Bulb 30W (with Battery)", brand: "Newman", category: "lighting", price: null,
+  { id: "newman-rechargeable-30w", name: "Newman Rechargeable LED Bulb 30W (with Battery)", brand: "Newman", category: "lighting", price: null, badge: "New",
     image: "images/products/newman-rechargeable-30w.jpg",
     description: "Bigger, brighter LED bulb with a built-in battery that keeps giving light when the power goes off.",
     specs: { Power: "30W", Cap: "B22 pin", Backup: "Built-in battery", "Energy saving": "90%", Warranty: "2 years" } },
@@ -143,7 +144,7 @@ const PRODUCTS = [
   { id: "cable-roll-1.5mm", name: "1.5mm Cable — Roll", category: "cables", price: null, unit: "roll", examplePhoto: "images/stock/cable-rolls.jpg",
     description: "1.5mm cable roll for lighting circuits. Ask us for today's price and available brands.",
     specs: { Size: "1.5mm", "Sold per": "Roll" } },
-  { id: "cable-roll-2.5mm", name: "Sanbra 2.5mm² Cable — 100 Yards", brand: "Sanbra", category: "cables", price: null, unit: "roll", featured: true,
+  { id: "cable-roll-2.5mm", name: "Sanbra 2.5mm² Cable — 100 Yards", brand: "Sanbra", category: "cables", price: null, badge: "Best seller", unit: "roll", featured: true,
     image: "images/products/sanbra-cable-2.5mm.jpg",
     description: "Copper PVC-insulated cable for socket circuits. Ask us for today's price and the colours in stock.",
     specs: { Size: "2.5mm²", Length: "100 yards", Conductor: "High-grade copper", Insulation: "PVC",
@@ -218,4 +219,27 @@ const PRODUCTS = [
   { id: "mr-bond-superglue", name: "Mr. Bond Super Glue", brand: "Mr. Bond", category: "tools", price: 20,
     description: "Strong instant glue for quick repairs.",
     specs: {} },
+];
+
+// ============================================================
+//  READY-MADE PACKS (home page) — everything for one job, added to the cart in one tap
+//  items: [product id, quantity] — only products with a price are added
+//  note:  optional — shown under the pack, e.g. to say what isn't included
+// ============================================================
+const PACKS = [
+  { id: "room-wiring", name: "Room Wiring Pack", icon: "🏠",
+    description: "Sockets, boxes, lamp holders, bulbs, conduit and fixings to wire one room.",
+    note: "Cable not included — ask us for today's cable price.",
+    items: [["bg-double-socket", 2], ["pattress-box-3x6", 2], ["circular-box", 1], ["lamp-holder-pin", 2],
+            ["fortune-bulb-15w", 2], ["cable-clips-6mm", 1], ["pvc-conduit-20mm", 3], ["tape-small", 1]] },
+  { id: "fan-fitting", name: "Ceiling Fan Fitting Pack", icon: "🌀",
+    description: "Hook, regulator, capacitor and box to fit a ceiling fan properly.",
+    note: "Need the fan too? Ask us for sizes and prices.",
+    items: [["fan-hook", 1], ["fan-regulator", 1], ["fan-capacitor-2.5", 1], ["circular-box", 1], ["tape-small", 1]] },
+  { id: "main-supply", name: "Main Supply Pack", icon: "🛡️",
+    description: "Cut-out fuse, 2-pole breaker and 2-way main switch for the incoming supply.",
+    items: [["cut-out-fuse", 1], ["two-pole-breaker", 1], ["two-way-main-switch", 1]] },
+  { id: "electrician-kit", name: "Electrician's Starter Kit", icon: "🧰",
+    description: "Tester, screwdriver, insulation tape and screws for everyday jobs.",
+    items: [["tester", 1], ["screwdriver", 1], ["tape-big", 1], ["screws-box", 1]] },
 ];

@@ -56,13 +56,30 @@ function saveCart(cart) {
   updateCartCount();
 }
 
+const canBuy = (p) => p && !askPrice(p) && p.stock !== 0;
+
 function addToCart(id, qty = 1) {
   const p = findProduct(id);
-  if (!p || askPrice(p) || p.stock === 0 || !(qty > 0)) return;
+  if (!canBuy(p) || !(qty > 0)) return;
   const cart = getCart();
   cart[id] = (cart[id] || 0) + qty;
   saveCart(cart);
   toast(`Added ${qty > 1 ? qty + " × " : ""}“${p.name}” to cart`);
+}
+
+// ---------- Ready-made packs ----------
+const packItems = (pack) =>
+  pack.items.map(([id, qty]) => ({ product: findProduct(id), qty })).filter((i) => canBuy(i.product));
+const packTotal = (pack) => packItems(pack).reduce((sum, i) => sum + unitPrice(i.product, i.qty) * i.qty, 0);
+
+function addPackToCart(packId) {
+  const pack = PACKS.find((k) => k.id === packId);
+  const items = pack ? packItems(pack) : [];
+  if (!items.length) return;
+  const cart = getCart();
+  items.forEach((i) => { cart[i.product.id] = (cart[i.product.id] || 0) + i.qty; });
+  saveCart(cart);
+  toast(`Added “${pack.name}” (${items.length} items) to cart`);
 }
 
 function setQty(id, qty) {
@@ -135,7 +152,14 @@ function renderLayout() {
   const page = document.body.dataset.page;
   const link = (href, label, key) => `<a href="${href}" class="${page === key ? "active" : ""}">${label}</a>`;
 
+  const promo = SHOP.promo?.text ? SHOP.promo : null;
+  let promoClosed = false;
+  try { promoClosed = !!promo && localStorage.getItem("lightworld-promo-closed") === promo.text; } catch {}
   document.getElementById("site-header").innerHTML = `
+    ${promo && !promoClosed ? `<div class="promo-strip"><div class="container">
+      <span>${escapeHtml(promo.text)}${promo.link ? ` <a href="${escapeHtml(promo.link)}">${escapeHtml(promo.linkText || "Find out more")} →</a>` : ""}</span>
+      <button type="button" class="promo-close" aria-label="Close">✕</button>
+    </div></div>` : ""}
     <div class="topbar"><div class="container">
       <span>📞 <a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a></span>
       <span class="hide-sm">📍 ${escapeHtml(SHOP.address)} · 🕒 ${escapeHtml(SHOP.hours)}</span>
@@ -153,6 +177,11 @@ function renderLayout() {
       </a>
       <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">☰</button>
     </div>`;
+
+  document.querySelector(".promo-close")?.addEventListener("click", (e) => {
+    e.currentTarget.closest(".promo-strip").remove();
+    try { localStorage.setItem("lightworld-promo-closed", promo.text); } catch {}
+  });
 
   const menuBtn = document.querySelector(".menu-btn");
   menuBtn.addEventListener("click", () => {
@@ -200,6 +229,16 @@ function renderLayout() {
   wa.innerHTML = `<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3C8.8 3 3 8.6 3 15.6c0 2.5.7 4.8 2 6.8L3.5 29l6.8-1.8c1.8.9 3.7 1.4 5.7 1.4 7.2 0 13-5.6 13-12.6S23.2 3 16 3zm0 23.2c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4 1 1.1-3.8-.3-.4c-1.1-1.6-1.6-3.5-1.6-5.4C5.7 9.9 10.3 5.4 16 5.4s10.3 4.5 10.3 10.2S21.7 26.2 16 26.2zm5.6-7.6c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.8 5 2.9 1.1 3.4.9 4 .8.6-.1 1.8-.7 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>`;
   document.body.appendChild(wa);
 
+  // Call / WhatsApp / Cart bar along the bottom on phones (replaces the floating button there)
+  const bar = document.createElement("nav");
+  bar.className = "mobile-bar";
+  bar.setAttribute("aria-label", "Quick contact");
+  bar.innerHTML = `
+    <a href="${telHref(SHOP.phone)}"><span>📞</span>Call</a>
+    <a href="${waLink(`Hello ${SHOP.name}, `)}" target="_blank" rel="noopener" class="mb-wa"><span>💬</span>WhatsApp</a>
+    <a href="cart.html"><span>🛒</span>Cart<b class="badge" data-cart-count hidden>0</b></a>`;
+  document.body.appendChild(bar);
+
   updateCartCount();
 }
 
@@ -220,7 +259,7 @@ function productCard(p) {
   return `
     <article class="card">
       <a class="card-media" href="${href}" tabindex="-1">${productMedia(p)}
-        ${p.oldPrice ? `<span class="tag sale">Sale</span>` : ""}
+        ${p.oldPrice ? `<span class="tag sale">Sale</span>` : p.badge ? `<span class="tag hot">${escapeHtml(p.badge)}</span>` : ""}
         ${out ? `<span class="tag out">Out of stock</span>` : ""}
       </a>
       <div class="card-body">
@@ -350,6 +389,22 @@ function initHome() {
     .map(([name, n]) => `<a class="brand-tile" href="shop.html?q=${encodeURIComponent(name)}">
       <strong>${escapeHtml(name)}</strong><small>${n} product${n === 1 ? "" : "s"}</small></a>`)
     .join("");
+  document.getElementById("pack-grid").innerHTML = PACKS.map((k) => {
+    const items = packItems(k);
+    return `<article class="pack">
+      <div class="pack-head"><span class="pack-icon">${k.icon || "📦"}</span><h3>${escapeHtml(k.name)}</h3></div>
+      <p class="muted">${escapeHtml(k.description || "")}</p>
+      <ul>${items.map((i) => `<li><span>${i.qty} ×</span> <a href="product.html?id=${encodeURIComponent(i.product.id)}">${escapeHtml(i.product.name)}</a></li>`).join("")}</ul>
+      ${k.note ? `<p class="hint">${escapeHtml(k.note)}</p>` : ""}
+      <div class="pack-foot"><div class="price">${money(packTotal(k))}</div>
+        <button class="btn btn-sm" data-pack="${k.id}">Add pack to cart</button></div>
+    </article>`;
+  }).join("");
+  document.getElementById("pack-grid").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-pack]");
+    if (b) addPackToCart(b.dataset.pack);
+  });
+
   if (SHOP.reviews?.length) {
     document.getElementById("reviews-section").hidden = false;
     document.getElementById("reviews-sample-note").hidden = !SHOP.reviewsAreSamples;
@@ -482,6 +537,7 @@ function initProduct() {
             <button type="button" aria-label="Increase" data-step="1">+</button>
           </div>
           <button class="btn btn-lg" id="pd-add" ${out ? "disabled" : ""}>${out ? "Sold out" : "Add to cart"}</button>
+          ${out ? "" : `<a class="btn btn-lg btn-wa" id="pd-wa" target="_blank" rel="noopener">Order on WhatsApp</a>`}
         </div>
         <p class="pd-line" id="pd-line"></p>`}
         <p class="hint">Buying for a project? <a href="quote.html?item=${encodeURIComponent(p.id)}">Request a quote</a> for large quantities.</p>
@@ -508,6 +564,8 @@ function initBuyBox(root, p) {
     const q = Math.max(1, parseInt(qtyInput.value, 10) || 1);
     const u = unitPrice(p, q);
     line.innerHTML = q > 1 ? `${q} × ${money(u)} = <strong>${money(u * q)}</strong>${u < p.price ? ` <span class="bulk-tag">bulk price applied</span>` : ""}` : "";
+    const wa = document.getElementById("pd-wa");
+    if (wa) wa.href = waLink(`Hello ${SHOP.name}, I'd like to order:\n${q} × ${p.name} — ${money(u)} each = ${money(u * q)}\nIs it available?`);
     root.querySelectorAll(".tiers tr").forEach((tr) => tr.classList.remove("on"));
     const active = [...root.querySelectorAll(".tiers tr")].filter((tr) => q >= +tr.dataset.min).pop();
     active?.classList.add("on");

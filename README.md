@@ -38,6 +38,9 @@ Open **`js/config.js`** and fill in everything marked `TODO`:
 - [ ] **Opening hours**
 - [ ] **Kumasi delivery fee** (`kumasiFee`)
 - [ ] **Paystack public key** (optional, see below)
+- [ ] **Customer reviews**: replace the sample reviews with real ones, then set `reviewsAreSamples: false`
+- [ ] **Payment badges** (`paymentMethods`): remove any method you don't accept
+- [ ] **Promo strip** (`promo`): write this week's offer, or set `text: ""` to hide it
 
 Then replace the sample products in **`js/products.js`** with your real stock and prices.
 
@@ -60,6 +63,9 @@ Each product looks like this:
 - **Show on the home page:** add `featured: true`.
 - **Photos:** put the photo in `images/` and add `image: "images/double-socket.jpg"`. Square photos on a plain background look best.
 - **Sold by the roll or pack:** add `unit: "roll"` (shows "per roll").
+- **Label on the photo:** add `badge: "Best seller"` or `badge: "New"`.
+- **Example photo:** `examplePhoto: "images/stock/led-bulb.jpg"` shows a labelled stock photo until you have your own. Only use one that really shows the item.
+- **Ready-made packs:** edit `PACKS` at the bottom of the file. Each pack lists product ids and quantities; its price is worked out from the product prices.
 
 Watch the commas and quotation marks. If the shop page goes blank after an edit, a comma or quote is probably missing.
 

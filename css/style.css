@@ -33,6 +33,11 @@ h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
 [hidden] { display: none !important; }
 
 /* ---------- Header ---------- */
+.promo-strip { background: var(--brand); color: var(--ink); font-size: .9rem; font-weight: 600; }
+.promo-strip .container { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 7px 0; text-align: center; }
+.promo-strip a { color: var(--ink); font-weight: 800; white-space: nowrap; }
+.promo-close { border: 0; background: none; font: inherit; cursor: pointer; color: var(--ink); opacity: .7; padding: 2px 6px; }
+.promo-close:hover { opacity: 1; }
 .topbar { background: var(--ink); color: #dfe6f3; font-size: .85rem; }
 .topbar a { text-decoration: none; }
 .topbar .container { display: flex; justify-content: space-between; padding: 6px 0; gap: 12px; }
@@ -78,6 +83,13 @@ h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
 .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; color: var(--brand); font-weight: 700; margin: 0 0 10px; }
 .eyebrow.dark { color: var(--brand-dark); }
 .lead { font-size: 1.15rem; color: #c9d3e6; }
+.hero-inner > * { min-width: 0; }
+.hero-search { display: flex; gap: 8px; width: 100%; max-width: 540px; margin-top: 22px; background: #fff; border-radius: 999px; padding: 5px; }
+.hero-search input { flex: 1; min-width: 0; border: 0; outline: none; font: inherit; padding: 8px 14px; border-radius: 999px; color: var(--ink); }
+.hero-search .btn { border-radius: 999px; }
+.hero-popular { margin: 10px 0 0; font-size: .85rem; color: #c6cfe0; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.hero-popular a { color: #fff; text-decoration: none; border: 1px solid rgba(255, 255, 255, .3); padding: 2px 10px; border-radius: 999px; }
+.hero-popular a:hover { border-color: var(--brand); color: var(--brand); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .hero-note { color: var(--brand); font-weight: 600; margin-top: 18px; }
 .hero-art { display: grid; place-items: center; }
@@ -131,6 +143,19 @@ h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
 .review figcaption small { color: var(--ink-soft); }
 .sample-note { display: inline-block; margin: 8px 0 0; padding: 4px 12px; border-radius: 999px; font-size: .85rem; font-weight: 600;
   background: #fff3cd; color: #7a5a00; border: 1px dashed #e0b84a; }
+.pack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-top: 18px; }
+.pack { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+.pack-head { display: flex; align-items: center; gap: 10px; }
+.pack-head h3 { margin: 0; font-size: 1.1rem; }
+.pack-icon { font-size: 1.6rem; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 12px; background: #fff8e1; flex: none; }
+.pack p { margin: 0; }
+.pack ul { list-style: none; margin: 4px 0; padding: 0; font-size: .9rem; flex: 1; }
+.pack li { padding: 5px 0; border-bottom: 1px dashed var(--line); }
+.pack li span { color: var(--brand-dark); font-weight: 700; }
+.pack li a { color: var(--ink); text-decoration: none; }
+.pack li a:hover { text-decoration: underline; }
+.pack-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
+.pack-foot .btn { white-space: nowrap; }
 .trade { background: linear-gradient(120deg, #fff8e1, #fff 70%); border-block: 1px solid var(--line); }
 .trade-inner { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; align-items: center; }
 .trade .eyebrow { color: var(--brand-dark); }
@@ -160,6 +185,7 @@ h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
 .placeholder { font-size: 4rem; }
 .tag { position: absolute; top: 10px; left: 10px; font-size: .75rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: #fff; }
 .tag.sale { background: var(--danger); }
+.tag.hot { background: var(--brand); color: var(--ink); }
 .tag.out { background: var(--ink-soft); left: auto; right: 10px; }
 .tag.example-tag { top: auto; bottom: 10px; left: auto; right: 10px; background: rgba(20, 33, 61, .72); font-weight: 600; }
 .card-body { padding: 14px; display: flex; flex-direction: column; flex: 1; }
@@ -347,6 +373,7 @@ fieldset .pay-badges { margin: 4px 0 12px; }
   padding: 12px 18px; border-radius: 10px; box-shadow: var(--shadow); transition: transform .25s; z-index: 50;
   max-width: calc(100% - 110px); }
 #toast.show { transform: translate(-50%, 0); }
+.mobile-bar { display: none; }
 #toast a { color: var(--brand); font-weight: 700; margin-left: 8px; white-space: nowrap; }
 
 /* ---------- Responsive ---------- */
@@ -364,6 +391,20 @@ fieldset .pay-badges { margin: 4px 0 12px; }
   .pd-media { max-width: 460px; }
 }
 @media (max-width: 760px) {
+  /* bottom Call / WhatsApp / Cart bar replaces the floating button on phones */
+  .mobile-bar { display: grid; grid-template-columns: repeat(3, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    background: #fff; border-top: 1px solid var(--line); box-shadow: 0 -4px 16px rgba(20, 33, 61, .08); padding-bottom: env(safe-area-inset-bottom); }
+  .mobile-bar a { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 8px 0 9px;
+    text-decoration: none; font-size: .78rem; font-weight: 700; color: var(--ink); }
+  .mobile-bar a span { font-size: 1.25rem; line-height: 1; }
+  .mobile-bar .mb-wa { background: var(--wa); color: #fff; }
+  .mobile-bar .badge { position: absolute; top: 4px; left: calc(50% + 6px); min-width: 18px; height: 18px; font-size: .7rem; }
+  .wa-float { display: none; }
+  .promo-strip { font-size: .8rem; }
+  .promo-strip .container { padding: 6px 0; gap: 8px; }
+  .hero-search .btn { padding: 8px 14px; }
+  body { padding-bottom: calc(62px + env(safe-area-inset-bottom)); }
+  #toast { bottom: calc(76px + env(safe-area-inset-bottom)); max-width: calc(100% - 32px); }
   .menu-btn { display: block; order: 3; }
   .cart-btn { margin-left: auto; }
   .nav-links { display: none; position: absolute; top: 100%; left: -16px; right: -16px; flex-direction: column; gap: 0;
@@ -401,7 +442,7 @@ fieldset .pay-badges { margin: 4px 0 12px; }
 /* ---------- Printing (invoices) ---------- */
 @media print {
   @page { margin: 14mm; }
-  #site-header, #site-footer, .wa-float, #toast, .no-print { display: none !important; }
+  #site-header, #site-footer, .wa-float, .mobile-bar, #toast, .no-print { display: none !important; }
   .section { padding: 0; }
   .print-only { display: block !important; }
   .inv { border: 0; padding: 0; max-width: none; }

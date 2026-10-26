@@ -34,6 +34,15 @@ const SHOP = {
   // NEVER put your SECRET key (sk_...) here.
   paystackPublicKey: "",
 
+  // ---------- Promo strip (top of every page) ----------
+  // One short line to push this week's offer. Set text to "" to hide it.
+  // Customers can close it; it comes back when you change the text.
+  promo: {
+    text: "⚡ Electricians & contractors: send us your materials list and get a bulk price today",
+    link: "quote.html",
+    linkText: "Get a quote",
+  },
+
   // ---------- Customer reviews (home page) ----------
   // TODO: these are SAMPLE reviews for the test site. Replace them with real reviews from your
   // customers (with their permission), then set reviewsAreSamples to false to remove the "Sample" label.
