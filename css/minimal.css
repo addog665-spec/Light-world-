@@ -39,7 +39,7 @@ h3 { letter-spacing: -.01em; }
   box-shadow: 0 1px 0 var(--line); }
 .nav { padding: 14px 0; }
 .logo-text strong { font-weight: 800; letter-spacing: -.02em; }
-.logo-text small { color: var(--ink-soft); letter-spacing: .3em; }
+.logo-text small { color: #1656d6; letter-spacing: .3em; }
 .nav-links { gap: 28px; }
 .nav-links a { font-weight: 500; color: var(--ink-soft); border-bottom: 1px solid transparent; padding: 4px 0; }
 .nav-links a:hover, .nav-links a.active { color: var(--ink); border-color: var(--ink); }
@@ -207,7 +207,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--ink); outli
 #site-footer .logo img { background: none; padding: 0; border-radius: 0; }
 .logo img { width: 44px; height: 44px; }
 @media (max-width: 600px) { .logo img { width: 38px; height: 38px; } }
-#site-footer .logo-text small { color: #a9adb4; }
+#site-footer .logo-text small { color: #8fb4ff; }
 .footer-note { color: #e6e7ea; font-weight: 500; }
 .footer-contact .ico { color: #a9adb4; }
 .copyright { border-top-color: rgba(255, 255, 255, .1); }

@@ -95,7 +95,7 @@ Run `python3 -m http.server` in this folder and open http://localhost:8000.
 
 ## Logo
 
-`images/logo.svg` is the logo: a bright white light bulb with a bold globe on the glass ("Light World") and a chrome screw base, on a dark rounded badge with a soft white glow. It's drawn with crisp lines so it stays clear even at favicon size. It's a vector file, so it stays sharp at any size. Give the SVG to printers and designers for signboards and vehicles.
+`images/logo.svg` is the logo: a bright white light bulb with a bold blue globe on the glass ("Light World") and a chrome screw base, on a blue rounded badge with a soft white glow. It's drawn with crisp lines so it stays clear even at favicon size. It's a vector file, so it stays sharp at any size. Give the SVG to printers and designers for signboards and vehicles.
 
 Ready-made high-resolution files are in `images/brand/`:
 
