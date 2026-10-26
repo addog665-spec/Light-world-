@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart &amp; Checkout — Light World</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cart">
+  <header id="site-header"></header>
+
+  <main class="section">
+    <div class="container cart-layout">
+      <div>
+        <h1>Your cart</h1>
+        <div id="cart-items"></div>
+        <div id="cart-summary" class="summary"></div>
+      </div>
+
+      <form id="checkout" class="checkout" hidden>
+        <h2>Checkout</h2>
+        <label>Full name
+          <input name="name" required autocomplete="name">
+        </label>
+        <label>Phone number
+          <input name="phone" type="tel" required autocomplete="tel">
+        </label>
+
+        <fieldset>
+          <legend>Delivery or pickup</legend>
+          <label class="radio"><input type="radio" name="method" value="delivery" checked> Deliver to me</label>
+          <label class="radio"><input type="radio" name="method" value="pickup"> Pick up in store</label>
+        </fieldset>
+
+        <label id="address-field">Delivery address
+          <textarea name="address" id="address" rows="2" required autocomplete="street-address"></textarea>
+        </label>
+
+        <label>Payment method
+          <select name="payment">
+            <option>Cash on delivery / pickup</option>
+            <option>Mobile money / bank transfer</option>
+            <option>Card on delivery / pickup</option>
+          </select>
+        </label>
+
+        <label>Order notes (optional)
+          <textarea name="notes" rows="2" placeholder="e.g. preferred delivery time"></textarea>
+        </label>
+
+        <button type="submit" value="whatsapp" class="btn btn-wa btn-block">Send order via WhatsApp</button>
+        <button type="submit" value="email" class="btn btn-ghost btn-block">Send order by email</button>
+        <p class="hint">Your order goes straight to us. We'll confirm stock, total and payment details before anything is charged.</p>
+      </form>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
