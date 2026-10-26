@@ -18,6 +18,9 @@ const waLink = (text) => `https://wa.me/${SHOP.whatsapp}${text ? "?text=" + enco
 const mailLink = (subject, body) =>
   `mailto:${SHOP.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 const unitName = (p) => p.unit || "piece";
+// Products with price: null are shown as "Ask for price" and can't go in the cart
+const askPrice = (p) => p.price == null;
+const askPriceLink = (p) => waLink(`Hello ${SHOP.name}, what is the price of: ${p.name}?`);
 
 // Order numbers like LW-261026-7K3Q (date + 4 random characters)
 function makeRef(prefix) {
@@ -39,7 +42,7 @@ function unitPrice(p, qty) {
 function getCart() {
   try {
     const cart = JSON.parse(localStorage.getItem(CART_KEY)) || {};
-    for (const id of Object.keys(cart)) if (!findProduct(id) || !(cart[id] > 0)) delete cart[id];
+    for (const id of Object.keys(cart)) if (!findProduct(id) || askPrice(findProduct(id)) || !(cart[id] > 0)) delete cart[id];
     return cart;
   } catch {
     return {};
@@ -55,7 +58,7 @@ function saveCart(cart) {
 
 function addToCart(id, qty = 1) {
   const p = findProduct(id);
-  if (!p || p.stock === 0 || !(qty > 0)) return;
+  if (!p || askPrice(p) || p.stock === 0 || !(qty > 0)) return;
   const cart = getCart();
   cart[id] = (cart[id] || 0) + qty;
   saveCart(cart);
@@ -213,8 +216,11 @@ function productCard(p) {
         <h3><a href="${href}">${escapeHtml(p.name)}</a></h3>
         ${best ? `<p class="bulk-hint">Bulk: ${money(best.price)} each for ${best.min}+</p>` : `<p class="bulk-hint"></p>`}
         <div class="card-foot">
-          <div class="price">${money(p.price)}${p.oldPrice ? ` <s>${money(p.oldPrice)}</s>` : ""}</div>
-          <button class="btn btn-sm" data-add="${p.id}" ${out ? "disabled" : ""}>${out ? "Sold out" : "Add to cart"}</button>
+          ${askPrice(p)
+            ? `<div class="price ask">Price on request</div>
+               <a class="btn btn-sm btn-wa" target="_blank" rel="noopener" href="${askPriceLink(p)}">Ask for price</a>`
+            : `<div class="price">${money(p.price)}${p.oldPrice ? ` <s>${money(p.oldPrice)}</s>` : ""}</div>
+               <button class="btn btn-sm" data-add="${p.id}" ${out ? "disabled" : ""}>${out ? "Sold out" : "Add to cart"}</button>`}
         </div>
       </div>
     </article>`;
@@ -357,8 +363,9 @@ function initShop() {
         (state.cat === "all" || p.category === state.cat) &&
         (!q || [p.name, p.brand, p.description].join(" ").toLowerCase().includes(q))
     );
-    if (state.sort === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
-    if (state.sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
+    const byPrice = (dir) => (a, b) => askPrice(a) - askPrice(b) || dir * (a.price - b.price);
+    if (state.sort === "price-asc") list = [...list].sort(byPrice(1));
+    if (state.sort === "price-desc") list = [...list].sort(byPrice(-1));
     if (state.sort === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
 
     count.textContent = `${list.length} product${list.length === 1 ? "" : "s"}`;
@@ -409,8 +416,11 @@ function initProduct() {
       <div class="pd-info">
         ${p.brand ? `<div class="card-cat">${escapeHtml(p.brand)}</div>` : ""}
         <h1>${escapeHtml(p.name)}</h1>
-        <div class="pd-price">${money(p.price)} <small>per ${escapeHtml(unitName(p))}</small>${p.oldPrice ? ` <s>${money(p.oldPrice)}</s>` : ""}</div>
-        <p class="stock ${out ? "no" : "yes"}">${out ? "● Out of stock — ask us when it's back" : "● In stock"}</p>
+        ${askPrice(p)
+          ? `<div class="pd-price ask">Price on request</div>
+             <p class="stock yes">● Ask us for today's price, sizes and brands</p>`
+          : `<div class="pd-price">${money(p.price)} <small>per ${escapeHtml(unitName(p))}</small>${p.oldPrice ? ` <s>${money(p.oldPrice)}</s>` : ""}</div>
+             <p class="stock ${out ? "no" : "yes"}">${out ? "● Out of stock — ask us when it's back" : "● In stock"}</p>`}
         <p>${escapeHtml(p.description || "")}</p>
         ${
           p.bulk?.length
@@ -423,7 +433,9 @@ function initProduct() {
               </table></div>`
             : ""
         }
-        <div class="pd-buy">
+        ${askPrice(p) ? `<div class="pd-buy">
+          <a class="btn btn-lg btn-wa" target="_blank" rel="noopener" href="${askPriceLink(p)}">Ask for price on WhatsApp</a>
+        </div>` : `<div class="pd-buy">
           <div class="qty qty-lg">
             <button type="button" aria-label="Decrease" data-step="-1">−</button>
             <input id="pd-qty" type="number" min="1" value="1" inputmode="numeric" aria-label="Quantity">
@@ -431,7 +443,7 @@ function initProduct() {
           </div>
           <button class="btn btn-lg" id="pd-add" ${out ? "disabled" : ""}>${out ? "Sold out" : "Add to cart"}</button>
         </div>
-        <p class="pd-line" id="pd-line"></p>
+        <p class="pd-line" id="pd-line"></p>`}
         <p class="hint">Buying for a project? <a href="quote.html?item=${encodeURIComponent(p.id)}">Request a quote</a> for large quantities.</p>
       </div>
     </div>
@@ -440,6 +452,16 @@ function initProduct() {
         ${specs.map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`).join("")}
       </table></section>` : ""}`;
 
+  if (!askPrice(p)) initBuyBox(root, p);
+
+  const related = PRODUCTS.filter((x) => x.category === p.category && x.id !== p.id).slice(0, 4);
+  document.getElementById("related").innerHTML = related.length
+    ? `<h2>More in ${escapeHtml(cat?.name || "this category")}</h2><div class="grid">${related.map(productCard).join("")}</div>`
+    : "";
+}
+
+// Quantity box, live bulk-price line and "Add to cart" on the product page
+function initBuyBox(root, p) {
   const qtyInput = document.getElementById("pd-qty");
   const line = document.getElementById("pd-line");
   const update = () => {
@@ -461,11 +483,6 @@ function initProduct() {
     addToCart(p.id, Math.max(1, parseInt(qtyInput.value, 10) || 1));
   });
   update();
-
-  const related = PRODUCTS.filter((x) => x.category === p.category && x.id !== p.id).slice(0, 4);
-  document.getElementById("related").innerHTML = related.length
-    ? `<h2>More in ${escapeHtml(cat?.name || "this category")}</h2><div class="grid">${related.map(productCard).join("")}</div>`
-    : "";
 }
 
 // ---------- Cart / checkout page ----------
