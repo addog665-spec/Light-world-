@@ -124,6 +124,13 @@ function logoHtml() {
   </a>`;
 }
 
+// "We accept" badges from SHOP.paymentMethods
+const PAY_BADGE_CLASS = { "mtn momo": "mtn", "telecel cash": "telecel", "at money": "at", visa: "visa", mastercard: "mastercard", cash: "cash" };
+function paymentBadgesHtml() {
+  return (SHOP.paymentMethods || []).map((m) =>
+    `<span class="pay-badge ${PAY_BADGE_CLASS[m.toLowerCase()] || ""}">${escapeHtml(m)}</span>`).join("");
+}
+
 function renderLayout() {
   const page = document.body.dataset.page;
   const link = (href, label, key) => `<a href="${href}" class="${page === key ? "active" : ""}">${label}</a>`;
@@ -178,7 +185,10 @@ function renderLayout() {
         ✉️ <a href="mailto:${SHOP.email}">${escapeHtml(SHOP.email)}</a></p>
       </div>
     </div>
+    ${SHOP.paymentMethods?.length ? `<div class="container pay-row"><span>We accept</span><div class="pay-badges">${paymentBadgesHtml()}</div></div>` : ""}
     <div class="copyright">© ${new Date().getFullYear()} ${escapeHtml(SHOP.name)}. All rights reserved.</div>`;
+
+  document.querySelectorAll("[data-pay-badges]").forEach((el) => { el.innerHTML = paymentBadgesHtml(); });
 
   // Floating WhatsApp chat button
   const wa = document.createElement("a");

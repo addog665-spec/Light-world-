@@ -23,6 +23,11 @@ const SHOP = {
     accraFee: 150,        // Accra fee — only charged if you set accraMinimum lower than freeOver
   },
 
+  // ---------- Payment badges ----------
+  // Shown in the footer and at checkout. Remove any you don't accept.
+  // Known names get their own colours: "MTN MoMo", "Telecel Cash", "AT Money", "Visa", "Mastercard", "Cash"
+  paymentMethods: ["MTN MoMo", "Telecel Cash", "AT Money", "Visa", "Mastercard", "Cash"],
+
   // ---------- Online payment (Paystack — card & mobile money) ----------
   // Paste your Paystack PUBLIC key here (starts with pk_live_ or pk_test_).
   // While it is empty, the "Pay online" option is hidden and customers pay on delivery/pickup.

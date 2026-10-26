@@ -320,6 +320,21 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--brand); out
 #site-footer a.logo { display: inline-flex; }
 #site-footer p a { display: inline; }
 #site-footer a:hover { color: var(--brand); }
+/* payment badges (footer + checkout) */
+.pay-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .1); }
+.pay-row > span { color: #fff; font-weight: 700; font-size: .9rem; }
+.pay-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+fieldset .pay-badges { margin: 4px 0 12px; }
+.pay-badge { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 6px; font-size: .8rem; font-weight: 800;
+  white-space: nowrap; background: #fff; color: var(--ink); border: 1px solid var(--line); }
+.pay-badge.mtn { background: #ffcc00; color: #000; border-color: #e6b800; }
+.pay-badge.telecel { background: #e4002b; color: #fff; border-color: #c40025; }
+.pay-badge.at { background: #003da5; color: #fff; border-color: #00338a; }
+.pay-badge.visa { color: #1a1f71; font-style: italic; font-size: .95rem; letter-spacing: .02em; }
+.pay-badge.mastercard::before { content: ""; width: 26px; height: 16px; flex: none;
+  background: radial-gradient(circle at 8px 8px, #eb001b 7.5px, transparent 8px), radial-gradient(circle at 18px 8px, #f79e1b 7.5px, transparent 8px); }
+.pay-badge.cash { background: #e8f5e9; color: #1b5e20; border-color: #b9dfbd; }
+.pay-badge.cash::before { content: "💵"; }
 .footer-note { color: var(--brand); font-weight: 600; font-size: .9rem; }
 .copyright { text-align: center; padding: 18px; margin-top: 32px; border-top: 1px solid #22304f; font-size: .85rem; }
 
