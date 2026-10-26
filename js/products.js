@@ -23,17 +23,18 @@
 //              "Example photo" until you have your own photo (only use one that
 //              really shows this item; otherwise leave it out and the icon is shown)
 //
-//  Categories: photo         optional — picture on the home page category tile
+//  Categories: photo         optional — a general photo of this kind of item for the home page tile
+//                            (the shop's own product photos show once a customer opens the category)
 //              icon          line icon name (see ICONS in js/app.js), e.g. "bulb", "socket", "plug",
 //                            "breaker", "fan", "wrench" — also used for packs
 // ============================================================
 const CATEGORIES = [
-  { id: "lighting",   name: "Lighting",                 icon: "bulb", photo: "images/products/newman-bulb-30w.jpg" },
-  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "socket", photo: "images/products/focus-double-socket.jpg" },
-  { id: "cables",     name: "Cables & Wiring",          icon: "plug", photo: "images/products/sanbra-cable-2.5mm.jpg" },
+  { id: "lighting",   name: "Lighting",                 icon: "bulb", photo: "images/stock/led-bulb.jpg" },
+  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "socket", photo: "images/stock/sockets-switches.jpg" },
+  { id: "cables",     name: "Cables & Wiring",          icon: "plug", photo: "images/stock/cable-rolls.jpg" },
   { id: "protection", name: "Breakers & Fuses",         icon: "breaker", photo: "images/stock/circuit-breakers.jpg" },
-  { id: "fans",       name: "Fans & Fan Parts",         icon: "fan", photo: "images/products/focus-ceiling-fan-24.jpg" },
-  { id: "tools",      name: "Tools & Accessories",      icon: "wrench", photo: "images/products/tape-big.jpg" },
+  { id: "fans",       name: "Fans & Fan Parts",         icon: "fan", photo: "images/stock/ceiling-fan.jpg" },
+  { id: "tools",      name: "Tools & Accessories",      icon: "wrench", photo: "images/stock/electrician-tools.jpg" },
 ];
 
 const PRODUCTS = [

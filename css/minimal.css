@@ -101,10 +101,11 @@ h3 { letter-spacing: -.01em; }
 .cat-photo { background: transparent; }
 .card-media:has(img), .pd-media:has(img), .cart-thumb:has(img) { background: var(--stone); }
 .section.alt .card-media, .section.alt .card-media:has(img) { background: #fff; }
-.card-media img:not(.example), .pd-media img:not(.example), .cart-thumb img, .cat-photo { mix-blend-mode: multiply; }
+.card-media img:not(.example), .pd-media img:not(.example), .cart-thumb img { mix-blend-mode: multiply; }
 .card-media img:not(.example) { padding: 7%; }
 .pd-media img:not(.example) { padding: 9%; }
-.cat-photo { padding: 10%; }
+/* category tiles show general scene photos: fill the tile */
+.cat-photo { object-fit: cover; padding: 0; }
 
 /* ---------- Category tiles ---------- */
 .cat-grid { gap: 18px; margin-top: 22px; }
