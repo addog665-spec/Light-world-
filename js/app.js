@@ -50,6 +50,7 @@ const ICONS = {
   toolbox: '<rect x="2.5" y="7.5" width="19" height="12.5" rx="2"/><path d="M8.5 7.5V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2M2.5 13h19M10.5 13v2h3v-2"/>',
   printer: '<path d="M7 9V3.5h10V9"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/>',
   check: '<path d="M4.5 12.5l5 5 10-11"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.5-4.5"/>',
   clipboard: '<rect x="5" y="4" width="14" height="17.5" rx="2"/><path d="M9 4V2.5h6V4M8.5 10h7M8.5 14h7M8.5 18h4"/>',
   star: '<path fill="currentColor" stroke="none" d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/>',
   whatsapp: '<path fill="currentColor" stroke="none" d="M12 2.3a9.6 9.6 0 0 0-8.3 14.5L2.3 21.7l5-1.3A9.6 9.6 0 1 0 12 2.3zm0 17.6a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.8 1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.5-.3z"/>',
@@ -512,8 +513,9 @@ function initShop() {
     count.textContent = `${list.length} product${list.length === 1 ? "" : "s"}`;
     grid.innerHTML = list.length
       ? list.map(productCard).join("")
-      : `<div class="empty">No products match your search. Can't find what you need?
-         <a href="quote.html">Ask us for it →</a></div>`;
+      : `<div class="empty">${icon("search", "empty-ico")}<h3>No products match your search</h3>
+         <p>Try a different word, or tell us what you need and we'll source it.</p>
+         <a class="btn btn-ghost" href="quote.html">Ask us for it</a></div>`;
 
     const url = new URL(location);
     state.cat === "all" ? url.searchParams.delete("cat") : url.searchParams.set("cat", state.cat);
@@ -540,7 +542,8 @@ function initProduct() {
   const root = document.getElementById("product");
   const p = findProduct(new URLSearchParams(location.search).get("id"));
   if (!p) {
-    root.innerHTML = `<div class="empty">Sorry, we couldn't find that product. <a href="shop.html">Browse the shop →</a></div>`;
+    root.innerHTML = `<div class="empty">${icon("box", "empty-ico")}<h3>We couldn't find that product</h3>
+      <p>It may have been renamed or removed.</p><a class="btn" href="shop.html">Browse the shop</a></div>`;
     return;
   }
   const cat = findCategory(p.category);
@@ -587,6 +590,11 @@ function initProduct() {
         </div>
         <p class="pd-line" id="pd-line"></p>`}
         <p class="hint">Buying for a project? <a href="quote.html?item=${encodeURIComponent(p.id)}">Request a quote</a> for large quantities.</p>
+        <ul class="pd-assure">
+          <li>${icon("shield")} Genuine, original stock</li>
+          <li>${icon("truck")} Delivery in Kumasi &amp; Accra, or pick up in Kumasi</li>
+          <li>${icon("card")} Pay by cash, card or mobile money</li>
+        </ul>
       </div>
     </div>
     ${specs.length ? `<section class="specs"><h2>Specifications</h2><table>
@@ -648,7 +656,8 @@ function initCart() {
   const render = () => {
     const items = cartItems();
     if (!items.length) {
-      list.innerHTML = `<div class="empty">Your cart is empty. <a href="shop.html">Start shopping →</a></div>`;
+      list.innerHTML = `<div class="empty">${icon("cart", "empty-ico")}<h3>Your cart is empty</h3>
+        <p>Browse lighting, cables, sockets, breakers and more.</p><a class="btn" href="shop.html">Start shopping</a></div>`;
       summary.innerHTML = "";
       checkout.hidden = true;
       return;
