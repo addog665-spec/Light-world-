@@ -12,7 +12,7 @@ const SHOP = {
   address: "Adum, Kumasi, Ghana",   // TODO: your full shop address
   gps: "AK-000-0000",               // TODO: your GhanaPost GPS address (or "" to hide)
   hours: "Mon–Sat 8:00am – 6:00pm", // TODO: your opening hours
-  heroImage: "",                    // photo behind the home page banner, e.g. "images/hero.jpg" ("" = plain dark banner)
+  heroImage: "images/stock/hero-banner.jpg", // photo behind the home page banner, e.g. "images/hero.jpg" ("" = plain dark banner)
 
   // ---------- Delivery ----------
   // Pickup is always at the Kumasi shop.

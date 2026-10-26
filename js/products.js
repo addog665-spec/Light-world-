@@ -23,12 +23,12 @@
 //                            in this category that don't have their own photo yet
 // ============================================================
 const CATEGORIES = [
-  { id: "lighting",   name: "Lighting",                 icon: "💡", photo: "images/products/newman-bulb-30w.jpg" },
-  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "🎚️", photo: "images/products/focus-double-socket.jpg" },
-  { id: "cables",     name: "Cables & Wiring",          icon: "🔌", photo: "images/products/sanbra-cable-2.5mm.jpg" },
-  { id: "protection", name: "Breakers & Fuses",         icon: "🛡️" },
-  { id: "fans",       name: "Fans & Fan Parts",         icon: "🌀", photo: "images/products/focus-ceiling-fan-24.jpg" },
-  { id: "tools",      name: "Tools & Accessories",      icon: "🔧", photo: "images/products/tape-big.jpg" },
+  { id: "lighting",   name: "Lighting",                 icon: "💡", photo: "images/products/newman-bulb-30w.jpg", examplePhoto: "images/stock/bulbs.jpg" },
+  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "🎚️", photo: "images/products/focus-double-socket.jpg", examplePhoto: "images/stock/sockets-switches.jpg" },
+  { id: "cables",     name: "Cables & Wiring",          icon: "🔌", photo: "images/products/sanbra-cable-2.5mm.jpg", examplePhoto: "images/stock/cable-rolls.jpg" },
+  { id: "protection", name: "Breakers & Fuses",         icon: "🛡️", photo: "images/stock/circuit-breakers.jpg", examplePhoto: "images/stock/circuit-breakers.jpg" },
+  { id: "fans",       name: "Fans & Fan Parts",         icon: "🌀", photo: "images/products/focus-ceiling-fan-24.jpg", examplePhoto: "images/stock/ceiling-fan.jpg" },
+  { id: "tools",      name: "Tools & Accessories",      icon: "🔧", photo: "images/products/tape-big.jpg", examplePhoto: "images/stock/electrician-tools.jpg" },
 ];
 
 const PRODUCTS = [

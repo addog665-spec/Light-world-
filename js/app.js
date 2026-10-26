@@ -319,7 +319,8 @@ function initHome() {
   if (SHOP.heroImage) {
     const hero = document.querySelector(".hero");
     hero.classList.add("has-photo");
-    hero.style.setProperty("--hero-photo", `url("${SHOP.heroImage}")`);
+    // absolute URL — a relative url() in a CSS variable resolves against css/, not the page
+    hero.style.setProperty("--hero-photo", `url("${new URL(SHOP.heroImage, document.baseURI).href}")`);
   }
   document.getElementById("free-delivery-note").textContent =
     `🚚 Free delivery in Kumasi & Accra on orders of ${moneyRound(SHOP.delivery.freeOver)} or more`;
