@@ -194,12 +194,12 @@ function renderLayout() {
 }
 
 // ---------- Product card ----------
-// The product's own photo; otherwise the category's example photo (labelled), otherwise its icon
+// The product's own photo; otherwise its example photo (labelled), otherwise the category icon
 function productMedia(p) {
   const cat = findCategory(p.category);
   if (p.image) return `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" loading="lazy">`;
-  if (cat?.examplePhoto)
-    return `<img class="example" src="${escapeHtml(cat.examplePhoto)}" alt="" loading="lazy"><span class="tag example-tag">Example photo</span>`;
+  if (p.examplePhoto)
+    return `<img class="example" src="${escapeHtml(p.examplePhoto)}" alt="" loading="lazy"><span class="tag example-tag">Example photo</span>`;
   return `<span class="placeholder">${cat ? cat.icon : "⚡"}</span>`;
 }
 
@@ -327,7 +327,7 @@ function initHome() {
 
   document.getElementById("category-grid").innerHTML = CATEGORIES.map((c) => {
     const n = PRODUCTS.filter((p) => p.category === c.id).length;
-    const photo = c.photo || c.examplePhoto;
+    const photo = c.photo;
     return `<a class="cat-tile${photo ? " has-photo" : ""}" href="shop.html?cat=${c.id}">
       ${photo ? `<img class="cat-photo" src="${escapeHtml(photo)}" alt="" loading="lazy">` : `<span class="cat-icon">${c.icon}</span>`}
       <strong>${escapeHtml(c.name)}</strong><small>${n} products</small></a>`;

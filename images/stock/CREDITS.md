@@ -1,13 +1,18 @@
 # Stock photo credits
 
 Free photos from [Unsplash](https://unsplash.com/license) (free to use, commercial use allowed, no attribution required). Resized to 1000px wide.
+Each one is only used on products it really shows (labelled "Example photo" on the site).
 
 | File | Used for | Source |
 |---|---|---|
 | hero-banner.jpg | Home page banner (mirrored) | https://unsplash.com/photos/macro-photography-of-clear-light-bulb-d2HWQg82RUo |
-| bulbs.jpg | Lighting — example photo | https://unsplash.com/photos/close-up-photography-of-light-bulb-voQ97kezCx0 |
-| cable-rolls.jpg | Cables & Wiring — example photo | https://unsplash.com/photos/black-and-red-wire-roll-ioAUyH-MkYs |
-| sockets-switches.jpg | Switches, Sockets & Boxes — example photo | https://unsplash.com/photos/black-and-white-wall-mounted-switch-ViXHrDBSAHA |
-| circuit-breakers.jpg | Breakers & Fuses — tile and example photo | https://unsplash.com/photos/white-circuit-breakers-oj1zW_PNI4k |
-| ceiling-fan.jpg | Fans & Fan Parts — example photo | https://unsplash.com/photos/white-5-blade-ceiling-fan-Ww9nZ1MGQLY |
-| electrician-tools.jpg | Tools & Accessories — example photo | https://unsplash.com/photos/black-and-yellow-clamp-meter-NLBJ2I0lNr4 |
+| led-bulb.jpg | Fortune LED bulbs, Newman LED Bulb 10W | https://unsplash.com/photos/white-bulb-ZHDhfGwFlJo (photo-1532007271951) |
+| sockets-switches.jpg | BG Double Socket | https://unsplash.com/photos/black-and-white-wall-mounted-switch-ViXHrDBSAHA |
+| cable-rolls.jpg | 1.5mm / 4mm / 6mm cable rolls | https://unsplash.com/photos/black-and-red-wire-roll-ioAUyH-MkYs |
+| circuit-breakers.jpg | Breakers & Fuses tile, MCB Breaker, Distribution Board | https://unsplash.com/photos/white-circuit-breakers-oj1zW_PNI4k |
+| ceiling-fan.jpg | Ceiling Fan (Other Sizes) | https://unsplash.com/photos/white-5-blade-ceiling-fan-Ww9nZ1MGQLY |
+| standing-fan.jpg | Standing Fan | https://unsplash.com/photos/black-stand-fan-turned-on-in-red-room (photo-1612549672719) |
+| tester-screwdriver.jpg | Tester Screwdriver | https://unsplash.com/s/photos/voltage-tester (photo-1542493852, "assorted flat screw driver lot") |
+| screwdriver.jpg | Screwdriver | https://unsplash.com/s/photos/screwdriver (photo-1581621293775, "person holding red and silver screw driver") |
+| insulation-tape.jpg | Insulation Tape — Small Roll | https://unsplash.com/s/photos/electrical-tape (photo-1760377821917, "Roll of black electrical tape") |
+| screws.jpg | Screws — Box | https://unsplash.com/s/photos/screws (photo-1613945831677, "silver screw lot") |
