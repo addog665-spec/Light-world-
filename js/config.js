@@ -38,7 +38,7 @@ const SHOP = {
   // One short line to push this week's offer. Set text to "" to hide it.
   // Customers can close it; it comes back when you change the text.
   promo: {
-    text: "⚡ Electricians & contractors: send us your materials list and get a bulk price today",
+    text: "Electricians & contractors: send us your materials list and get a bulk price today",
     link: "quote.html",
     linkText: "Get a quote",
   },

@@ -24,14 +24,16 @@
 //              really shows this item; otherwise leave it out and the icon is shown)
 //
 //  Categories: photo         optional — picture on the home page category tile
+//              icon          line icon name (see ICONS in js/app.js), e.g. "bulb", "socket", "plug",
+//                            "breaker", "fan", "wrench" — also used for packs
 // ============================================================
 const CATEGORIES = [
-  { id: "lighting",   name: "Lighting",                 icon: "💡", photo: "images/products/newman-bulb-30w.jpg" },
-  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "🎚️", photo: "images/products/focus-double-socket.jpg" },
-  { id: "cables",     name: "Cables & Wiring",          icon: "🔌", photo: "images/products/sanbra-cable-2.5mm.jpg" },
-  { id: "protection", name: "Breakers & Fuses",         icon: "🛡️", photo: "images/stock/circuit-breakers.jpg" },
-  { id: "fans",       name: "Fans & Fan Parts",         icon: "🌀", photo: "images/products/focus-ceiling-fan-24.jpg" },
-  { id: "tools",      name: "Tools & Accessories",      icon: "🔧", photo: "images/products/tape-big.jpg" },
+  { id: "lighting",   name: "Lighting",                 icon: "bulb", photo: "images/products/newman-bulb-30w.jpg" },
+  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "socket", photo: "images/products/focus-double-socket.jpg" },
+  { id: "cables",     name: "Cables & Wiring",          icon: "plug", photo: "images/products/sanbra-cable-2.5mm.jpg" },
+  { id: "protection", name: "Breakers & Fuses",         icon: "breaker", photo: "images/stock/circuit-breakers.jpg" },
+  { id: "fans",       name: "Fans & Fan Parts",         icon: "fan", photo: "images/products/focus-ceiling-fan-24.jpg" },
+  { id: "tools",      name: "Tools & Accessories",      icon: "wrench", photo: "images/products/tape-big.jpg" },
 ];
 
 const PRODUCTS = [
@@ -227,19 +229,19 @@ const PRODUCTS = [
 //  note:  optional — shown under the pack, e.g. to say what isn't included
 // ============================================================
 const PACKS = [
-  { id: "room-wiring", name: "Room Wiring Pack", icon: "🏠",
+  { id: "room-wiring", name: "Room Wiring Pack", icon: "home",
     description: "Sockets, boxes, lamp holders, bulbs, conduit and fixings to wire one room.",
     note: "Cable not included — ask us for today's cable price.",
     items: [["bg-double-socket", 2], ["pattress-box-3x6", 2], ["circular-box", 1], ["lamp-holder-pin", 2],
             ["fortune-bulb-15w", 2], ["cable-clips-6mm", 1], ["pvc-conduit-20mm", 3], ["tape-small", 1]] },
-  { id: "fan-fitting", name: "Ceiling Fan Fitting Pack", icon: "🌀",
+  { id: "fan-fitting", name: "Ceiling Fan Fitting Pack", icon: "fan",
     description: "Hook, regulator, capacitor and box to fit a ceiling fan properly.",
     note: "Need the fan too? Ask us for sizes and prices.",
     items: [["fan-hook", 1], ["fan-regulator", 1], ["fan-capacitor-2.5", 1], ["circular-box", 1], ["tape-small", 1]] },
-  { id: "main-supply", name: "Main Supply Pack", icon: "🛡️",
+  { id: "main-supply", name: "Main Supply Pack", icon: "breaker",
     description: "Cut-out fuse, 2-pole breaker and 2-way main switch for the incoming supply.",
     items: [["cut-out-fuse", 1], ["two-pole-breaker", 1], ["two-way-main-switch", 1]] },
-  { id: "electrician-kit", name: "Electrician's Starter Kit", icon: "🧰",
+  { id: "electrician-kit", name: "Electrician's Starter Kit", icon: "toolbox",
     description: "Tester, screwdriver, insulation tape and screws for everyday jobs.",
     items: [["tester", 1], ["screwdriver", 1], ["tape-big", 1], ["screws-box", 1]] },
 ];

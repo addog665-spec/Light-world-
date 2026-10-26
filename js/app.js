@@ -22,6 +22,41 @@ const unitName = (p) => p.unit || "piece";
 const askPrice = (p) => p.price == null;
 const askPriceLink = (p) => waLink(`Hello ${SHOP.name}, what is the price of: ${p.name}?`);
 
+// ---------- Line icons (24×24, drawn with the text colour) ----------
+const ICONS = {
+  shield: '<path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z"/><path d="M9 12l2 2 4-4"/>',
+  tag: '<path d="M3 12V4.5A1.5 1.5 0 0 1 4.5 3H12l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
+  chat: '<path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L3 20.5l1.4-5A8.5 8.5 0 1 1 21 11.5z"/>',
+  card: '<rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19M6.5 15h4"/>',
+  phone: '<path d="M5 3h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 5.1 5.1l1.4-2.3L19 13.5V17a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.2 2 2 0 0 1 5 3z"/>',
+  pin: '<path d="M12 21.5s7-6.1 7-11.7a7 7 0 0 0-14 0c0 5.6 7 11.7 7 11.7z"/><circle cx="12" cy="9.8" r="2.5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>',
+  cart: '<path d="M2.5 4h2.6l2.3 11h10.4l2-7.5H6.3"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  close: '<path d="M6 6l12 12M18 6L6 18"/>',
+  bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.7 10.7c.7.6 1.2 1.4 1.2 2.3h5c0-.9.5-1.7 1.2-2.3A6 6 0 0 0 12 3z"/>',
+  socket: '<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M9.5 9.5v3M14.5 9.5v3M10.5 16h3"/>',
+  plug: '<path d="M9 3v4M15 3v4M6.5 7h11v3.5a5.5 5.5 0 0 1-11 0zM12 16v5"/>',
+  breaker: '<rect x="5" y="3" width="14" height="18" rx="2"/><rect x="9.5" y="7" width="5" height="7" rx="1"/><path d="M12 7v3.5M9 17.5h6"/>',
+  fan: '<path d="M12 3v4.4M9.5 3h5"/><circle cx="12" cy="9" r="1.6"/><path d="M10.4 9H3c0 1.3 2.4 2 7.6 1.1M13.6 9H21c0 1.3-2.4 2-7.6 1.1M10.4 11.2a1.6 1.6 0 0 0 3.2 0"/>',
+  wrench: '<path d="M14.5 4.2a4.8 4.8 0 0 0 5.3 5.3l.7-.6-3-3 .6-2.4-.1-.1a4.8 4.8 0 0 0-6.3 6L3.8 17.3a1.9 1.9 0 0 0 2.7 2.7l7-7.9"/>',
+  grid: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
+  store: '<path d="M4 9.5L5.5 4h13L20 9.5M4 9.5h16v1a3 3 0 0 1-5.3 1.9 3 3 0 0 1-5.4 0A3 3 0 0 1 4 10.5zM5.5 13v7.5h13V13M10 20.5V16h4v4.5"/>',
+  truck: '<path d="M2.5 6h11v10h-11zM13.5 9.5h4l3 3.5v3h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+  bike: '<circle cx="5.5" cy="16.5" r="3"/><circle cx="18.5" cy="16.5" r="3"/><path d="M5.5 16.5l4-7h5l4 7M12.5 5.5h3l1.2 4"/>',
+  box: '<path d="M21 7.5l-9-4.5-9 4.5 9 4.5zM3 7.5v9l9 4.5 9-4.5v-9M12 12v9"/>',
+  home: '<path d="M3 11l9-7.5 9 7.5M5.5 9.5v11h13v-11M10 20.5v-6h4v6"/>',
+  toolbox: '<rect x="2.5" y="7.5" width="19" height="12.5" rx="2"/><path d="M8.5 7.5V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2M2.5 13h19M10.5 13v2h3v-2"/>',
+  printer: '<path d="M7 9V3.5h10V9"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/>',
+  check: '<path d="M4.5 12.5l5 5 10-11"/>',
+  clipboard: '<rect x="5" y="4" width="14" height="17.5" rx="2"/><path d="M9 4V2.5h6V4M8.5 10h7M8.5 14h7M8.5 18h4"/>',
+  star: '<path fill="currentColor" stroke="none" d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/>',
+  whatsapp: '<path fill="currentColor" stroke="none" d="M12 2.3a9.6 9.6 0 0 0-8.3 14.5L2.3 21.7l5-1.3A9.6 9.6 0 1 0 12 2.3zm0 17.6a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.8 1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.5-.3z"/>',
+};
+const icon = (name, cls = "") =>
+  `<svg class="ico${cls ? " " + cls : ""}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ICONS.box}</svg>`;
+
 // Order numbers like LW-261026-7K3Q (date + 4 random characters)
 function makeRef(prefix) {
   const d = new Date();
@@ -158,11 +193,11 @@ function renderLayout() {
   document.getElementById("site-header").innerHTML = `
     ${promo && !promoClosed ? `<div class="promo-strip"><div class="container">
       <span>${escapeHtml(promo.text)}${promo.link ? ` <a href="${escapeHtml(promo.link)}">${escapeHtml(promo.linkText || "Find out more")} →</a>` : ""}</span>
-      <button type="button" class="promo-close" aria-label="Close">✕</button>
+      <button type="button" class="promo-close" aria-label="Close">${icon("close")}</button>
     </div></div>` : ""}
     <div class="topbar"><div class="container">
-      <span>📞 <a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a></span>
-      <span class="hide-sm">📍 ${escapeHtml(SHOP.address)} · 🕒 ${escapeHtml(SHOP.hours)}</span>
+      <span>${icon("phone")} <a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a></span>
+      <span class="hide-sm">${icon("pin")} ${escapeHtml(SHOP.address)} <span class="sep"></span> ${icon("clock")} ${escapeHtml(SHOP.hours)}</span>
     </div></div>
     <div class="container nav">
       ${logoHtml()}
@@ -173,9 +208,9 @@ function renderLayout() {
         ${link("index.html#contact", "Contact", "contact")}
       </nav>
       <a href="cart.html" class="cart-btn" aria-label="Cart">
-        🛒 <span class="hide-sm">Cart</span><span class="badge" data-cart-count hidden>0</span>
+        ${icon("cart")} <span class="hide-sm">Cart</span><span class="badge" data-cart-count hidden>0</span>
       </a>
-      <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+      <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">${icon("menu")}</button>
     </div>`;
 
   document.querySelector(".promo-close")?.addEventListener("click", (e) => {
@@ -187,7 +222,7 @@ function renderLayout() {
   menuBtn.addEventListener("click", () => {
     const open = document.getElementById("nav-links").classList.toggle("open");
     menuBtn.setAttribute("aria-expanded", open);
-    menuBtn.textContent = open ? "✕" : "☰";
+    menuBtn.innerHTML = icon(open ? "close" : "menu");
   });
 
   document.getElementById("site-footer").innerHTML = `
@@ -210,8 +245,8 @@ function renderLayout() {
       <div>
         <h4>Visit us</h4>
         <p>${escapeHtml(SHOP.address)}${SHOP.gps ? `<br>GPS: ${escapeHtml(SHOP.gps)}` : ""}<br>${escapeHtml(SHOP.hours)}</p>
-        <p>📞 <a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a><br>
-        ✉️ <a href="mailto:${SHOP.email}">${escapeHtml(SHOP.email)}</a></p>
+        <p class="footer-contact">${icon("phone")} <a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a><br>
+        ${icon("mail")} <a href="mailto:${SHOP.email}">${escapeHtml(SHOP.email)}</a></p>
       </div>
     </div>
     ${SHOP.paymentMethods?.length ? `<div class="container pay-row"><span>We accept</span><div class="pay-badges">${paymentBadgesHtml()}</div></div>` : ""}
@@ -234,10 +269,13 @@ function renderLayout() {
   bar.className = "mobile-bar";
   bar.setAttribute("aria-label", "Quick contact");
   bar.innerHTML = `
-    <a href="${telHref(SHOP.phone)}"><span>📞</span>Call</a>
-    <a href="${waLink(`Hello ${SHOP.name}, `)}" target="_blank" rel="noopener" class="mb-wa"><span>💬</span>WhatsApp</a>
-    <a href="cart.html"><span>🛒</span>Cart<b class="badge" data-cart-count hidden>0</b></a>`;
+    <a href="${telHref(SHOP.phone)}">${icon("phone")}Call</a>
+    <a href="${waLink(`Hello ${SHOP.name}, `)}" target="_blank" rel="noopener" class="mb-wa">${icon("whatsapp")}WhatsApp</a>
+    <a href="cart.html">${icon("cart")}Cart<b class="badge" data-cart-count hidden>0</b></a>`;
   document.body.appendChild(bar);
+
+  // static pages mark icons as <span data-icon="name"></span>
+  document.querySelectorAll("[data-icon]").forEach((el) => { el.innerHTML = icon(el.dataset.icon); });
 
   updateCartCount();
 }
@@ -249,7 +287,7 @@ function productMedia(p) {
   if (p.image) return `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" loading="lazy">`;
   if (p.examplePhoto)
     return `<img class="example" src="${escapeHtml(p.examplePhoto)}" alt="" loading="lazy"><span class="tag example-tag">Example photo</span>`;
-  return `<span class="placeholder">${cat ? cat.icon : "⚡"}</span>`;
+  return `<span class="placeholder">${icon(cat?.icon || "bulb")}</span>`;
 }
 
 function productCard(p) {
@@ -372,13 +410,13 @@ function initHome() {
     hero.style.setProperty("--hero-photo", `url("${new URL(SHOP.heroImage, document.baseURI).href}")`);
   }
   document.getElementById("free-delivery-note").textContent =
-    `🚚 Free delivery in Kumasi & Accra on orders of ${moneyRound(SHOP.delivery.freeOver)} or more`;
+    `Free delivery in Kumasi & Accra on orders of ${moneyRound(SHOP.delivery.freeOver)} or more`;
 
   document.getElementById("category-grid").innerHTML = CATEGORIES.map((c) => {
     const n = PRODUCTS.filter((p) => p.category === c.id).length;
     const photo = c.photo;
     return `<a class="cat-tile${photo ? " has-photo" : ""}" href="shop.html?cat=${c.id}">
-      ${photo ? `<img class="cat-photo" src="${escapeHtml(photo)}" alt="" loading="lazy">` : `<span class="cat-icon">${c.icon}</span>`}
+      ${photo ? `<img class="cat-photo" src="${escapeHtml(photo)}" alt="" loading="lazy">` : `<span class="cat-icon">${icon(c.icon)}</span>`}
       <strong>${escapeHtml(c.name)}</strong><small>${n} products</small></a>`;
   }).join("");
   // brands come from the product list, most products first
@@ -392,7 +430,7 @@ function initHome() {
   document.getElementById("pack-grid").innerHTML = PACKS.map((k) => {
     const items = packItems(k);
     return `<article class="pack">
-      <div class="pack-head"><span class="pack-icon">${k.icon || "📦"}</span><h3>${escapeHtml(k.name)}</h3></div>
+      <div class="pack-head"><span class="pack-icon">${icon(k.icon || "box")}</span><h3>${escapeHtml(k.name)}</h3></div>
       <p class="muted">${escapeHtml(k.description || "")}</p>
       <ul>${items.map((i) => `<li><span>${i.qty} ×</span> <a href="product.html?id=${encodeURIComponent(i.product.id)}">${escapeHtml(i.product.name)}</a></li>`).join("")}</ul>
       ${k.note ? `<p class="hint">${escapeHtml(k.note)}</p>` : ""}
@@ -411,7 +449,7 @@ function initHome() {
     document.getElementById("review-grid").innerHTML = SHOP.reviews.map((r) => {
       const stars = Math.max(0, Math.min(5, r.stars ?? 5));
       return `<figure class="review">
-        <div class="stars" aria-label="${stars} out of 5 stars">${"★".repeat(stars)}<span>${"★".repeat(5 - stars)}</span></div>
+        <div class="stars" aria-label="${stars} out of 5 stars">${icon("star").repeat(stars)}<span>${icon("star").repeat(5 - stars)}</span></div>
         <blockquote>“${escapeHtml(r.text)}”</blockquote>
         <figcaption><strong>${escapeHtml(r.name)}</strong><small>${escapeHtml(r.role || "")}</small></figcaption>
       </figure>`;
@@ -420,16 +458,16 @@ function initHome() {
   document.getElementById("featured-grid").innerHTML = PRODUCTS.filter((p) => p.featured).map(productCard).join("");
 
   document.getElementById("delivery-info").innerHTML = `
-    <div class="info-card"><span>🏪</span><h3>Pickup in Kumasi</h3><p>Order online and collect from our shop. Always free.</p></div>
-    <div class="info-card"><span>🛵</span><h3>Kumasi delivery</h3><p>${moneyRound(SHOP.delivery.kumasiFee)} for any order, or <strong>free</strong> on orders of ${moneyRound(SHOP.delivery.freeOver)}+.</p></div>
-    <div class="info-card"><span>🚚</span><h3>Accra delivery</h3><p><strong>Free</strong> delivery for orders of ${moneyRound(SHOP.delivery.accraMinimum)} or more.</p></div>
-    <div class="info-card"><span>📦</span><h3>Rest of Ghana</h3><p>Place your order and we'll call to arrange transport and cost.</p></div>`;
+    <div class="info-card"><span>${icon("store")}</span><h3>Pickup in Kumasi</h3><p>Order online and collect from our shop. Always free.</p></div>
+    <div class="info-card"><span>${icon("bike")}</span><h3>Kumasi delivery</h3><p>${moneyRound(SHOP.delivery.kumasiFee)} for any order, or <strong>free</strong> on orders of ${moneyRound(SHOP.delivery.freeOver)}+.</p></div>
+    <div class="info-card"><span>${icon("truck")}</span><h3>Accra delivery</h3><p><strong>Free</strong> delivery for orders of ${moneyRound(SHOP.delivery.accraMinimum)} or more.</p></div>
+    <div class="info-card"><span>${icon("box")}</span><h3>Rest of Ghana</h3><p>Place your order and we'll call to arrange transport and cost.</p></div>`;
 
   document.getElementById("contact-details").innerHTML = `
-    <p><strong>📍 Shop</strong><br>${escapeHtml(SHOP.address)}${SHOP.gps ? `<br>GPS: ${escapeHtml(SHOP.gps)}` : ""}</p>
-    <p><strong>🕒 Opening hours</strong><br>${escapeHtml(SHOP.hours)}</p>
-    <p><strong>📞 Phone</strong><br><a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a></p>
-    <p><strong>✉️ Email</strong><br><a href="mailto:${SHOP.email}">${escapeHtml(SHOP.email)}</a></p>
+    <p><strong>${icon("pin")} Shop</strong><br>${escapeHtml(SHOP.address)}${SHOP.gps ? `<br>GPS: ${escapeHtml(SHOP.gps)}` : ""}</p>
+    <p><strong>${icon("clock")} Opening hours</strong><br>${escapeHtml(SHOP.hours)}</p>
+    <p><strong>${icon("phone")} Phone</strong><br><a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a></p>
+    <p><strong>${icon("mail")} Email</strong><br><a href="mailto:${SHOP.email}">${escapeHtml(SHOP.email)}</a></p>
     <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(`Hello ${SHOP.name}, I have a question.`)}">Chat on WhatsApp</a>`;
 }
 
@@ -446,8 +484,8 @@ function initShop() {
   search.value = state.q;
 
   const renderFilters = () => {
-    filters.innerHTML = [{ id: "all", name: "All products", icon: "🏬" }, ...CATEGORIES]
-      .map((c) => `<button class="chip ${state.cat === c.id ? "active" : ""}" data-cat="${c.id}">${c.icon} ${escapeHtml(c.name)}</button>`)
+    filters.innerHTML = [{ id: "all", name: "All products", icon: "grid" }, ...CATEGORIES]
+      .map((c) => `<button class="chip ${state.cat === c.id ? "active" : ""}" data-cat="${c.id}">${icon(c.icon)} ${escapeHtml(c.name)}</button>`)
       .join("");
   };
 
@@ -622,7 +660,7 @@ function initCart() {
             <button aria-label="Increase" data-qty="${p.id}" data-d="1">+</button>
           </div>
           <div class="line-total">${money(lineTotal)}</div>
-          <button class="remove" aria-label="Remove ${escapeHtml(p.name)}" data-remove="${p.id}">✕</button>
+          <button class="remove" aria-label="Remove ${escapeHtml(p.name)}" data-remove="${p.id}">${icon("close")}</button>
         </div>`)
       .join("");
     updateTotals();
@@ -680,7 +718,7 @@ function initCart() {
       ${freeGap > 0 && m !== "pickup" && m !== "other"
         ? `<p class="hint">Add ${money(freeGap)} more for free delivery in Kumasi &amp; Accra.</p>` : ""}
       ${m === "other" ? `<p class="hint">We'll call you to arrange transport and agree the delivery cost.</p>` : ""}
-      <button type="button" class="btn btn-ghost btn-sm" id="proforma-btn">🖨️ Print proforma invoice</button>`;
+      <button type="button" class="btn btn-ghost btn-sm" id="proforma-btn">${icon("printer")} Print proforma invoice</button>`;
     document.getElementById("proforma-btn").onclick = () => printInvoice(buildOrder("proforma"));
   };
 
@@ -743,14 +781,14 @@ function initCart() {
     result.hidden = false;
     result.innerHTML = `
       <div class="success-box">
-        <h2>${order.paidRef ? "✅ Payment received" : "✅ Order ready"} — No. ${order.ref}</h2>
+        <h2>${icon("check")} ${order.paidRef ? "Payment received" : "Order ready"} — No. ${order.ref}</h2>
         <p>${order.paidRef
           ? "Your payment was successful. <strong>Please send us your order details</strong> so we can prepare and deliver it:"
           : "If WhatsApp didn't open, <strong>please tap a button below to send us your order</strong>. We'll reply to confirm stock and delivery."}</p>
         <div class="send-btns">
           <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(text)}">Send order on WhatsApp</a>
           <a class="btn btn-ghost" href="${mailLink(`Order ${order.ref}`, text.replace(/\*/g, ""))}">Send by email</a>
-          <button class="btn btn-ghost" onclick="window.print()">🖨️ Print / save invoice</button>
+          <button class="btn btn-ghost" onclick="window.print()">${icon("printer")} Print / save invoice</button>
         </div>
       </div>`;
     const box = document.getElementById("invoice");
@@ -861,7 +899,7 @@ function initQuote() {
     result.hidden = false;
     result.innerHTML = `
       <div class="success-box">
-        <h2>✅ Quote request ${ref} ready</h2>
+        <h2>${icon("check")} Quote request ${ref} ready</h2>
         <p>If WhatsApp didn't open, tap a button below to send it. We aim to reply with prices within one working day.</p>
         <div class="send-btns">
           <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(text)}">Send on WhatsApp</a>
