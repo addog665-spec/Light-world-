@@ -17,14 +17,18 @@
 //              (if left out, the category icon is shown instead)
 //  stock       optional — set to 0 to show "Out of stock"
 //  featured    optional — true shows it on the home page
+//
+//  Categories: photo         optional — picture on the home page category tile
+//              examplePhoto  optional — shown (labelled "Example photo") on products
+//                            in this category that don't have their own photo yet
 // ============================================================
 const CATEGORIES = [
-  { id: "lighting",   name: "Lighting",                 icon: "💡" },
-  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "🎚️" },
-  { id: "cables",     name: "Cables & Wiring",          icon: "🔌" },
+  { id: "lighting",   name: "Lighting",                 icon: "💡", photo: "images/products/newman-bulb-30w.jpg" },
+  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "🎚️", photo: "images/products/focus-double-socket.jpg" },
+  { id: "cables",     name: "Cables & Wiring",          icon: "🔌", photo: "images/products/sanbra-cable-2.5mm.jpg" },
   { id: "protection", name: "Breakers & Fuses",         icon: "🛡️" },
-  { id: "fans",       name: "Fans & Fan Parts",         icon: "🌀" },
-  { id: "tools",      name: "Tools & Accessories",      icon: "🔧" },
+  { id: "fans",       name: "Fans & Fan Parts",         icon: "🌀", photo: "images/products/focus-ceiling-fan-24.jpg" },
+  { id: "tools",      name: "Tools & Accessories",      icon: "🔧", photo: "images/products/tape-big.jpg" },
 ];
 
 const PRODUCTS = [

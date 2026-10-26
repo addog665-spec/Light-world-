@@ -81,6 +81,11 @@ h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .hero-note { color: var(--brand); font-weight: 600; margin-top: 18px; }
 .hero-art { display: grid; place-items: center; }
+/* banner with a photo behind it (SHOP.heroImage): dark fade on the text side keeps it readable */
+.hero.has-photo { background:
+  linear-gradient(90deg, rgba(14, 24, 48, .94) 0%, rgba(14, 24, 48, .8) 45%, rgba(14, 24, 48, .25) 100%),
+  var(--hero-photo) center / cover no-repeat, var(--ink); padding: 96px 0; }
+.hero.has-photo .hero-art { visibility: hidden; }
 .hero-art img { width: min(260px, 100%); height: auto; filter: drop-shadow(0 0 50px rgba(245, 179, 1, .45)); }
 
 .perks { border-bottom: 1px solid var(--line); }
@@ -95,11 +100,17 @@ h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
 .section-head { display: flex; justify-content: space-between; align-items: baseline; }
 .section-head a { font-weight: 700; color: var(--brand-dark); text-decoration: none; }
 
-.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.cat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
 .cat-tile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 22px 12px;
   border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; transition: .15s; background: #fff; }
 .cat-tile:hover { border-color: var(--brand); box-shadow: var(--shadow); transform: translateY(-2px); }
 .cat-icon { font-size: 2.2rem; }
+/* tiles with a picture: same-size square media box for photo and icon tiles */
+.cat-tile:has(.cat-photo) { padding: 10px 10px 16px; }
+.cat-photo { width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 8px; background: #fff; margin-bottom: 6px; }
+.cat-grid:has(.cat-photo) .cat-tile:not(:has(.cat-photo)) { padding: 10px 10px 16px; }
+.cat-grid:has(.cat-photo) .cat-tile:not(:has(.cat-photo)) .cat-icon { width: 100%; aspect-ratio: 1; display: grid; place-items: center;
+  border-radius: 8px; background: linear-gradient(135deg, #fff8e1, #f1f3f9); font-size: 3.4rem; margin-bottom: 6px; }
 .cat-tile small { color: var(--ink-soft); }
 
 .trade { background: linear-gradient(120deg, #fff8e1, #fff 70%); border-block: 1px solid var(--line); }
@@ -130,6 +141,7 @@ h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
 .tag { position: absolute; top: 10px; left: 10px; font-size: .75rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: #fff; }
 .tag.sale { background: var(--danger); }
 .tag.out { background: var(--ink-soft); left: auto; right: 10px; }
+.tag.example-tag { top: auto; bottom: 10px; left: auto; right: 10px; background: rgba(20, 33, 61, .72); font-weight: 600; }
 .card-body { padding: 14px; display: flex; flex-direction: column; flex: 1; }
 .card-cat { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--brand-dark); font-weight: 700; }
 .card h3 { font-size: 1rem; margin: 4px 0 6px; flex: 1; }
@@ -310,6 +322,8 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--brand); out
 @media (max-width: 900px) {
   .hero-inner, .contact-grid, .cart-layout, .trade-inner, .pd, .quote-layout { grid-template-columns: 1fr; }
   .hero-art, .trade-art { display: none; }
+  .cat-grid { grid-template-columns: repeat(3, 1fr); }
+  .hero.has-photo { background: linear-gradient(rgba(14, 24, 48, .82), rgba(14, 24, 48, .88)), var(--hero-photo) center / cover no-repeat, var(--ink); padding: 64px 0; }
   .perks-grid { grid-template-columns: 1fr 1fr; }
   .cart-layout .checkout, .trade-side { position: static; }
   .pd-media { max-width: 460px; }
@@ -334,6 +348,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--brand); out
   .toolbar { flex-direction: column; }
   .toolbar select { width: 100%; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
   .card-body { padding: 12px; }
   .card-foot { flex-direction: column; align-items: stretch; }
   .info-grid, .footer-grid, .two-col, .contact-details, .inv-parties { grid-template-columns: 1fr; }
