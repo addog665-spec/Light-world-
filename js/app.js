@@ -274,6 +274,14 @@ function renderLayout() {
     <a href="cart.html">${icon("cart")}Cart<b class="badge" data-cart-count hidden>0</b></a>`;
   document.body.appendChild(bar);
 
+  // gentle fade-in of sections as they scroll into view (styled by the theme; skipped if motion is reduced)
+  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }), { rootMargin: "0px 0px -8% 0px" });
+    document.querySelectorAll("main > section:not(.hero)").forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+  }
+
   // static pages mark icons as <span data-icon="name"></span>
   document.querySelectorAll("[data-icon]").forEach((el) => { el.innerHTML = icon(el.dataset.icon); });
 
@@ -416,7 +424,7 @@ function initHome() {
     const n = PRODUCTS.filter((p) => p.category === c.id).length;
     const photo = c.photo;
     return `<a class="cat-tile${photo ? " has-photo" : ""}" href="shop.html?cat=${c.id}">
-      ${photo ? `<img class="cat-photo" src="${escapeHtml(photo)}" alt="" loading="lazy">` : `<span class="cat-icon">${icon(c.icon)}</span>`}
+      ${photo ? `<span class="cat-media"><img class="cat-photo" src="${escapeHtml(photo)}" alt="" loading="lazy"></span>` : `<span class="cat-icon">${icon(c.icon)}</span>`}
       <strong>${escapeHtml(c.name)}</strong><small>${n} products</small></a>`;
   }).join("");
   // brands come from the product list, most products first
