@@ -5,9 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Light World Electricals — Electrical Supplies in Kumasi</title>
   <meta name="description" content="Light World Electricals, Kumasi — lighting, cables, switches, breakers, fans and tools. Order online for pickup or delivery in Kumasi and Accra.">
-  <meta name="theme-color" content="#14213d">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Light World Electricals">
+  <meta property="og:title" content="Light World Electricals — Electrical Supplies in Kumasi">
+  <meta property="og:description" content="Light World Electricals, Kumasi — lighting, cables, switches, breakers, fans and tools. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta property="og:image" content="images/stock/hero-banner.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#111418">
   <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="preload" as="image" href="images/stock/hero-banner.jpg">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/minimal.css">
 </head>
 <body data-page="home">
   <header id="site-header"></header>
@@ -16,30 +29,37 @@
     <section class="hero">
       <div class="container hero-inner">
         <div>
-          <p class="eyebrow">Electrical supplies · Kumasi</p>
-          <h1>Power up your home &amp; projects with <span>Light World Electricals</span></h1>
+          <p class="eyebrow">Light World Electricals · Kumasi</p>
+          <h1>Lighting &amp; electrical supplies, <span>done properly.</span></h1>
           <p class="lead" id="hero-tagline"></p>
+          <form class="hero-search" action="shop.html" role="search">
+            <input type="search" name="q" placeholder="Search e.g. 2.5mm cable, LED bulb, breaker…" aria-label="Search products">
+            <button class="btn" type="submit">Search</button>
+          </form>
+          <p class="hero-popular">Popular:
+            <a href="shop.html?q=cable">Cables</a><a href="shop.html?q=LED">LED bulbs</a><a href="shop.html?q=rechargeable">Rechargeable bulbs</a><a href="shop.html?q=breaker">Breakers</a><a href="shop.html?q=fan">Fans</a>
+          </p>
           <div class="hero-actions">
             <a href="shop.html" class="btn btn-lg">Shop now</a>
             <a href="quote.html" class="btn btn-lg btn-ghost">Request a quote</a>
           </div>
           <p class="hero-note" id="free-delivery-note"></p>
         </div>
-        <div class="hero-art" aria-hidden="true"><img src="images/logo.svg" alt="" width="260" height="260"></div>
       </div>
     </section>
 
     <section class="perks">
       <div class="container perks-grid">
-        <div><span>✅</span><strong>Genuine products</strong><small>Trusted brands, no fakes</small></div>
-        <div><span>🏷️</span><strong>Bulk prices</strong><small>Buy more, pay less per piece</small></div>
-        <div><span>💬</span><strong>Expert advice</strong><small>Ask us before you buy</small></div>
-        <div><span>💳</span><strong>Easy payment</strong><small>Cash, card or MoMo</small></div>
+        <div><span class="perk-icon" data-icon="shield"></span><p><strong>Genuine products</strong><small>Original stock from trusted brands</small></p></div>
+        <div><span class="perk-icon" data-icon="tag"></span><p><strong>Bulk prices</strong><small>Lower unit prices on larger orders</small></p></div>
+        <div><span class="perk-icon" data-icon="chat"></span><p><strong>Expert advice</strong><small>Speak to us before you buy</small></p></div>
+        <div><span class="perk-icon" data-icon="card"></span><p><strong>Flexible payment</strong><small>Cash, card or mobile money</small></p></div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
+        <p class="kicker">Categories</p>
         <h2>Shop by category</h2>
         <div class="cat-grid" id="category-grid"></div>
       </div>
@@ -48,10 +68,41 @@
     <section class="section alt">
       <div class="container">
         <div class="section-head">
-          <h2>Featured products</h2>
+          <div><p class="kicker">Featured</p><h2>Featured products</h2></div>
           <a href="shop.html">View all →</a>
         </div>
         <div class="grid" id="featured-grid"></div>
+      </div>
+    </section>
+
+    <section class="section packs">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="kicker">Packs</p><h2>Ready-made packs</h2></div>
+          <a href="quote.html">Need a custom pack? →</a>
+        </div>
+        <p class="muted">Everything for one job — add the whole pack to your cart in one tap, then change quantities if you need to.</p>
+        <div class="pack-grid" id="pack-grid"></div>
+      </div>
+    </section>
+
+    <section class="section brands">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="kicker">Brands</p><h2>Brands we stock</h2></div>
+          <a href="shop.html">View all →</a>
+        </div>
+        <p class="muted brands-note">Original stock only, straight from trusted suppliers — no fakes. Tap a brand to see its products.</p>
+        <div class="brand-grid" id="brand-grid"></div>
+      </div>
+    </section>
+
+    <section class="section reviews" id="reviews-section" hidden>
+      <div class="container">
+        <p class="kicker">Reviews</p>
+        <h2>What our customers say</h2>
+        <p class="sample-note" id="reviews-sample-note" hidden>Sample reviews for the test site — replace with real customer reviews before launch.</p>
+        <div class="review-grid" id="review-grid"></div>
       </div>
     </section>
 
@@ -68,12 +119,12 @@
           </ul>
           <a href="quote.html" class="btn btn-lg">Request a quote</a>
         </div>
-        <div class="trade-art" aria-hidden="true">📋</div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
+        <p class="kicker">Delivery</p>
         <h2>Delivery &amp; pickup</h2>
         <div class="info-grid" id="delivery-info"></div>
       </div>
@@ -82,6 +133,7 @@
     <section class="section alt" id="contact">
       <div class="container contact-grid">
         <div>
+          <p class="kicker">Contact</p>
           <h2>Visit or contact us</h2>
           <p>Need help choosing the right cable size, breaker or bulb? Call, WhatsApp or visit the shop. We're happy to help.</p>
           <div id="contact-details" class="contact-details"></div>

@@ -38,6 +38,9 @@ Open **`js/config.js`** and fill in everything marked `TODO`:
 - [ ] **Opening hours**
 - [ ] **Kumasi delivery fee** (`kumasiFee`)
 - [ ] **Paystack public key** (optional, see below)
+- [ ] **Customer reviews**: replace the sample reviews with real ones, then set `reviewsAreSamples: false`
+- [ ] **Payment badges** (`paymentMethods`): remove any method you don't accept
+- [ ] **Promo strip** (`promo`): write this week's offer, or set `text: ""` to hide it
 
 Then replace the sample products in **`js/products.js`** with your real stock and prices.
 
@@ -60,6 +63,9 @@ Each product looks like this:
 - **Show on the home page:** add `featured: true`.
 - **Photos:** put the photo in `images/` and add `image: "images/double-socket.jpg"`. Square photos on a plain background look best.
 - **Sold by the roll or pack:** add `unit: "roll"` (shows "per roll").
+- **Label on the photo:** add `badge: "Best seller"` or `badge: "New"`.
+- **Example photo:** `examplePhoto: "images/stock/led-bulb.jpg"` shows a labelled stock photo until you have your own. Only use one that really shows the item.
+- **Ready-made packs:** edit `PACKS` at the bottom of the file. Each pack lists product ids and quantities; its price is worked out from the product prices.
 
 Watch the commas and quotation marks. If the shop page goes blank after an edit, a comma or quote is probably missing.
 
@@ -89,4 +95,11 @@ Run `python3 -m http.server` in this folder and open http://localhost:8000.
 
 ## Logo
 
-The logo is `images/logo.svg`: a light bulb whose glass is a globe, for "Light World". It also works for your signboard, receipts and social media. Ask a designer or printer to use the SVG file so it stays sharp at any size.
+`images/logo.svg` is the logo: a bright white light bulb with a bold blue globe on the glass ("Light World") and a chrome screw base, on a blue rounded badge with a soft white glow. It's drawn with crisp lines so it stays clear even at favicon size. It's a vector file, so it stays sharp at any size. Give the SVG to printers and designers for signboards and vehicles.
+
+Ready-made high-resolution files are in `images/brand/`:
+
+- `logo-icon-1024.png` and `logo-icon-512.png`: the icon alone, transparent corners (WhatsApp profile picture, social media, app icon)
+- `logo-full-light.png`: icon and name on white (letterheads, invoices, documents)
+- `logo-full-dark.png`: icon and name on dark (presentations, dark backgrounds)
+- `logo-full-transparent.png`: icon and name with no background (place on any light design)

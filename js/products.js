@@ -17,32 +17,38 @@
 //              (if left out, the category icon is shown instead)
 //  stock       optional — set to 0 to show "Out of stock"
 //  featured    optional — true shows it on the home page
+//  badge       optional — a short label on the photo, e.g. "Best seller" or "New"
 //
-//  Categories: photo         optional — picture on the home page category tile
-//              examplePhoto  optional — shown (labelled "Example photo") on products
-//                            in this category that don't have their own photo yet
+//  examplePhoto optional — a stock photo of the same kind of item, shown labelled
+//              "Example photo" until you have your own photo (only use one that
+//              really shows this item; otherwise leave it out and the icon is shown)
+//
+//  Categories: photo         optional — a general photo of this kind of item for the home page tile
+//                            (the shop's own product photos show once a customer opens the category)
+//              icon          line icon name (see ICONS in js/app.js), e.g. "bulb", "socket", "plug",
+//                            "breaker", "fan", "wrench" — also used for packs
 // ============================================================
 const CATEGORIES = [
-  { id: "lighting",   name: "Lighting",                 icon: "💡", photo: "images/products/newman-bulb-30w.jpg" },
-  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "🎚️", photo: "images/products/focus-double-socket.jpg" },
-  { id: "cables",     name: "Cables & Wiring",          icon: "🔌", photo: "images/products/sanbra-cable-2.5mm.jpg" },
-  { id: "protection", name: "Breakers & Fuses",         icon: "🛡️" },
-  { id: "fans",       name: "Fans & Fan Parts",         icon: "🌀", photo: "images/products/focus-ceiling-fan-24.jpg" },
-  { id: "tools",      name: "Tools & Accessories",      icon: "🔧", photo: "images/products/tape-big.jpg" },
+  { id: "lighting",   name: "Lighting",                 icon: "bulb", photo: "images/stock/led-bulb.jpg" },
+  { id: "switches",   name: "Switches, Sockets & Boxes", icon: "socket", photo: "images/stock/sockets-switches.jpg" },
+  { id: "cables",     name: "Cables & Wiring",          icon: "plug", photo: "images/stock/cable-rolls.jpg" },
+  { id: "protection", name: "Breakers & Fuses",         icon: "breaker", photo: "images/stock/circuit-breakers.jpg" },
+  { id: "fans",       name: "Fans & Fan Parts",         icon: "fan", photo: "images/stock/ceiling-fan.jpg" },
+  { id: "tools",      name: "Tools & Accessories",      icon: "wrench", photo: "images/stock/electrician-tools.jpg" },
 ];
 
 const PRODUCTS = [
   // ---------- Lighting ----------
-  { id: "fortune-bulb-12w", name: "Fortune LED Bulb 12W", brand: "Fortune", category: "lighting", price: 15,
+  { id: "fortune-bulb-12w", name: "Fortune LED Bulb 12W", brand: "Fortune", category: "lighting", price: 15, examplePhoto: "images/stock/led-bulb.jpg",
     description: "Energy-saving LED bulb for rooms, kitchens and corridors.",
     specs: { Power: "12W", Type: "LED" } },
-  { id: "fortune-bulb-15w", name: "Fortune LED Bulb 15W", brand: "Fortune", category: "lighting", price: 18,
+  { id: "fortune-bulb-15w", name: "Fortune LED Bulb 15W", brand: "Fortune", category: "lighting", price: 18, examplePhoto: "images/stock/led-bulb.jpg",
     description: "Energy-saving LED bulb for rooms, kitchens and corridors.",
     specs: { Power: "15W", Type: "LED" } },
-  { id: "fortune-bulb-18w", name: "Fortune LED Bulb 18W", brand: "Fortune", category: "lighting", price: 20,
+  { id: "fortune-bulb-18w", name: "Fortune LED Bulb 18W", brand: "Fortune", category: "lighting", price: 20, examplePhoto: "images/stock/led-bulb.jpg",
     description: "Bright energy-saving LED bulb for living rooms, shops and offices.",
     specs: { Power: "18W", Type: "LED" } },
-  { id: "fortune-bulb-22w", name: "Fortune LED Bulb 22W", brand: "Fortune", category: "lighting", price: 30,
+  { id: "fortune-bulb-22w", name: "Fortune LED Bulb 22W", brand: "Fortune", category: "lighting", price: 30, examplePhoto: "images/stock/led-bulb.jpg",
     description: "Extra-bright energy-saving LED bulb for large rooms, shops and workshops.",
     specs: { Power: "22W", Type: "LED" } },
   { id: "xbz-bulb-15w", name: "XBZ LED Bulb 15W (E27)", brand: "XBZ", category: "lighting", price: 18, featured: true,
@@ -50,10 +56,10 @@ const PRODUCTS = [
     description: "Bright white LED bulb that gives the light of an old 150W bulb while using only 15W.",
     specs: { Power: "15W", Brightness: "Same as a 150W old-style bulb", Colour: "White light (6500K)", Cap: "E27 screw",
              Voltage: "170–250V", Lifespan: "6,000 hours", "Item no.": "GH-15W/W" } },
-  { id: "newman-bulb-10w", name: "Newman LED Bulb 10W", brand: "Newman", category: "lighting", price: 10,
+  { id: "newman-bulb-10w", name: "Newman LED Bulb 10W", brand: "Newman", category: "lighting", price: 10, examplePhoto: "images/stock/led-bulb.jpg",
     description: "Affordable energy-saving LED bulb for bedrooms, toilets and porches.",
     specs: { Power: "10W", Type: "LED" } },
-  { id: "newman-bulb-30w", name: "Newman LED Bulb 30W (B22)", brand: "Newman", category: "lighting", price: 30, featured: true,
+  { id: "newman-bulb-30w", name: "Newman LED Bulb 30W (B22)", brand: "Newman", category: "lighting", price: 30, badge: "Best seller", featured: true,
     image: "images/products/newman-bulb-30w.jpg",
     description: "High-power daylight LED bulb for halls, shops, compounds and workshops. Comes with a 2-year warranty.",
     specs: { Power: "30W", Cap: "B22 pin", Colour: "Daylight", Brightness: "2,700 lumens", Efficiency: "90 lm/W",
@@ -67,11 +73,11 @@ const PRODUCTS = [
   { id: "brothers-union-50w", name: "Brothers Union LED Bulb 50W", brand: "Brothers Union", category: "lighting", price: 70,
     description: "High-power LED bulb for large rooms, shops and outdoor areas.",
     specs: { Power: "50W", Type: "LED" } },
-  { id: "newman-rechargeable-bulb", name: "Newman Rechargeable LED Bulb 20W (with Battery)", brand: "Newman", category: "lighting", price: 35, featured: true,
+  { id: "newman-rechargeable-bulb", name: "Newman Rechargeable LED Bulb 20W (with Battery)", brand: "Newman", category: "lighting", price: 35, badge: "Best seller", featured: true,
     image: "images/products/newman-rechargeable-20w.jpg",
     description: "LED bulb with a built-in battery that keeps giving light when the power goes off.",
     specs: { Power: "20W", Cap: "B22 pin", Backup: "Built-in battery", "Energy saving": "90%", Warranty: "2 years" } },
-  { id: "newman-rechargeable-30w", name: "Newman Rechargeable LED Bulb 30W (with Battery)", brand: "Newman", category: "lighting", price: null,
+  { id: "newman-rechargeable-30w", name: "Newman Rechargeable LED Bulb 30W (with Battery)", brand: "Newman", category: "lighting", price: null, badge: "New",
     image: "images/products/newman-rechargeable-30w.jpg",
     description: "Bigger, brighter LED bulb with a built-in battery that keeps giving light when the power goes off.",
     specs: { Power: "30W", Cap: "B22 pin", Backup: "Built-in battery", "Energy saving": "90%", Warranty: "2 years" } },
@@ -108,7 +114,7 @@ const PRODUCTS = [
     image: "images/products/focus-double-socket.jpg",
     description: "Twin wall socket from the Focus PC-Series range.",
     specs: { Outlets: "2", Range: "Focus PC-Series" } },
-  { id: "bg-double-socket", name: "BG Double Socket", brand: "BG", category: "switches", price: 25,
+  { id: "bg-double-socket", name: "BG Double Socket", brand: "BG", category: "switches", price: 25, examplePhoto: "images/stock/sockets-switches.jpg",
     description: "Twin 13A wall socket with UK-style 3-pin outlets.",
     specs: { Outlets: "2 × 13A", Type: "UK 3-pin (Type G)" } },
   { id: "two-way-main-switch", name: "2-Way Main Switch", category: "switches", price: 110,
@@ -138,18 +144,18 @@ const PRODUCTS = [
     description: "White PVC conduit pipe for running cables safely along walls and ceilings.",
     specs: { Size: "20mm", Colour: "White", "Sold per": "Length" } },
   // Prices to come from the owner — shown as "Ask for price"
-  { id: "cable-roll-1.5mm", name: "1.5mm Cable — Roll", category: "cables", price: null, unit: "roll",
+  { id: "cable-roll-1.5mm", name: "1.5mm Cable — Roll", category: "cables", price: null, unit: "roll", examplePhoto: "images/stock/cable-rolls.jpg",
     description: "1.5mm cable roll for lighting circuits. Ask us for today's price and available brands.",
     specs: { Size: "1.5mm", "Sold per": "Roll" } },
-  { id: "cable-roll-2.5mm", name: "Sanbra 2.5mm² Cable — 100 Yards", brand: "Sanbra", category: "cables", price: null, unit: "roll", featured: true,
+  { id: "cable-roll-2.5mm", name: "Sanbra 2.5mm² Cable — 100 Yards", brand: "Sanbra", category: "cables", price: null, badge: "Best seller", unit: "roll", featured: true,
     image: "images/products/sanbra-cable-2.5mm.jpg",
     description: "Copper PVC-insulated cable for socket circuits. Ask us for today's price and the colours in stock.",
     specs: { Size: "2.5mm²", Length: "100 yards", Conductor: "High-grade copper", Insulation: "PVC",
              Voltage: "450/750V", Quality: "ISO 9001", "Sold per": "Roll" } },
-  { id: "cable-roll-4mm", name: "4mm Cable — Roll", category: "cables", price: null, unit: "roll",
+  { id: "cable-roll-4mm", name: "4mm Cable — Roll", category: "cables", price: null, unit: "roll", examplePhoto: "images/stock/cable-rolls.jpg",
     description: "4mm cable roll for air conditioners and heavy appliances. Ask us for today's price.",
     specs: { Size: "4mm", "Sold per": "Roll" } },
-  { id: "cable-roll-6mm", name: "6mm Cable — Roll", category: "cables", price: null, unit: "roll",
+  { id: "cable-roll-6mm", name: "6mm Cable — Roll", category: "cables", price: null, unit: "roll", examplePhoto: "images/stock/cable-rolls.jpg",
     description: "6mm cable roll for cookers, water heaters and sub-mains. Ask us for today's price.",
     specs: { Size: "6mm", "Sold per": "Roll" } },
   { id: "extension-board", name: "Extension Board", category: "cables", price: null,
@@ -163,10 +169,10 @@ const PRODUCTS = [
   { id: "cut-out-fuse", name: "Cut-Out Fuse", category: "protection", price: 80,
     description: "Cut-out fuse for the incoming supply.",
     specs: {} },
-  { id: "mcb-single-pole", name: "MCB Breaker (Single Pole)", category: "protection", price: null,
+  { id: "mcb-single-pole", name: "MCB Breaker (Single Pole)", category: "protection", price: null, examplePhoto: "images/stock/circuit-breakers.jpg",
     description: "Single-pole circuit breaker for lighting and socket circuits. Ask us for ratings, brands and prices.",
     specs: { Poles: "1" } },
-  { id: "distribution-board", name: "Distribution Board", category: "protection", price: null,
+  { id: "distribution-board", name: "Distribution Board", category: "protection", price: null, examplePhoto: "images/stock/circuit-breakers.jpg",
     description: "Distribution board / consumer unit. Ask us for the number of ways, brands and prices.",
     specs: {} },
 
@@ -184,28 +190,28 @@ const PRODUCTS = [
     image: "images/products/focus-ceiling-fan-24.jpg",
     description: "Compact 4-blade ceiling fan for small rooms, kiosks, shops and offices.",
     specs: { Size: "24 inch (600mm)", Speed: "850 RPM", Blades: "4", Bearings: "Double ball bearing", Colour: "Crystal White" } },
-  { id: "ceiling-fan", name: "Ceiling Fan (Other Sizes)", category: "fans", price: null,
+  { id: "ceiling-fan", name: "Ceiling Fan (Other Sizes)", category: "fans", price: null, examplePhoto: "images/stock/ceiling-fan.jpg",
     description: "Ceiling fans in other sizes and brands. Ask us what's in stock and for prices.",
     specs: {} },
-  { id: "standing-fan", name: "Standing Fan", category: "fans", price: null,
+  { id: "standing-fan", name: "Standing Fan", category: "fans", price: null, examplePhoto: "images/stock/standing-fan.jpg",
     description: "Standing fans in different sizes and brands. Ask us for prices.",
     specs: {} },
 
   // ---------- Tools & accessories ----------
-  { id: "tester", name: "Tester Screwdriver", category: "tools", price: 6,
+  { id: "tester", name: "Tester Screwdriver", category: "tools", price: 6, examplePhoto: "images/stock/tester-screwdriver.jpg",
     description: "Tester screwdriver for quick live-wire checks.",
     specs: {} },
-  { id: "screwdriver", name: "Screwdriver", category: "tools", price: 20,
+  { id: "screwdriver", name: "Screwdriver", category: "tools", price: 20, examplePhoto: "images/stock/screwdriver.jpg",
     description: "Screwdriver for electrical work.",
     specs: {} },
-  { id: "tape-small", name: "Insulation Tape — Small Roll", category: "tools", price: 5,
+  { id: "tape-small", name: "Insulation Tape — Small Roll", category: "tools", price: 5, examplePhoto: "images/stock/insulation-tape.jpg",
     description: "PVC insulation tape for covering wire joints.",
     specs: { Size: "Small roll" } },
   { id: "tape-big", name: "Focus PVC Insulating Tape — Big Roll", brand: "Focus", category: "tools", price: 20, featured: true,
     image: "images/products/tape-big.jpg",
     description: "Wide, long roll of PVC insulating tape for bigger jobs.",
     specs: { Size: "38mm × 21m", Thickness: "0.18mm", "Rated up to": "600V", "Max temperature": "80°C", "Item no.": "FPTP3821" } },
-  { id: "screws-box", name: "Screws — Box", category: "tools", price: 15, unit: "box",
+  { id: "screws-box", name: "Screws — Box", category: "tools", price: 15, unit: "box", examplePhoto: "images/stock/screws.jpg",
     description: "Box of screws for fixing boxes, sockets and fittings.",
     specs: { "Sold per": "Box" } },
   { id: "newman-tv-mount-14-42", name: "Newman TV Wall Mount 14\"–42\"", brand: "Newman", category: "tools", price: null,
@@ -216,4 +222,27 @@ const PRODUCTS = [
   { id: "mr-bond-superglue", name: "Mr. Bond Super Glue", brand: "Mr. Bond", category: "tools", price: 20,
     description: "Strong instant glue for quick repairs.",
     specs: {} },
+];
+
+// ============================================================
+//  READY-MADE PACKS (home page) — everything for one job, added to the cart in one tap
+//  items: [product id, quantity] — only products with a price are added
+//  note:  optional — shown under the pack, e.g. to say what isn't included
+// ============================================================
+const PACKS = [
+  { id: "room-wiring", name: "Room Wiring Pack", icon: "home",
+    description: "Sockets, boxes, lamp holders, bulbs, conduit and fixings to wire one room.",
+    note: "Cable not included — ask us for today's cable price.",
+    items: [["bg-double-socket", 2], ["pattress-box-3x6", 2], ["circular-box", 1], ["lamp-holder-pin", 2],
+            ["fortune-bulb-15w", 2], ["cable-clips-6mm", 1], ["pvc-conduit-20mm", 3], ["tape-small", 1]] },
+  { id: "fan-fitting", name: "Ceiling Fan Fitting Pack", icon: "fan",
+    description: "Hook, regulator, capacitor and box to fit a ceiling fan properly.",
+    note: "Need the fan too? Ask us for sizes and prices.",
+    items: [["fan-hook", 1], ["fan-regulator", 1], ["fan-capacitor-2.5", 1], ["circular-box", 1], ["tape-small", 1]] },
+  { id: "main-supply", name: "Main Supply Pack", icon: "breaker",
+    description: "Cut-out fuse, 2-pole breaker and 2-way main switch for the incoming supply.",
+    items: [["cut-out-fuse", 1], ["two-pole-breaker", 1], ["two-way-main-switch", 1]] },
+  { id: "electrician-kit", name: "Electrician's Starter Kit", icon: "toolbox",
+    description: "Tester, screwdriver, insulation tape and screws for everyday jobs.",
+    items: [["tester", 1], ["screwdriver", 1], ["tape-big", 1], ["screws-box", 1]] },
 ];
