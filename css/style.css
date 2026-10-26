@@ -113,6 +113,14 @@ h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
   border-radius: 8px; background: linear-gradient(135deg, #fff8e1, #f1f3f9); font-size: 3.4rem; margin-bottom: 6px; }
 .cat-tile small { color: var(--ink-soft); }
 
+.brands { border-top: 1px solid var(--line); }
+.brands-note { margin: 6px 0 18px; }
+.brand-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.brand-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 18px 10px;
+  border: 1px solid var(--line); border-radius: var(--radius); background: #fff; text-decoration: none; text-align: center; transition: .15s; }
+.brand-tile strong { font-size: 1.15rem; letter-spacing: .02em; color: var(--ink); }
+.brand-tile small { color: var(--ink-soft); }
+.brand-tile:hover { border-color: var(--brand); box-shadow: var(--shadow); transform: translateY(-2px); }
 .trade { background: linear-gradient(120deg, #fff8e1, #fff 70%); border-block: 1px solid var(--line); }
 .trade-inner { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; align-items: center; }
 .trade .eyebrow { color: var(--brand-dark); }

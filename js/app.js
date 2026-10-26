@@ -332,6 +332,14 @@ function initHome() {
       ${photo ? `<img class="cat-photo" src="${escapeHtml(photo)}" alt="" loading="lazy">` : `<span class="cat-icon">${c.icon}</span>`}
       <strong>${escapeHtml(c.name)}</strong><small>${n} products</small></a>`;
   }).join("");
+  // brands come from the product list, most products first
+  const brands = {};
+  PRODUCTS.forEach((p) => { if (p.brand) brands[p.brand] = (brands[p.brand] || 0) + 1; });
+  document.getElementById("brand-grid").innerHTML = Object.entries(brands)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([name, n]) => `<a class="brand-tile" href="shop.html?q=${encodeURIComponent(name)}">
+      <strong>${escapeHtml(name)}</strong><small>${n} product${n === 1 ? "" : "s"}</small></a>`)
+    .join("");
   document.getElementById("featured-grid").innerHTML = PRODUCTS.filter((p) => p.featured).map(productCard).join("");
 
   document.getElementById("delivery-info").innerHTML = `
