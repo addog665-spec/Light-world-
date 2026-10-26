@@ -95,4 +95,11 @@ Run `python3 -m http.server` in this folder and open http://localhost:8000.
 
 ## Logo
 
-The logo is `images/logo.svg`: a light bulb whose glass is a globe, for "Light World". It also works for your signboard, receipts and social media. Ask a designer or printer to use the SVG file so it stays sharp at any size.
+`images/logo.svg` is the logo: a clear glass bulb glowing with white light, with a globe drawn in light inside it ("Light World") and a chrome screw base, on a dark rounded badge. It's a vector file, so it stays sharp at any size. Give the SVG to printers and designers for signboards and vehicles.
+
+Ready-made high-resolution files are in `images/brand/`:
+
+- `logo-icon-1024.png` and `logo-icon-512.png`: the icon alone, transparent corners (WhatsApp profile picture, social media, app icon)
+- `logo-full-light.png`: icon and name on white (letterheads, invoices, documents)
+- `logo-full-dark.png`: icon and name on dark (presentations, dark backgrounds)
+- `logo-full-transparent.png`: icon and name with no background (place on any light design)
