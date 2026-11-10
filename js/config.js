@@ -43,6 +43,30 @@ const SHOP = {
     linkText: "Get a quote",
   },
 
+  // ---------- Promotion slider (home page) ----------
+  // Each slide: kicker (small label), title, text, image, link and button text. Use [] to hide the slider.
+  promoSlides: [
+    { kicker: "Beat dumsor", title: "Solar & inverter systems sized for your home",
+      text: "Tell us what you want to run and our calculator recommends the inverter, batteries and panels.",
+      image: "images/stock/inverter-system.jpg", link: "calculator.html", linkText: "Try the solar calculator" },
+    { kicker: "Stay cool", title: "Split air conditioners from GH₵4,850",
+      text: "Midea 1HP, 1.5HP and 2HP — with stabilizers, switches and cable to install them properly.",
+      image: "images/stock/air-conditioner.jpg", link: "shop.html?cat=fans&type=Air%20conditioner", linkText: "Shop air conditioners" },
+    { kicker: "Protect what matters", title: "CCTV kits you can watch from your phone",
+      text: "4-camera Hikvision kits, Wi-Fi cameras and video doorbells for homes, shops and offices.",
+      image: "images/stock/cat-security.jpg", link: "shop.html?cat=security", linkText: "Shop security" },
+    { kicker: "For the trade", title: "Bulk prices for electricians & contractors",
+      text: "Send your materials list and get our best project price, usually within one working day.",
+      image: "images/stock/page-trade.jpg", link: "quote.html", linkText: "Request a quote" },
+  ],
+
+  // ---------- Contact page extras ----------
+  // mapQuery: what Google Maps searches for on the Contact page map ("" hides the map).
+  //   For an exact pin, use the shop's Plus Code or coordinates, e.g. "6.6885,-1.6244".
+  // shopPhoto: a photo of your real shopfront, e.g. "images/shop-front.jpg" ("" = no photo).
+  mapQuery: "Adum, Kumasi, Ghana",   // TODO: your exact shop location
+  shopPhoto: "",                      // TODO: add a photo of your shop
+
   // ---------- Customer reviews (home page) ----------
   // TODO: these are SAMPLE reviews for the test site. Replace them with real reviews from your
   // customers (with their permission), then set reviewsAreSamples to false to remove the "Sample" label.

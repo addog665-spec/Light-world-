@@ -38,6 +38,7 @@
     <section class="section">
       <div class="container contact-page">
         <div class="contact-cards">
+          <figure class="shop-photo" data-shop-photo hidden></figure>
           <div class="contact-card"><span data-icon="pin"></span><div><h3>Visit the shop</h3>
             <p><span data-fill="address"></span><br>GPS: <span data-fill="gps"></span></p>
             <a data-href="map" target="_blank" rel="noopener">Get directions →</a></div></div>
@@ -81,12 +82,22 @@
         </div>
       </div>
     </section>
+    <section class="section map-section">
+      <div class="container">
+        <div class="section-head"><div><p class="kicker">Find us</p><h2>Our location</h2></div>
+          <a data-href="map" target="_blank" rel="noopener">Open in Google Maps →</a></div>
+        <div class="map-wrap" id="map-wrap" hidden></div>
+      </div>
+    </section>
   </main>
 
   <footer id="site-footer"></footer>
 
   <script src="js/config.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/guides.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/features.js"></script>
 </body>
 </html>

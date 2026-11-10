@@ -2,7 +2,7 @@
 
 Use this list to swap in your own photos. **Your photo** = a real photo of your stock (keep). **Stock** = a free Unsplash photo of the same kind of item (shown labelled "Example photo" on products). **Placeholder** = a coloured block with an icon and the product name, until you add a photo.
 
-To add your own product photo: save it in `images/products/` (square, plain background works best) and set `image: "images/products/your-photo.jpg"` on the product in `js/products.js`. That replaces the stock photo or placeholder automatically.
+To add your own product photo: save it in `images/products/` (square, plain background works best) and set `image: "images/products/your-photo.jpg"` on the product in `js/products.js`. That replaces the stock photo or placeholder automatically. Extra photos go in `gallery: [...]`.
 
 ## Site-wide
 
@@ -11,7 +11,17 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | Logo, browser-tab and phone icons | `images/logo.svg`, `images/favicon-32.png`, `images/apple-touch-icon.png` (exports in `images/brand/`) | files |
 | Home page banner | `images/stock/hero-banner.jpg` | `heroImage` in `js/config.js` |
 | Home: trade section photo | `images/stock/page-trade.jpg` | `index.html` |
+| Contact & About: shopfront photo | *not set — add one* | `shopPhoto` in `js/config.js` |
 | Link previews (WhatsApp/Facebook) | `images/stock/hero-banner.jpg` | `og:image` in each page |
+
+## Home page promotion slider
+
+| Slide | File (`promoSlides` in `js/config.js`) |
+|---|---|
+| Solar & inverter systems sized for your home | `images/stock/inverter-system.jpg` |
+| Split air conditioners from GH₵4,850 | `images/stock/air-conditioner.jpg` |
+| CCTV kits you can watch from your phone | `images/stock/cat-security.jpg` |
+| Bulk prices for electricians & contractors | `images/stock/page-trade.jpg` |
 
 ## Page banners
 
@@ -20,8 +30,22 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | About | `images/stock/page-about.jpg` |
 | Contact | `images/stock/page-contact.jpg` |
 | FAQs | `images/stock/page-faq.jpg` |
+| Buying guides | `images/stock/page-faq.jpg` |
 | Delivery & Returns | `images/stock/page-delivery.jpg` |
+| Track order | `images/stock/page-delivery.jpg` |
 | Trade & Quotes | `images/stock/page-trade.jpg` |
+| Solar calculator | `images/stock/inverter-system.jpg` |
+
+## Buying guides
+
+| Guide | File (`image` in `js/guides.js`) |
+|---|---|
+| Which cable size do I need? | `images/stock/cable-rolls.jpg` |
+| B22 or E27? Choosing the right LED bulb | `images/stock/led-bulb.jpg` |
+| How to size a solar and inverter system | `images/stock/inverter-system.jpg` |
+| Stabilizer, voltage guard or surge protector? | `images/stock/page-faq.jpg` |
+| Choosing a CCTV system for your home or shop | `images/stock/cat-security.jpg` |
+| Protect your home: breakers, RCDs and earthing | `images/stock/circuit-breakers.jpg` |
 
 ## Category tiles and category banners
 
@@ -152,8 +176,8 @@ To add your own product photo: save it in `images/products/` (square, plain back
 
 | Product | id | Image now |
 |---|---|---|
-| Jinko Mono Solar Panel 300W *(demo)* | `solar-panel-300w` | Stock — `images/stock/cat-power.jpg` |
-| Jinko Mono Solar Panel 450W *(demo)* | `solar-panel-450w` | Stock — `images/stock/cat-power.jpg` |
+| Jinko Mono Solar Panel 300W *(demo)* | `solar-panel-300w` | Stock — `images/stock/cat-power.jpg` + gallery `images/stock/solar-field.jpg` |
+| Jinko Mono Solar Panel 450W *(demo)* | `solar-panel-450w` | Stock — `images/stock/cat-power.jpg` + gallery `images/stock/solar-field.jpg` |
 | Felicity Hybrid Inverter 3kVA 24V *(demo)* | `felicity-inverter-3kva` | Stock — `images/stock/inverter-system.jpg` |
 | Felicity Hybrid Inverter 5kVA 48V *(demo)* | `felicity-inverter-5kva` | Stock — `images/stock/inverter-system.jpg` |
 | Deep-Cycle Battery 12V 200Ah *(demo)* | `tubular-battery-200ah` | Stock — `images/stock/battery.jpg` |
@@ -162,7 +186,7 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | Sollatek Voltage Stabilizer 2kVA *(demo)* | `sollatek-avs-2kva` | Placeholder |
 | Sollatek Voltage Stabilizer 5kVA *(demo)* | `sollatek-avs-5kva` | Placeholder |
 | UPS 1500VA Line-Interactive *(demo)* | `ups-1500va` | Placeholder |
-| Firman Petrol Generator 2.8kVA *(demo)* | `firman-gen-2-8kva` | Stock — `images/stock/generator.jpg` |
+| Firman Petrol Generator 2.8kVA *(demo)* | `firman-gen-2-8kva` | Stock — `images/stock/generator.jpg` + gallery `images/stock/generator-side.jpg` |
 | Firman Petrol Generator 7.5kVA Key Start *(demo)* | `firman-gen-7-5kva` | Stock — `images/stock/generator-large.jpg` |
 | Solar Home System 3kVA (Complete Kit) *(demo)* | `solar-home-kit-3kva` | Stock — `images/stock/inverter-system.jpg` |
 
@@ -173,9 +197,9 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | Nasco Single-Door Fridge 90L *(demo)* | `nasco-fridge-90l` | Stock — `images/stock/fridge-single.jpg` |
 | Nasco Double-Door Fridge 205L *(demo)* | `nasco-fridge-205l` | Stock — `images/stock/fridge.jpg` |
 | Hisense Chest Freezer 200L *(demo)* | `hisense-freezer-200l` | Placeholder |
-| Nasco 32" LED TV *(demo)* | `nasco-tv-32` | Stock — `images/stock/tv.jpg` |
-| Hisense 43" Smart TV (Full HD) *(demo)* | `hisense-tv-43` | Stock — `images/stock/tv.jpg` |
-| Samsung 55" 4K UHD Smart TV *(demo)* | `samsung-tv-55` | Stock — `images/stock/tv-wall.jpg` |
+| Nasco 32" LED TV *(demo)* | `nasco-tv-32` | Stock — `images/stock/tv.jpg` + gallery `images/stock/tv-wall.jpg` |
+| Hisense 43" Smart TV (Full HD) *(demo)* | `hisense-tv-43` | Stock — `images/stock/tv.jpg` + gallery `images/stock/tv-wall.jpg` |
+| Samsung 55" 4K UHD Smart TV *(demo)* | `samsung-tv-55` | Stock — `images/stock/tv-wall.jpg` + gallery `images/stock/tv.jpg` |
 | Sharp Microwave Oven 20L *(demo)* | `sharp-microwave-20l` | Stock — `images/stock/microwave.jpg` |
 | Binatone Blender 1.5L with Grinder *(demo)* | `binatone-blender` | Stock — `images/stock/blender.jpg` |
 | Binatone Steam Iron *(demo)* | `binatone-iron` | Stock — `images/stock/iron.jpg` |
@@ -184,7 +208,7 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | Instant Pot Electric Pressure Cooker 6L *(demo)* | `pressure-cooker-6l` | Stock — `images/stock/pressure-cooker.jpg` |
 | Electric Hot Plate — Double *(demo)* | `hot-plate-double` | Placeholder |
 | Hisense Twin-Tub Washing Machine 7kg *(demo)* | `twin-tub-7kg` | Placeholder |
-| LG Front-Load Washing Machine 7kg *(demo)* | `front-load-7kg` | Stock — `images/stock/washing-machine.jpg` |
+| LG Front-Load Washing Machine 7kg *(demo)* | `front-load-7kg` | Stock — `images/stock/washing-machine.jpg` + gallery `images/stock/washing-machine-2.jpg` |
 | Ariston Water Heater 50L *(demo)* | `water-heater-50l` | Placeholder |
 
 ### Tools & Accessories

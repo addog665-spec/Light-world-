@@ -18,12 +18,19 @@ Every page has the same menu (with a search box) and footer.
 | `cart.html` | Cart, free-delivery progress and printable proforma invoice |
 | `checkout.html` | Customer details, pickup/delivery, payment, order confirmation and invoice |
 | `quote.html` | Quote requests for electricians, contractors and builders |
+| `calculator.html` | Solar & inverter calculator: customers pick appliances and backup hours, and get a recommended inverter, batteries and panels from your stock, with a price, "Add system to cart" and "Get a quote on WhatsApp" |
+| `guides.html`, `guide.html` | Buying guides (cable sizes, bulbs, solar sizing, voltage protection, CCTV, home safety) — written in `js/guides.js` |
+| `track.html` | Order tracking by order number — you update `js/orders.js` |
+| `wishlist.html` | Products the visitor saved with the heart; add all to cart or send the list on WhatsApp |
+| `compare.html` | Up to 4 products side by side (price and every specification) |
 | `about.html` | About the shop, values, who you serve |
 | `contact.html` | Address, hours, phone, email, map link and a contact form (the form prepares a WhatsApp or email message) |
 | `faq.html` | Ordering, payment, delivery and warranty questions, plus buying guides |
 | `delivery.html` | Delivery options and times, returns, warranty, damaged items |
 | `terms.html`, `privacy.html` | Terms & Conditions and Privacy Policy |
 | `404.html` | Shown by GitHub Pages for a wrong address |
+
+Also on every page: **live search** (the magnifier in the header, or press `/`) suggests products, departments and guides as you type; hearts and compare buttons on every product; a **Twi (beta)** language switch. Product pages add a **photo gallery with zoom**, **frequently bought together** and **recently viewed**. The home page adds a **promotion slider**. `shop.html?brand=Newman` is a **brand page**.
 
 Page text that depends on your settings (phone, address, hours, delivery fees, product counts) fills itself in from `js/config.js` and `js/products.js`, so you only change it in one place.
 
@@ -52,6 +59,9 @@ Open **`js/config.js`** and fill in everything marked `TODO`:
 - [ ] **Customer reviews**: replace the sample reviews with real ones, then set `reviewsAreSamples: false`
 - [ ] **Payment badges** (`paymentMethods`): remove any method you don't accept
 - [ ] **Promo strip** (`promo`): write this week's offer, or set `text: ""` to hide it
+- [ ] **Promotion slider** (`promoSlides`): check the offers and prices on the 4 slides
+- [ ] **Map** (`mapQuery`): your exact location (Plus Code or coordinates) so the Contact map pins the shop
+- [ ] **Shop photo** (`shopPhoto`): add a photo of your shopfront — it then appears on the Contact and About pages
 
 Then in **`js/products.js`**:
 
@@ -61,6 +71,13 @@ Then in **`js/products.js`**:
 - [ ] **Labels.** Check which products really are "Best seller", "New" or "Popular", and which are on sale (`oldPrice`).
 - [ ] **Stock.** Add `stock: 0` to anything sold out (and `stock: 3` to show "Only 3 left").
 - [ ] **Photos.** Replace stock and placeholder images with your own photos — see **`IMAGES.md`** for every image spot.
+
+Other files:
+
+- [ ] **Twi translations** (`js/i18n.js`): drafted without a native speaker — have a Twi speaker check every line
+- [ ] **Order tracking** (`js/orders.js`): delete the two `LW-DEMO-…` entries, and add real orders as they move along
+- [ ] **Buying guides** (`js/guides.js`): read them through and adjust anything to your own advice
+- [ ] **Calculator** (`CALC_APPLIANCES` at the top of the calculator section in `js/features.js`): adjust appliance watts if you like; it recommends the Felicity inverters, batteries and Jinko panels in your catalogue, so keep those products (or change the ids in `initCalculator`)
 
 And check the policy pages say what you actually do:
 
@@ -96,6 +113,16 @@ The full list of fields is explained at the top of `js/products.js`.
 - **Ready-made packs:** edit `PACKS` at the bottom of the file. Each pack lists product ids and quantities; its price is worked out from the product prices.
 
 Watch the commas and quotation marks. If the shop page goes blank after an edit, a comma or quote is probably missing.
+
+## Updating order tracking — `js/orders.js`
+
+The site has no database, so tracking is a short list you edit. When you confirm an order, add a line with its number from the invoice:
+
+```js
+{ ref: "LW-261110-NCZ3", method: "delivery", status: "Confirmed", updated: "10 Nov 2026, 10:05am", note: "We'll deliver tomorrow morning." },
+```
+
+Change `status` as it moves (`Received` → `Confirmed` → `Packed` → `Out for delivery` → `Delivered`, or `Ready for pickup` → `Collected` for pickups) and publish. Never put names, phone numbers or addresses in this file — anyone with an order number can see its line.
 
 ## Online payments with Paystack (card + MoMo)
 

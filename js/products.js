@@ -17,6 +17,9 @@
 //  image       optional — YOUR photo of the product, e.g. "images/products/fortune-18w.jpg"
 //  examplePhoto optional — a stock photo of the same kind of item, labelled "Example photo"
 //              (with neither, a coloured block with the icon and product name is shown)
+//  gallery     optional — more photos shown as thumbnails on the product page, e.g.
+//                gallery: ["images/products/inverter-back.jpg", "images/products/inverter-screen.jpg"]
+//  together    optional — product ids for "Frequently bought together" (otherwise TOGETHER below is used)
 //  stock       optional — 0 shows "Out of stock"; 1–5 shows "Only N left"
 //  featured    optional — true shows it on the home page
 //  badge       optional — a short label on the photo, e.g. "Best seller" or "New"
@@ -354,7 +357,7 @@ const PRODUCTS = [
     specs: { Size: "8 inch (200mm)", Mounting: "Wall or window", Shutter: "Back-draught shutter" } },
   { id: "midea-ac-1hp", name: "Midea Split Air Conditioner 1HP", brand: "Midea", category: "fans", type: "Air conditioner", price: 4850, sample: true,
     group: "midea-ac", variant: "1HP", examplePhoto: "images/stock/air-conditioner.jpg",
-    description: "Energy-saving split AC for bedrooms and small offices. Installation kit available — ask us.",
+    description: "Energy-saving split AC (indoor and outdoor unit) for bedrooms and small offices. Installation kit available — ask us.",
     specs: { Capacity: "1HP (9,000 BTU)", Room: "Up to 15m²", Refrigerant: "R410A", Voltage: "220–240V", Warranty: "2 years" } },
   { id: "midea-ac-1-5hp", name: "Midea Split Air Conditioner 1.5HP", brand: "Midea", category: "fans", type: "Air conditioner", price: 6250, sample: true,
     group: "midea-ac", variant: "1.5HP", examplePhoto: "images/stock/air-conditioner.jpg", featured: true,
@@ -375,11 +378,11 @@ const PRODUCTS = [
     specs: { Use: "Hanging ceiling fans" } },
 
   // ================= POWER & BACKUP =================
-  { id: "solar-panel-300w", name: "Jinko Mono Solar Panel 300W", brand: "Jinko", category: "power", type: "Solar panel", price: 1350, sample: true,
+  { id: "solar-panel-300w", name: "Jinko Mono Solar Panel 300W", brand: "Jinko", category: "power", type: "Solar panel", price: 1350, sample: true, gallery: ["images/stock/solar-field.jpg"],
     group: "solar-panel", variant: "300W", examplePhoto: "images/stock/cat-power.jpg",
     description: "High-efficiency monocrystalline panel for home solar systems and solar pumps.",
     specs: { Power: "300W", Type: "Monocrystalline", Voltage: "Vmp 32.5V", Size: "1640 × 992mm", Warranty: "10 years product, 25 years output" } },
-  { id: "solar-panel-450w", name: "Jinko Mono Solar Panel 450W", brand: "Jinko", category: "power", type: "Solar panel", price: 1950, sample: true,
+  { id: "solar-panel-450w", name: "Jinko Mono Solar Panel 450W", brand: "Jinko", category: "power", type: "Solar panel", price: 1950, sample: true, gallery: ["images/stock/solar-field.jpg"],
     group: "solar-panel", variant: "450W", examplePhoto: "images/stock/cat-power.jpg", featured: true,
     bulk: [{ min: 4, price: 1850 }],
     description: "Large half-cut panel — fewer panels for the same power, so less roof space and mounting cost.",
@@ -414,7 +417,7 @@ const PRODUCTS = [
   { id: "ups-1500va", name: "UPS 1500VA Line-Interactive", brand: "APC", category: "power", type: "UPS", price: 1700, sample: true,
     description: "Keeps your computer, router and CCTV recorder running through short power cuts so you can save and shut down.",
     specs: { Capacity: "1500VA / 900W", Backup: "About 10–15 min (one PC)", Outlets: "4 × 13A", "Voltage regulation": "AVR" } },
-  { id: "firman-gen-2-8kva", name: "Firman Petrol Generator 2.8kVA", brand: "Firman", category: "power", type: "Generator", price: 3950, sample: true,
+  { id: "firman-gen-2-8kva", name: "Firman Petrol Generator 2.8kVA", brand: "Firman", category: "power", type: "Generator", price: 3950, sample: true, gallery: ["images/stock/generator-side.jpg"],
     group: "firman-gen", variant: "2.8kVA", examplePhoto: "images/stock/generator.jpg",
     description: "Reliable petrol generator for lights, fans, TV and a fridge. Recoil start.",
     specs: { "Rated output": "2.5kW", "Max output": "2.8kVA", Fuel: "Petrol", Tank: "15L", Start: "Recoil" } },
@@ -439,15 +442,15 @@ const PRODUCTS = [
   { id: "hisense-freezer-200l", name: "Hisense Chest Freezer 200L", brand: "Hisense", category: "appliances", type: "Freezer", price: 5800, sample: true,
     description: "Chest freezer for families and cold-store businesses. Holds frozen for hours during power cuts.",
     specs: { Capacity: "200 litres", Type: "Chest", Temperature: "Down to −24°C", Extras: "Lock and key", Warranty: "2 years (compressor)" } },
-  { id: "nasco-tv-32", name: "Nasco 32\" LED TV", brand: "Nasco", category: "appliances", type: "Television", price: 1990, sample: true,
+  { id: "nasco-tv-32", name: "Nasco 32\" LED TV", brand: "Nasco", category: "appliances", type: "Television", price: 1990, sample: true, gallery: ["images/stock/tv-wall.jpg"],
     group: "tv", variant: "32\"", examplePhoto: "images/stock/tv.jpg",
     description: "HD TV with a built-in free-to-air decoder — watch local stations without a decoder box.",
     specs: { Screen: "32 inch HD (1366 × 768)", Inputs: "2 × HDMI, USB", Tuner: "Digital (DVB-T2)", Mount: "VESA 100 × 100" } },
-  { id: "hisense-tv-43", name: "Hisense 43\" Smart TV (Full HD)", brand: "Hisense", category: "appliances", type: "Television", price: 4250, sample: true,
+  { id: "hisense-tv-43", name: "Hisense 43\" Smart TV (Full HD)", brand: "Hisense", category: "appliances", type: "Television", price: 4250, sample: true, gallery: ["images/stock/tv-wall.jpg"],
     group: "tv", variant: "43\" smart", examplePhoto: "images/stock/tv.jpg", oldPrice: 4600,
     description: "Smart TV with YouTube, Netflix and Showmax built in, plus a digital tuner.",
     specs: { Screen: "43 inch Full HD", Smart: "VIDAA — YouTube, Netflix", Inputs: "3 × HDMI, 2 × USB", Wireless: "Wi-Fi, Bluetooth" } },
-  { id: "samsung-tv-55", name: "Samsung 55\" 4K UHD Smart TV", brand: "Samsung", category: "appliances", type: "Television", price: 8950, sample: true,
+  { id: "samsung-tv-55", name: "Samsung 55\" 4K UHD Smart TV", brand: "Samsung", category: "appliances", type: "Television", price: 8950, sample: true, gallery: ["images/stock/tv.jpg"],
     group: "tv", variant: "55\" 4K", examplePhoto: "images/stock/tv-wall.jpg",
     description: "Big, sharp 4K picture for living rooms. Pair with our TV wall mounts.",
     specs: { Screen: "55 inch 4K UHD", HDR: "HDR10+", Smart: "Tizen — Netflix, YouTube, Prime Video", Inputs: "3 × HDMI, 1 × USB" } },
@@ -482,7 +485,7 @@ const PRODUCTS = [
     group: "washer", variant: "Twin tub 7kg",
     description: "Semi-automatic washer with a separate spinner. Uses little water and works with tank supply.",
     specs: { Capacity: "7kg wash, 4.5kg spin", Type: "Twin tub (semi-auto)", Water: "Manual fill or tap" } },
-  { id: "front-load-7kg", name: "LG Front-Load Washing Machine 7kg", brand: "LG", category: "appliances", type: "Washing machine", price: 5950, sample: true,
+  { id: "front-load-7kg", name: "LG Front-Load Washing Machine 7kg", brand: "LG", category: "appliances", type: "Washing machine", price: 5950, sample: true, gallery: ["images/stock/washing-machine-2.jpg"],
     group: "washer", variant: "Front load 7kg", examplePhoto: "images/stock/washing-machine.jpg",
     description: "Fully automatic washer with inverter motor — quiet, gentle on clothes and economical.",
     specs: { Capacity: "7kg", Type: "Front load, fully automatic", Spin: "1200 rpm", Motor: "Inverter direct drive", Warranty: "2 years" } },
@@ -617,3 +620,36 @@ const PACKS = [
     description: "Tester, screwdriver, insulation tape and screws for everyday jobs.",
     items: [["tester", 1], ["screwdriver", 1], ["tape-big", 1], ["screws-box", 1]] },
 ];
+
+// ============================================================
+//  FREQUENTLY BOUGHT TOGETHER — suggestions on the product page, by product type.
+//  A product's own `together: [...]` list takes priority. Only priced items can be added in one tap.
+// ============================================================
+const TOGETHER = {
+  "Air conditioner": ["cooker-switch", "sollatek-avs-2kva", "cable-roll-4mm"],
+  Fridge: ["voltage-guard", "extension-4way-usb"],
+  Freezer: ["voltage-guard", "sollatek-avs-2kva"],
+  Television: ["newman-tv-mount-14-42", "voltage-guard", "extension-4way-usb"],
+  "Washing machine": ["voltage-guard", "outdoor-socket"],
+  "Water heater": ["cooker-switch", "cable-roll-4mm"],
+  Inverter: ["tubular-battery-200ah", "changeover-63a", "spd-surge"],
+  Battery: ["felicity-inverter-3kva", "changeover-63a"],
+  "Solar panel": ["felicity-inverter-3kva", "tubular-battery-200ah", "cable-ties-200"],
+  "Solar kit": ["changeover-63a", "spd-surge"],
+  Generator: ["changeover-63a", "extension-reel-25m", "voltage-guard"],
+  Stabilizer: ["voltage-guard", "spd-surge"],
+  UPS: ["extension-4way-usb", "spd-surge"],
+  "LED bulb": ["lamp-holder-pin", "lamp-holder-screw", "switch-1gang"],
+  "Ceiling light": ["switch-1gang", "circular-box"],
+  "Ceiling fan": ["fan-hook", "fan-regulator", "fan-capacitor-2.5"],
+  "Standing fan": ["voltage-guard", "multi-adapter-3way"],
+  "Wall socket": ["pattress-box-3x6", "metal-box-3x6", "screws-box"],
+  "Light switch": ["screws-box", "tester", "tape-small"],
+  "House wiring cable": ["cable-clips-6mm", "pvc-conduit-20mm", "tape-big"],
+  "Distribution board": ["mcb-single-pole", "rccb-63a", "spd-surge"],
+  Breaker: ["db-12way", "rccb-63a"],
+  "CCTV kit": ["ups-1500va", "extension-4way-usb", "cable-ties-200"],
+  "CCTV camera": ["hik-dvr-kit-4", "cable-ties-200"],
+  "Power tool": ["screws-box", "stanley-tape-5m", "rechargeable-torch"],
+  "Hand tool": ["tester", "tape-big", "digital-multimeter"],
+};
