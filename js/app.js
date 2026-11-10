@@ -67,6 +67,11 @@ const ICONS = {
   building: '<path d="M4 21V5.5L13 3v18M13 8.5l7 2.5v10M2.5 21h19M7.5 8h2M7.5 12h2M7.5 16h2M16.5 13.5h1M16.5 17h1"/>',
   lock: '<rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5M12 14.5v2.5"/>',
   send: '<path d="M21.5 2.5L10.5 13.5M21.5 2.5l-7 19-4-8-8-4z"/>',
+  heart: '<path d="M12 20.5s-8-4.9-8-10.6A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8 2.9c0 5.7-8 10.6-8 10.6z"/>',
+  compare: '<path d="M8 3.5v17M16 3.5v17M3.5 8h9M11.5 16h9M9.5 6l-3 2 3 2M14.5 14l3 2-3 2"/>',
+  zoom: '<circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.5-4.5M11 8v6M8 11h6"/>',
+  calc: '<rect x="4.5" y="2.5" width="15" height="19" rx="2"/><path d="M8 6.5h8M8 11h.01M12 11h.01M16 11h.01M8 14.5h.01M12 14.5h.01M16 14.5v3.5M8 18h.01M12 18h.01"/>',
+  book: '<path d="M4 4.5A2 2 0 0 1 6 2.5h13v16H6a2 2 0 0 0-2 2zM4 20.5a2 2 0 0 0 2 2h13v-4"/>',
   washer: '<rect x="4" y="2.5" width="16" height="19" rx="2"/><circle cx="12" cy="13.5" r="4.5"/><path d="M4 6.5h16M7.5 4.5h1"/>',
   kettle: '<path d="M6 9.5h10l1.5 11h-13zM8.5 9.5l1-4h3l1 4M17 11.5c2 0 3 1 3 2.5s-1 2.5-2.7 2.5"/>',
   doorbell: '<rect x="7" y="2.5" width="10" height="19" rx="5"/><circle cx="12" cy="9" r="2.2"/><circle cx="12" cy="16" r="1.4"/>',
@@ -100,6 +105,24 @@ function unitPrice(p, qty) {
   for (const tier of p.bulk || []) if (qty >= tier.min && tier.price < price) price = tier.price;
   return price;
 }
+
+// ---------- Saved lists in the visitor's browser: wishlist, compare, recently viewed ----------
+function loadList(key) {
+  try { return (JSON.parse(localStorage.getItem(key)) || []).filter((id) => findProduct(id)); } catch { return []; }
+}
+function saveList(key, ids) {
+  try { localStorage.setItem(key, JSON.stringify(ids)); } catch {}
+  document.dispatchEvent(new CustomEvent("lists-changed"));
+}
+const WISH_KEY = "lightworld-wishlist", COMPARE_KEY = "lightworld-compare", RECENT_KEY = "lightworld-recent";
+const COMPARE_MAX = 4;
+const isWished = (id) => loadList(WISH_KEY).includes(id);
+const isCompared = (id) => loadList(COMPARE_KEY).includes(id);
+
+// ---------- Language (English / Twi beta) ----------
+let LANG = "en";
+try { LANG = localStorage.getItem("lightworld-lang") === "tw" ? "tw" : "en"; } catch {}
+const t = (s) => (LANG === "tw" && typeof I18N_TWI !== "undefined" && I18N_TWI[s]) || s;
 
 // ---------- Cart (stored in the visitor's browser) ----------
 function getCart() {
@@ -166,7 +189,13 @@ function updateCartCount() {
     el.textContent = count;
     el.hidden = count === 0;
   });
+  const wished = loadList(WISH_KEY).length;
+  document.querySelectorAll("[data-wish-count]").forEach((el) => {
+    el.textContent = wished;
+    el.hidden = wished === 0;
+  });
 }
+document.addEventListener("lists-changed", () => updateCartCount());
 
 // ---------- Delivery rules ----------
 //  pickup  — collect from the Kumasi shop, free
@@ -215,9 +244,17 @@ function paymentBadgesHtml() {
 const NAV = [
   ["index.html", "Home", "home"],
   ["shop.html", "Shop", "shop"],
+  ["calculator.html", "Solar Calculator", "calculator"],
+  ["guides.html", "Guides", "guides"],
   ["quote.html", "Trade & Quotes", "quote"],
-  ["about.html", "About", "about"],
   ["contact.html", "Contact", "contact"],
+];
+// extra links shown only in the phone menu
+const NAV_MORE = [
+  ["about.html", "About us", "about"],
+  ["track.html", "Track order", "track"],
+  ["faq.html", "FAQs", "faq"],
+  ["delivery.html", "Delivery & Returns", "delivery"],
 ];
 
 function searchFormHtml(cls, placeholder = "Search products…") {
@@ -229,7 +266,7 @@ function searchFormHtml(cls, placeholder = "Search products…") {
 
 function renderLayout() {
   const page = document.body.dataset.page;
-  const link = ([href, label, key]) => `<a href="${href}" class="${page === key ? "active" : ""}"${page === key ? ' aria-current="page"' : ""}>${label}</a>`;
+  const link = ([href, label, key], cls = "") => `<a href="${href}" class="${cls} ${page === key ? "active" : ""}"${page === key ? ' aria-current="page"' : ""}>${escapeHtml(t(label))}</a>`;
 
   const promo = SHOP.promo?.text ? SHOP.promo : null;
   let promoClosed = false;
@@ -241,23 +278,45 @@ function renderLayout() {
       <button type="button" class="promo-close" aria-label="Close">${icon("close")}</button>
     </div></div>` : ""}
     <div class="topbar"><div class="container">
-      <span>${icon("phone")} <a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a></span>
-      <span class="hide-sm">${icon("pin")} ${escapeHtml(SHOP.address)} <span class="sep"></span> ${icon("clock")} ${escapeHtml(SHOP.hours)}</span>
+      <span>${icon("phone")} <a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a>
+        <span class="hide-sm"><span class="sep"></span> ${icon("clock")} ${escapeHtml(SHOP.hours)}</span></span>
+      <span class="topbar-right"><a href="track.html">${icon("truck")} ${escapeHtml(t("Track order"))}</a></span>
     </div></div>
     <div class="container nav">
       ${logoHtml()}
       <nav class="nav-links" id="nav-links" aria-label="Main">
-        ${searchFormHtml("nav-search-m")}
-        ${NAV.map(link).join("")}
-        <a href="faq.html" class="nav-extra ${page === "faq" ? "active" : ""}">FAQ</a>
-        <a href="delivery.html" class="nav-extra ${page === "delivery" ? "active" : ""}">Delivery &amp; Returns</a>
+        ${searchFormHtml("nav-search-m", t("Search products…"))}
+        ${NAV.map((n) => link(n)).join("")}
+        ${NAV_MORE.map((n) => link(n, "nav-extra")).join("")}
+        <div class="nav-extra lang-row"><span>Language / Kasa</span>
+          <span class="lang-toggle"><button type="button" data-lang="en" aria-pressed="${LANG === "en"}">English</button><button type="button" data-lang="tw" aria-pressed="${LANG === "tw"}">Twi (beta)</button></span></div>
       </nav>
-      ${searchFormHtml("nav-search")}
-      <a href="cart.html" class="cart-btn" aria-label="Cart">
-        ${icon("cart")} <span class="hide-sm">Cart</span><span class="badge" data-cart-count hidden>0</span>
-      </a>
-      <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">${icon("menu")}</button>
+      <div class="nav-icons">
+        <span class="lang-toggle" role="group" aria-label="Language / Kasa">
+          <button type="button" data-lang="en" aria-pressed="${LANG === "en"}" title="English">EN</button><button type="button" data-lang="tw" aria-pressed="${LANG === "tw"}" title="Twi (beta)">Twi</button>
+        </span>
+        <button type="button" class="icon-btn search-toggle" aria-label="${escapeHtml(t("Search"))}" aria-expanded="false" aria-controls="search-panel">${icon("search")}</button>
+        <a href="wishlist.html" class="icon-btn" aria-label="${escapeHtml(t("Wishlist"))}">${icon("heart")}<span class="badge" data-wish-count hidden>0</span></a>
+        <a href="cart.html" class="cart-btn" aria-label="Cart">
+          ${icon("cart")} <span class="hide-sm">${escapeHtml(t("Cart"))}</span><span class="badge" data-cart-count hidden>0</span>
+        </a>
+        <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">${icon("menu")}</button>
+      </div>
+    </div>
+    <div class="search-panel" id="search-panel" hidden>
+      <div class="container">
+        <form class="search-panel-form" action="shop.html" role="search" data-live-search>
+          ${icon("search")}
+          <input type="search" name="q" placeholder="${escapeHtml(t("Search products…"))}" aria-label="Search products" autocomplete="off">
+          <button type="button" class="icon-btn search-close" aria-label="Close search">${icon("close")}</button>
+        </form>
+      </div>
     </div>`;
+
+  document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => {
+    try { localStorage.setItem("lightworld-lang", b.dataset.lang); } catch {}
+    location.reload();
+  }));
 
   document.querySelector(".promo-close")?.addEventListener("click", (e) => {
     e.currentTarget.closest(".promo-strip").remove();
@@ -273,7 +332,7 @@ function renderLayout() {
 
   // keep the header search filled in on the shop page
   const q = new URLSearchParams(location.search).get("q");
-  if (q) document.querySelectorAll(".nav-search input, .nav-search-m input").forEach((i) => { i.value = q; });
+  if (q) document.querySelectorAll(".nav-search-m input").forEach((i) => { i.value = q; });
 
   document.getElementById("site-footer").innerHTML = `
     <div class="container footer-grid">
@@ -281,32 +340,36 @@ function renderLayout() {
         ${logoHtml()}
         <p>${escapeHtml(SHOP.tagline)}.</p>
         <p class="footer-note">Free delivery in Kumasi &amp; Accra on orders of ${moneyRound(SHOP.delivery.freeOver)}+</p>
-        <a class="btn btn-wa btn-sm" target="_blank" rel="noopener" href="${waLink(`Hello ${SHOP.name}, I have a question.`)}">${icon("whatsapp")} Chat on WhatsApp</a>
+        <a class="btn btn-wa btn-sm" target="_blank" rel="noopener" href="${waLink(`Hello ${SHOP.name}, I have a question.`)}">${icon("whatsapp")} ${escapeHtml(t("Chat on WhatsApp"))}</a>
       </div>
       <div>
-        <h4>Shop</h4>
+        <h4>${escapeHtml(t("Shop"))}</h4>
         ${CATEGORIES.map((c) => `<a href="shop.html?cat=${c.id}">${escapeHtml(c.name)}</a>`).join("")}
         <a href="shop.html?deals=1">Deals</a>
       </div>
       <div>
-        <h4>Customer service</h4>
-        <a href="contact.html">Contact us</a>
-        <a href="faq.html">FAQs</a>
-        <a href="delivery.html">Delivery &amp; Returns</a>
+        <h4>${escapeHtml(t("Customer service"))}</h4>
+        <a href="contact.html">${escapeHtml(t("Contact us"))}</a>
+        <a href="track.html">${escapeHtml(t("Track order"))}</a>
+        <a href="faq.html">${escapeHtml(t("FAQs"))}</a>
+        <a href="delivery.html">${escapeHtml(t("Delivery & Returns"))}</a>
         <a href="delivery.html#warranty">Warranty</a>
-        <a href="cart.html">Cart &amp; proforma invoice</a>
-        <h4 class="footer-sub">Company</h4>
-        <a href="about.html">About us</a>
-        <a href="quote.html">Trade &amp; Quotes</a>
+        <a href="wishlist.html">${escapeHtml(t("Wishlist"))}</a>
+        <a href="compare.html">${escapeHtml(t("Compare"))}</a>
+        <h4 class="footer-sub">${escapeHtml(t("Company"))}</h4>
+        <a href="about.html">${escapeHtml(t("About us"))}</a>
+        <a href="quote.html">${escapeHtml(t("Trade & Quotes"))}</a>
+        <a href="calculator.html">${escapeHtml(t("Solar Calculator"))}</a>
+        <a href="guides.html">Buying guides</a>
       </div>
       <div>
-        <h4>Visit us</h4>
+        <h4>${escapeHtml(t("Visit us"))}</h4>
         <p>${escapeHtml(SHOP.address)}${SHOP.gps ? `<br>GPS: ${escapeHtml(SHOP.gps)}` : ""}<br>${escapeHtml(SHOP.hours)}</p>
         <p class="footer-contact">${icon("phone")} <a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a><br>
         ${icon("mail")} <a href="mailto:${SHOP.email}">${escapeHtml(SHOP.email)}</a></p>
       </div>
     </div>
-    ${SHOP.paymentMethods?.length ? `<div class="container pay-row"><span>We accept</span><div class="pay-badges">${paymentBadgesHtml()}</div></div>` : ""}
+    ${SHOP.paymentMethods?.length ? `<div class="container pay-row"><span>${escapeHtml(t("We accept"))}</span><div class="pay-badges">${paymentBadgesHtml()}</div></div>` : ""}
     <div class="copyright"><div class="container">
       <span>© ${new Date().getFullYear()} ${escapeHtml(SHOP.name)}. All rights reserved.</span>
       <span class="legal"><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Policy</a></span>
@@ -329,9 +392,9 @@ function renderLayout() {
   bar.className = "mobile-bar";
   bar.setAttribute("aria-label", "Quick contact");
   bar.innerHTML = `
-    <a href="${telHref(SHOP.phone)}">${icon("phone")}Call</a>
+    <a href="${telHref(SHOP.phone)}">${icon("phone")}${escapeHtml(t("Call"))}</a>
     <a href="${waLink(`Hello ${SHOP.name}, `)}" target="_blank" rel="noopener" class="mb-wa">${icon("whatsapp")}WhatsApp</a>
-    <a href="cart.html">${icon("cart")}Cart<b class="badge" data-cart-count hidden>0</b></a>`;
+    <a href="cart.html">${icon("cart")}${escapeHtml(t("Cart"))}<b class="badge" data-cart-count hidden>0</b></a>`;
   document.body.appendChild(bar);
 
   // gentle fade-in of sections as they scroll into view (styled by the theme; skipped if motion is reduced)
@@ -344,6 +407,10 @@ function renderLayout() {
 
   // static pages mark icons as <span data-icon="name"></span> and live shop values as <span data-fill="name"></span>
   document.querySelectorAll("[data-icon]").forEach((el) => { el.innerHTML = icon(el.dataset.icon); });
+  if (LANG !== "en") {
+    document.documentElement.lang = "tw";
+    document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = t(el.textContent.trim()); });
+  }
   fillShopValues();
 
   updateCartCount();
@@ -407,20 +474,26 @@ function productCard(p) {
   const versions = p.group ? PRODUCTS.filter((x) => x.group === p.group).length : 0;
   return `
     <article class="card">
-      <a class="card-media" href="${href}" tabindex="-1" aria-hidden="true">${productMedia(p)}
-        ${tag}
-        ${out ? `<span class="tag out">Out of stock</span>` : lowStock(p) ? `<span class="tag low">Only ${p.stock} left</span>` : ""}
-      </a>
+      <div class="card-media-wrap">
+        <a class="card-media" href="${href}" tabindex="-1" aria-hidden="true">${productMedia(p)}
+          ${tag}
+          ${out ? `<span class="tag out">Out of stock</span>` : lowStock(p) ? `<span class="tag low">Only ${p.stock} left</span>` : ""}
+        </a>
+        <div class="card-actions">
+          <button type="button" class="act-btn${isWished(p.id) ? " on" : ""}" data-wish="${p.id}" aria-pressed="${isWished(p.id)}" aria-label="Save ${escapeHtml(p.name)} to wishlist" title="Save to wishlist">${icon("heart")}</button>
+          <button type="button" class="act-btn${isCompared(p.id) ? " on" : ""}" data-compare="${p.id}" aria-pressed="${isCompared(p.id)}" aria-label="Compare ${escapeHtml(p.name)}" title="Compare">${icon("compare")}</button>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-cat">${escapeHtml(p.brand || findCategory(p.category)?.name || "")}</div>
         <h3><a href="${href}">${escapeHtml(p.name)}</a></h3>
         <p class="bulk-hint">${best ? `Bulk: ${money(best.price)} each for ${best.min}+` : versions > 1 ? `<span class="muted-hint">${versions} versions available</span>` : ""}</p>
         <div class="card-foot">
           ${askPrice(p)
-            ? `<div class="price ask">Price on request</div>
-               <a class="btn btn-sm btn-wa" target="_blank" rel="noopener" href="${askPriceLink(p)}">Ask for price</a>`
+            ? `<div class="price ask">${escapeHtml(t("Price on request"))}</div>
+               <a class="btn btn-sm btn-wa" target="_blank" rel="noopener" href="${askPriceLink(p)}">${escapeHtml(t("Ask for price"))}</a>`
             : `<div class="price">${money(p.price)}${p.oldPrice ? ` <s>${money(p.oldPrice)}</s>` : ""}</div>
-               <button class="btn btn-sm" data-add="${p.id}" ${out ? "disabled" : ""}>${out ? "Sold out" : "Add to cart"}</button>`}
+               <button class="btn btn-sm" data-add="${p.id}" ${out ? "disabled" : ""}>${escapeHtml(t(out ? "Sold out" : "Add to cart"))}</button>`}
         </div>
       </div>
     </article>`;
@@ -538,7 +611,7 @@ function initHome() {
   PRODUCTS.forEach((p) => { if (p.brand) brands[p.brand] = (brands[p.brand] || 0) + 1; });
   document.getElementById("brand-grid").innerHTML = Object.entries(brands)
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .map(([name, n]) => `<a class="brand-tile" href="shop.html?q=${encodeURIComponent(name)}">
+    .map(([name, n]) => `<a class="brand-tile" href="shop.html?brand=${encodeURIComponent(name)}">
       <strong>${escapeHtml(name)}</strong><small>${n} product${n === 1 ? "" : "s"}</small></a>`)
     .join("");
   document.getElementById("pack-grid").innerHTML = PACKS.map((k) => {
@@ -620,6 +693,18 @@ function initShop() {
 
   const renderBanner = () => {
     const c = findCategory(state.cat);
+    // a single brand with no category is that brand's page
+    if (!c && state.brands.length === 1 && !state.deals) {
+      const b = state.brands[0];
+      const items = PRODUCTS.filter((p) => p.brand === b);
+      const cats = [...new Set(items.map((p) => findCategory(p.category)?.name))];
+      banner.innerHTML = `<div class="shop-banner brand-banner"><div class="shop-banner-text">
+          <nav class="crumbs"><a href="index.html">Home</a> › <a href="shop.html">Shop</a> › Brands › ${escapeHtml(b)}</nav>
+          <p class="brand-word">${escapeHtml(b)}</p>
+          <p>${items.length} product${items.length === 1 ? "" : "s"} from ${escapeHtml(b)} in ${escapeHtml(cats.join(", "))}. Genuine stock from trusted suppliers.</p></div></div>`;
+      document.title = `${b} — ${SHOP.name}`;
+      return;
+    }
     banner.innerHTML = c
       ? `<div class="shop-banner has-photo"><img src="${escapeHtml(c.photo)}" alt="">
           <div class="shop-banner-text"><nav class="crumbs"><a href="index.html">Home</a> › <a href="shop.html">Shop</a> › ${escapeHtml(c.name)}</nav>
@@ -728,6 +813,7 @@ function initShop() {
     if (t.name === "type" || t.name === "brand") {
       const key = t.name === "type" ? "types" : "brands";
       state[key] = [...facets.querySelectorAll(`input[name=${t.name}]:checked`)].map((i) => i.value);
+      if (key === "brands") renderBanner();
     }
     if (t.name === "min" || t.name === "max") state[t.name] = t.value;
     if (t.name === "avail") state.avail = t.checked;
@@ -780,6 +866,7 @@ function initProduct() {
   const tiers = [{ min: 1, price: p.price }, ...(p.bulk || [])];
   const specs = Object.entries(p.specs || {});
   const versions = p.group ? PRODUCTS.filter((x) => x.group === p.group) : [];
+  const photos = [p.image || p.examplePhoto, ...(p.gallery || [])].filter(Boolean);
   const stockLine = out ? `<p class="stock no">● Out of stock — ask us when it's back</p>`
     : lowStock(p) ? `<p class="stock low">● Only ${p.stock} left in stock</p>`
     : `<p class="stock yes">● In stock</p>`;
@@ -787,7 +874,12 @@ function initProduct() {
   root.innerHTML = `
     <nav class="crumbs"><a href="index.html">Home</a> › <a href="shop.html">Shop</a> › <a href="shop.html?cat=${p.category}">${escapeHtml(cat?.name || "")}</a> › ${escapeHtml(p.name)}</nav>
     <div class="pd">
-      <div class="pd-media">${productMedia(p)}${p.oldPrice ? `<span class="tag sale">−${discountPct(p)}%</span>` : p.badge ? `<span class="tag hot">${escapeHtml(p.badge)}</span>` : ""}</div>
+      <div class="pd-gallery">
+        <div class="pd-media" ${photos.length ? `data-zoomable tabindex="0" role="button" aria-label="Enlarge photo"` : ""}>${productMedia(p)}${p.oldPrice ? `<span class="tag sale">−${discountPct(p)}%</span>` : p.badge ? `<span class="tag hot">${escapeHtml(p.badge)}</span>` : ""}
+          ${photos.length ? `<span class="zoom-hint">${icon("zoom")}</span>` : ""}</div>
+        ${photos.length > 1 ? `<div class="pd-thumbs">${photos.map((src, i) =>
+          `<button type="button" class="pd-thumb${i === 0 ? " active" : ""}" data-photo="${escapeHtml(src)}" aria-label="Photo ${i + 1}"><img src="${escapeHtml(src)}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}
+      </div>
       <div class="pd-info">
         ${p.brand ? `<div class="card-cat">${escapeHtml(p.brand)}</div>` : ""}
         <h1>${escapeHtml(p.name)}</h1>
@@ -813,17 +905,21 @@ function initProduct() {
             : ""
         }
         ${askPrice(p) ? `<div class="pd-buy">
-          <a class="btn btn-lg btn-wa" target="_blank" rel="noopener" href="${askPriceLink(p)}">Ask for price on WhatsApp</a>
+          <a class="btn btn-lg btn-wa" target="_blank" rel="noopener" href="${askPriceLink(p)}">${escapeHtml(t("Ask for price"))} — WhatsApp</a>
         </div>` : `<div class="pd-buy">
           <div class="qty qty-lg">
             <button type="button" aria-label="Decrease" data-step="-1">−</button>
             <input id="pd-qty" type="number" min="1" value="1" inputmode="numeric" aria-label="Quantity">
             <button type="button" aria-label="Increase" data-step="1">+</button>
           </div>
-          <button class="btn btn-lg" id="pd-add" ${out ? "disabled" : ""}>${out ? "Sold out" : "Add to cart"}</button>
+          <button class="btn btn-lg" id="pd-add" ${out ? "disabled" : ""}>${escapeHtml(t(out ? "Sold out" : "Add to cart"))}</button>
           ${out ? "" : `<a class="btn btn-lg btn-wa" id="pd-wa" target="_blank" rel="noopener">Order on WhatsApp</a>`}
         </div>
         <p class="pd-line" id="pd-line"></p>`}
+        <div class="pd-secondary">
+          <button type="button" class="link-btn${isWished(p.id) ? " on" : ""}" data-wish="${p.id}" aria-pressed="${isWished(p.id)}">${icon("heart")} <span>${isWished(p.id) ? "Saved to wishlist" : "Save to wishlist"}</span></button>
+          <button type="button" class="link-btn${isCompared(p.id) ? " on" : ""}" data-compare="${p.id}" aria-pressed="${isCompared(p.id)}">${icon("compare")} <span>${isCompared(p.id) ? "Added to compare" : "Compare"}</span></button>
+        </div>
         <p class="hint">Buying for a project? <a href="quote.html?item=${encodeURIComponent(p.id)}">Request a quote</a> for large quantities.</p>
         <ul class="pd-assure">
           <li>${icon("shield")} Genuine, original stock</li>
@@ -835,7 +931,8 @@ function initProduct() {
     ${specs.length ? `<section class="specs"><h2>Specifications</h2><table>
         ${p.brand ? `<tr><th>Brand</th><td>${escapeHtml(p.brand)}</td></tr>` : ""}
         ${specs.map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`).join("")}
-      </table></section>` : ""}`;
+      </table></section>` : ""}
+    <section id="together" class="together" hidden></section>`;
 
   if (!askPrice(p)) initBuyBox(root, p);
 
