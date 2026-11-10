@@ -1,0 +1,165 @@
+/* ============================================================
+   LIQUID GLASS FINISH — frosted, see-through panels over a soft
+   blue glow that matches the logo. Layered on top of minimal.css;
+   remove its <link> from a page to go back to the plain look.
+   Buttons stay flat (no gloss or glow).
+   ============================================================ */
+:root {
+  --stone: #f1f4fa;
+  --line: rgba(20, 50, 110, .10);
+  --glass: linear-gradient(150deg, rgba(255, 255, 255, .80), rgba(255, 255, 255, .56));
+  --glass-strong: linear-gradient(150deg, rgba(255, 255, 255, .94), rgba(255, 255, 255, .74));
+  --glass-edge: rgba(255, 255, 255, .85);
+  --blur: blur(22px) saturate(180%);
+  --glass-shadow: 0 1px 2px rgba(16, 40, 90, .04), 0 12px 32px rgba(16, 40, 90, .07), inset 0 1px 0 rgba(255, 255, 255, .95);
+  --glass-shadow-hover: 0 2px 4px rgba(16, 40, 90, .05), 0 20px 44px rgba(16, 40, 90, .12), inset 0 1px 0 #fff;
+  --smooth: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ---------- The soft blue glow behind the glass ---------- */
+html { background: #eef3fc; }
+body { background: transparent; }
+body::before {
+  content: ""; position: fixed; inset: -15%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(36% 32% at 10% 14%, rgba(47, 123, 255, .20), transparent 70%),
+    radial-gradient(34% 30% at 90% 10%, rgba(122, 169, 255, .24), transparent 70%),
+    radial-gradient(40% 36% at 78% 82%, rgba(22, 86, 214, .13), transparent 70%),
+    radial-gradient(34% 30% at 6% 78%, rgba(160, 196, 255, .26), transparent 70%),
+    linear-gradient(165deg, #f3f7fe 0%, #f8fafd 50%, #eef3fc 100%);
+  animation: liquid-drift 48s ease-in-out infinite alternate;
+}
+@keyframes liquid-drift { to { transform: translate3d(2.5%, -2%, 0) scale(1.05) rotate(1.5deg); } }
+::selection { background: #cfe0ff; color: var(--ink); }
+
+/* ---------- Sections float on the glow ---------- */
+.section, .section.reviews, .section.packs { background: transparent; }
+.section.alt, .section.brands, .section#contact { background: rgba(255, 255, 255, .38); }
+.perks { background: rgba(255, 255, 255, .5); border-bottom: 1px solid var(--glass-edge); }
+
+/* ---------- Glass surfaces ---------- */
+#site-header, .perks, .card, .cat-tile, .pack, .info-card, .review, .brand-grid, .checkout, .about-box, .bulk-box, .empty,
+.pd-media, .tiers, .chip, .qty, .toolbar input, .toolbar select, .hero-search, .btn-ghost, .mobile-bar, #toast {
+  -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur);
+}
+.card, .cat-tile, .pack, .info-card, .review, .checkout, .about-box, .bulk-box, .empty {
+  background: var(--glass); border: 1px solid var(--glass-edge); border-radius: 20px; box-shadow: var(--glass-shadow);
+  transition: transform .6s var(--smooth), box-shadow .6s var(--smooth), background .4s var(--smooth);
+}
+.card:hover, .cat-tile:hover, .pack:hover, .review:hover {
+  transform: translateY(-3px); box-shadow: var(--glass-shadow-hover); background: var(--glass-strong);
+}
+
+/* header: frosted bar the page glides under */
+#site-header { background: rgba(255, 255, 255, .62); box-shadow: 0 1px 0 var(--glass-edge), 0 8px 30px rgba(16, 40, 90, .06); }
+.promo-strip { background: #0d1a36; }
+.nav-links a { transition: color .3s var(--smooth), border-color .3s var(--smooth); }
+.nav-links a:hover, .nav-links a.active { border-color: var(--brand); }
+.cart-btn { background: var(--brand); transition: background .3s var(--smooth), transform .3s var(--smooth); }
+.cart-btn:hover { background: var(--brand-dark); }
+.cart-btn .badge { background: #fff; color: var(--brand-dark); }
+
+/* ---------- Buttons: flat, with smooth motion ---------- */
+.btn { transition: background .3s var(--smooth), color .3s var(--smooth), border-color .3s var(--smooth), transform .25s var(--smooth); }
+.btn:active { transform: scale(.98); }
+.btn-ghost { background: rgba(255, 255, 255, .55); border: 1px solid var(--glass-edge); box-shadow: inset 0 1px 0 #fff; }
+.btn-ghost:hover { background: rgba(255, 255, 255, .85); border-color: #fff; }
+.hero .btn-ghost { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .45); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2); }
+.hero .btn-ghost:hover { background: rgba(255, 255, 255, .16); border-color: #fff; }
+.hero .hero-search .btn { background: var(--brand); }
+.hero .hero-search .btn:hover { background: var(--brand-dark); }
+
+/* ---------- Hero ---------- */
+.hero-search { background: rgba(255, 255, 255, .96); border: 1px solid rgba(255, 255, 255, .6); box-shadow: 0 16px 40px rgba(0, 0, 0, .25), inset 0 1px 0 #fff; }
+.hero-search input { background: transparent; }
+.hero-popular a { background: rgba(255, 255, 255, .08); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  transition: background .3s var(--smooth), border-color .3s var(--smooth); }
+.hero-popular a:hover { background: rgba(255, 255, 255, .16); }
+
+/* ---------- Category tiles: glass cards with the photo inside ---------- */
+.cat-tile { padding: 8px 8px 14px !important; }
+.cat-tile strong, .cat-tile small { padding: 0 6px; }
+.cat-media, .cat-grid:has(.cat-photo) .cat-tile:not(:has(.cat-photo)) .cat-icon { border-radius: 14px; margin-bottom: 10px; }
+
+/* ---------- Product cards ---------- */
+.card { padding: 8px; }
+.card-media { border-radius: 14px; background: var(--stone); }
+.card-media:has(img), .section.alt .card-media, .section.alt .card-media:has(img) { background: var(--stone); }
+.card-body { padding: 12px 6px 4px; }
+.card:hover .card-media img { transform: scale(1.04); }
+.card-media img { transition: transform .8s var(--smooth); }
+.tag.hot { background: var(--brand); }
+.tag.example-tag { background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+
+/* ---------- Packs, reviews, brands, info ---------- */
+.pack { padding: 24px; }
+.pack-icon, .perk-icon, .info-card span { background: rgba(22, 86, 214, .08); color: var(--brand-dark); }
+.review { padding: 24px; border-top: 1px solid var(--glass-edge); }
+.review .stars { color: var(--brand); }
+.brand-grid { background: var(--glass); border: 1px solid var(--glass-edge); border-radius: 20px; overflow: hidden; box-shadow: var(--glass-shadow); }
+.brand-tile { border-color: var(--line); transition: background .4s var(--smooth); }
+.brand-tile:hover { background: rgba(255, 255, 255, .7); }
+.about-box { color: var(--ink); }
+.sample-note { background: rgba(255, 255, 255, .7); border-color: rgba(22, 86, 214, .3); }
+
+/* ---------- Trade band and footer: deep blue ---------- */
+.trade { background: linear-gradient(135deg, #0a2f86 0%, #1450c8 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12); }
+.trade .eyebrow { color: #bcd2ff; }
+#site-footer { background: #0b1530; }
+#site-footer .pay-badge { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .14); }
+
+/* ---------- Forms & controls ---------- */
+.toolbar input, .toolbar select, .checkout input, .checkout select, .checkout textarea {
+  background: rgba(255, 255, 255, .78); border: 1px solid var(--line); border-radius: 12px;
+  transition: border-color .3s var(--smooth), box-shadow .3s var(--smooth), background .3s var(--smooth); }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 4px rgba(22, 86, 214, .15); background: #fff; }
+.chip { background: rgba(255, 255, 255, .6); border: 1px solid var(--glass-edge); box-shadow: inset 0 1px 0 #fff;
+  transition: background .3s var(--smooth), border-color .3s var(--smooth), color .3s var(--smooth); }
+.chip:hover { background: rgba(255, 255, 255, .9); border-color: #fff; }
+.chip.active { background: var(--brand); border-color: var(--brand); color: #fff; box-shadow: none; }
+.qty { background: rgba(255, 255, 255, .7); border: 1px solid var(--glass-edge); }
+.checkout .radio { background: rgba(255, 255, 255, .6); border: 1px solid var(--glass-edge); transition: border-color .3s var(--smooth), box-shadow .3s var(--smooth); }
+.checkout .radio:has(input:checked) { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand); }
+.checkout .radio input { accent-color: var(--brand); }
+.pd-media { background: var(--glass); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); }
+.pd-media:has(img) { background: var(--stone); }
+.tiers { background: rgba(255, 255, 255, .55); border: 1px solid var(--glass-edge); }
+.specs table { background: rgba(255, 255, 255, .55); border-radius: 14px; overflow: hidden; }
+.specs th { background: rgba(255, 255, 255, .5); }
+.success-box { background: linear-gradient(150deg, rgba(232, 247, 238, .92), rgba(232, 247, 238, .7)); }
+:focus-visible { outline-color: var(--brand); }
+
+/* ---------- Toast, floating button ---------- */
+#toast { background: rgba(13, 26, 54, .82); border: 1px solid rgba(255, 255, 255, .12); border-radius: 14px; }
+
+/* ---------- Smooth reveal ---------- */
+.reveal { transition: opacity 1s var(--smooth), transform 1s var(--smooth); }
+
+/* ---------- Phones ---------- */
+@media (max-width: 760px) {
+  /* no blur on phones: smoother scrolling on budget handsets, and blurred layers sliding under
+     the header can show through it; the panels keep their frosted colour */
+  *, *::before, *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  :root { --glass: linear-gradient(150deg, rgba(255, 255, 255, .92), rgba(255, 255, 255, .8)); }
+  #site-header, .nav-links { background: #fff; }
+  .mobile-bar { background: rgba(255, 255, 255, .96); }
+  .hero-search { background: #fff; }
+}
+
+/* ---------- Accessibility & fallbacks ---------- */
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+  .card, .cat-tile, .pack, .review, .card-media img { transition: none; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root { --glass: rgba(255, 255, 255, .93); }
+  #site-header { background: rgba(255, 255, 255, .97); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass: rgba(255, 255, 255, .96); }
+  #site-header { background: #fff; }
+}
+@media print {
+  html, body { background: #fff; }
+  body::before { display: none; }
+}
