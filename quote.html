@@ -21,16 +21,25 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/minimal.css">
   <link rel="stylesheet" href="css/liquid.css">
+  <link rel="stylesheet" href="css/pages.css">
 </head>
 <body data-page="quote">
   <header id="site-header"></header>
 
-  <main class="section">
+  <main id="main">
+  <section class="page-hero">
+    <img src="images/stock/page-trade.jpg" alt="">
+    <div class="container">
+      <nav class="crumbs"><a href="index.html">Home</a> › Trade &amp; Quotes</nav>
+      <h1>Trade &amp; project quotes</h1>
+      <p>For electricians, contractors and builders: send your materials list and get our best bulk price, usually within one working day.</p>
+    </div>
+  </section>
+  <section class="section">
     <div class="container quote-layout">
       <div>
-        <p class="eyebrow dark">For electricians, contractors &amp; builders</p>
-        <h1>Request a quote</h1>
-        <p>Send us your materials list (or a photo of it on WhatsApp) and we'll reply with our best price, usually within one working day.</p>
+        <h2>Request a quote</h2>
+        <p>Fill in the form, or send a photo of your list on <a data-href="whatsapp" target="_blank" rel="noopener">WhatsApp</a>.</p>
 
         <div id="quote-result" hidden></div>
         <form id="quote-form" class="checkout">
@@ -78,6 +87,7 @@
         </div>
       </aside>
     </div>
+  </section>
   </main>
 
   <footer id="site-footer"></footer>

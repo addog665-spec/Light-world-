@@ -93,7 +93,7 @@ body::before {
 
 /* ---------- Packs, reviews, brands, info ---------- */
 .pack { padding: 24px; }
-.pack-icon, .perk-icon, .info-card span { background: rgba(22, 86, 214, .08); color: var(--brand-dark); }
+.pack-icon, .perk-icon, .info-card > span { background: rgba(22, 86, 214, .08); color: var(--brand-dark); }
 .review { padding: 24px; border-top: 1px solid var(--glass-edge); }
 .review .stars { color: var(--brand); }
 .brand-grid { background: var(--glass); border: 1px solid var(--glass-edge); border-radius: 20px; overflow: hidden; box-shadow: var(--glass-shadow); }

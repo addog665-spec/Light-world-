@@ -190,8 +190,8 @@ main { flex: 1 0 auto; }
 
 .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .info-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-.info-card span { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); color: var(--ink); }
-.info-card span .ico { width: 22px; height: 22px; }
+.info-card > span { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); color: var(--ink); }
+.info-card > span .ico { width: 22px; height: 22px; }
 .info-card h3 { margin: 8px 0 4px; font-size: 1.05rem; }
 .info-card p { margin: 0; color: var(--ink-soft); font-size: .93rem; }
 

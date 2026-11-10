@@ -20,6 +20,9 @@ const mailLink = (subject, body) =>
 const unitName = (p) => p.unit || "piece";
 // Products with price: null are shown as "Ask for price" and can't go in the cart
 const askPrice = (p) => p.price == null;
+const discountPct = (p) => (p.oldPrice && p.price ? Math.round((1 - p.price / p.oldPrice) * 100) : 0);
+const lowStock = (p) => p.stock > 0 && p.stock <= 5;
+const productHref = (p) => `product.html?id=${encodeURIComponent(p.id)}`;
 const askPriceLink = (p) => waLink(`Hello ${SHOP.name}, what is the price of: ${p.name}?`);
 
 // ---------- Line icons (24×24, drawn with the text colour) ----------
@@ -51,6 +54,30 @@ const ICONS = {
   printer: '<path d="M7 9V3.5h10V9"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/>',
   check: '<path d="M4.5 12.5l5 5 10-11"/>',
   search: '<circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.5-4.5"/>',
+  solar: '<rect x="3" y="9" width="18" height="10" rx="1"/><path d="M3 14h18M9 9v10M15 9v10M12 2.5v2.5M6.6 4.6l1.4 1.4M17.4 4.6L16 6"/>',
+  battery: '<rect x="2.5" y="7" width="17" height="10" rx="2"/><path d="M21.5 10.5v3M6 10v4M9.5 10v4"/>',
+  fridge: '<rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M5 9.5h14M8.5 5.5v2M8.5 12.5v3"/>',
+  tv: '<rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  camera: '<path d="M3 7.5h11l3 3.5-3 3.5H3z"/><path d="M17 11h3.5M8.5 14.5V20M5.5 20h6"/><circle cx="8" cy="11" r="1.6"/>',
+  filter: '<path d="M3.5 5h17l-6.5 8v6l-4 1.5V13z"/>',
+  chevron: '<path d="M9 5.5l6.5 6.5L9 18.5"/>',
+  refresh: '<path d="M20 11.5A8 8 0 0 0 5.6 6.6L3.5 9M4 12.5a8 8 0 0 0 14.4 4.9L20.5 15M3.5 4v5h5M20.5 20v-5h-5"/>',
+  award: '<circle cx="12" cy="9" r="6"/><path d="M8.5 13.8L7 21.5l5-2.8 5 2.8-1.5-7.7"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20.5a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.3a6.5 6.5 0 0 1 3.5 6.2"/>',
+  building: '<path d="M4 21V5.5L13 3v18M13 8.5l7 2.5v10M2.5 21h19M7.5 8h2M7.5 12h2M7.5 16h2M16.5 13.5h1M16.5 17h1"/>',
+  lock: '<rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5M12 14.5v2.5"/>',
+  send: '<path d="M21.5 2.5L10.5 13.5M21.5 2.5l-7 19-4-8-8-4z"/>',
+  washer: '<rect x="4" y="2.5" width="16" height="19" rx="2"/><circle cx="12" cy="13.5" r="4.5"/><path d="M4 6.5h16M7.5 4.5h1"/>',
+  kettle: '<path d="M6 9.5h10l1.5 11h-13zM8.5 9.5l1-4h3l1 4M17 11.5c2 0 3 1 3 2.5s-1 2.5-2.7 2.5"/>',
+  doorbell: '<rect x="7" y="2.5" width="10" height="19" rx="5"/><circle cx="12" cy="9" r="2.2"/><circle cx="12" cy="16" r="1.4"/>',
+  sensor: '<circle cx="12" cy="12" r="3"/><path d="M6.3 6.3a8 8 0 0 0 0 11.4M17.7 6.3a8 8 0 0 1 0 11.4M3.5 3.5a12 12 0 0 0 0 17M20.5 3.5a12 12 0 0 1 0 17"/>',
+  tape: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/>',
+  drill: '<path d="M3 7h11v6H3zM14 9h4M18 8v2h3.5M6 13l-1 8h4l1-8"/>',
+  torch: '<path d="M8 2.5h8l-1.5 6v13h-5v-13zM10 12.5h4"/>',
+  chandelier: '<path d="M12 2.5v5M5 10.5h14M5 10.5c0 3 3.1 5.5 7 5.5s7-2.5 7-5.5M8 16v3M12 16v4M16 16v3M12 7.5a2 2 0 0 0-2 2v1M12 7.5a2 2 0 0 1 2 2v1"/>',
+  flood: '<rect x="3" y="5.5" width="13" height="10" rx="1.5"/><path d="M9.5 15.5v3.5M6 19h7M19 7l2.5-1.5M19 10.5h3M19 14l2.5 1.5"/>',
+
+
   clipboard: '<rect x="5" y="4" width="14" height="17.5" rx="2"/><path d="M9 4V2.5h6V4M8.5 10h7M8.5 14h7M8.5 18h4"/>',
   star: '<path fill="currentColor" stroke="none" d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/>',
   whatsapp: '<path fill="currentColor" stroke="none" d="M12 2.3a9.6 9.6 0 0 0-8.3 14.5L2.3 21.7l5-1.3A9.6 9.6 0 1 0 12 2.3zm0 17.6a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.8 1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.5-.3z"/>',
@@ -184,14 +211,31 @@ function paymentBadgesHtml() {
     `<span class="pay-badge ${PAY_BADGE_CLASS[m.toLowerCase()] || ""}">${escapeHtml(m)}</span>`).join("");
 }
 
+// Pages in the main menu (key = <body data-page="...">)
+const NAV = [
+  ["index.html", "Home", "home"],
+  ["shop.html", "Shop", "shop"],
+  ["quote.html", "Trade & Quotes", "quote"],
+  ["about.html", "About", "about"],
+  ["contact.html", "Contact", "contact"],
+];
+
+function searchFormHtml(cls, placeholder = "Search products…") {
+  return `<form class="${cls}" action="shop.html" role="search">
+    <input type="search" name="q" placeholder="${placeholder}" aria-label="Search products">
+    <button type="submit" aria-label="Search">${icon("search")}</button>
+  </form>`;
+}
+
 function renderLayout() {
   const page = document.body.dataset.page;
-  const link = (href, label, key) => `<a href="${href}" class="${page === key ? "active" : ""}">${label}</a>`;
+  const link = ([href, label, key]) => `<a href="${href}" class="${page === key ? "active" : ""}"${page === key ? ' aria-current="page"' : ""}>${label}</a>`;
 
   const promo = SHOP.promo?.text ? SHOP.promo : null;
   let promoClosed = false;
   try { promoClosed = !!promo && localStorage.getItem("lightworld-promo-closed") === promo.text; } catch {}
   document.getElementById("site-header").innerHTML = `
+    <a class="skip-link" href="#main">Skip to content</a>
     ${promo && !promoClosed ? `<div class="promo-strip"><div class="container">
       <span>${escapeHtml(promo.text)}${promo.link ? ` <a href="${escapeHtml(promo.link)}">${escapeHtml(promo.linkText || "Find out more")} →</a>` : ""}</span>
       <button type="button" class="promo-close" aria-label="Close">${icon("close")}</button>
@@ -202,12 +246,13 @@ function renderLayout() {
     </div></div>
     <div class="container nav">
       ${logoHtml()}
-      <nav class="nav-links" id="nav-links">
-        ${link("index.html", "Home", "home")}
-        ${link("shop.html", "Shop", "shop")}
-        ${link("quote.html", "Trade & Quotes", "quote")}
-        ${link("index.html#contact", "Contact", "contact")}
+      <nav class="nav-links" id="nav-links" aria-label="Main">
+        ${searchFormHtml("nav-search-m")}
+        ${NAV.map(link).join("")}
+        <a href="faq.html" class="nav-extra ${page === "faq" ? "active" : ""}">FAQ</a>
+        <a href="delivery.html" class="nav-extra ${page === "delivery" ? "active" : ""}">Delivery &amp; Returns</a>
       </nav>
+      ${searchFormHtml("nav-search")}
       <a href="cart.html" class="cart-btn" aria-label="Cart">
         ${icon("cart")} <span class="hide-sm">Cart</span><span class="badge" data-cart-count hidden>0</span>
       </a>
@@ -226,22 +271,33 @@ function renderLayout() {
     menuBtn.innerHTML = icon(open ? "close" : "menu");
   });
 
+  // keep the header search filled in on the shop page
+  const q = new URLSearchParams(location.search).get("q");
+  if (q) document.querySelectorAll(".nav-search input, .nav-search-m input").forEach((i) => { i.value = q; });
+
   document.getElementById("site-footer").innerHTML = `
     <div class="container footer-grid">
-      <div>
+      <div class="footer-brand">
         ${logoHtml()}
         <p>${escapeHtml(SHOP.tagline)}.</p>
         <p class="footer-note">Free delivery in Kumasi &amp; Accra on orders of ${moneyRound(SHOP.delivery.freeOver)}+</p>
+        <a class="btn btn-wa btn-sm" target="_blank" rel="noopener" href="${waLink(`Hello ${SHOP.name}, I have a question.`)}">${icon("whatsapp")} Chat on WhatsApp</a>
       </div>
       <div>
         <h4>Shop</h4>
         ${CATEGORIES.map((c) => `<a href="shop.html?cat=${c.id}">${escapeHtml(c.name)}</a>`).join("")}
+        <a href="shop.html?deals=1">Deals</a>
       </div>
       <div>
-        <h4>For the trade</h4>
-        <a href="quote.html">Request a quote</a>
-        <a href="quote.html#bulk">Bulk prices</a>
-        <a href="cart.html">Proforma invoice</a>
+        <h4>Customer service</h4>
+        <a href="contact.html">Contact us</a>
+        <a href="faq.html">FAQs</a>
+        <a href="delivery.html">Delivery &amp; Returns</a>
+        <a href="delivery.html#warranty">Warranty</a>
+        <a href="cart.html">Cart &amp; proforma invoice</a>
+        <h4 class="footer-sub">Company</h4>
+        <a href="about.html">About us</a>
+        <a href="quote.html">Trade &amp; Quotes</a>
       </div>
       <div>
         <h4>Visit us</h4>
@@ -251,7 +307,10 @@ function renderLayout() {
       </div>
     </div>
     ${SHOP.paymentMethods?.length ? `<div class="container pay-row"><span>We accept</span><div class="pay-badges">${paymentBadgesHtml()}</div></div>` : ""}
-    <div class="copyright">© ${new Date().getFullYear()} ${escapeHtml(SHOP.name)}. All rights reserved.</div>`;
+    <div class="copyright"><div class="container">
+      <span>© ${new Date().getFullYear()} ${escapeHtml(SHOP.name)}. All rights reserved.</span>
+      <span class="legal"><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Policy</a></span>
+    </div></div>`;
 
   document.querySelectorAll("[data-pay-badges]").forEach((el) => { el.innerHTML = paymentBadgesHtml(); });
 
@@ -280,39 +339,82 @@ function renderLayout() {
     const io = new IntersectionObserver((entries) => entries.forEach((e) => {
       if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
     }), { rootMargin: "0px 0px -8% 0px" });
-    document.querySelectorAll("main > section:not(.hero)").forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+    document.querySelectorAll("main > section:not(.hero):not(.page-hero)").forEach((el) => { el.classList.add("reveal"); io.observe(el); });
   }
 
-  // static pages mark icons as <span data-icon="name"></span>
+  // static pages mark icons as <span data-icon="name"></span> and live shop values as <span data-fill="name"></span>
   document.querySelectorAll("[data-icon]").forEach((el) => { el.innerHTML = icon(el.dataset.icon); });
+  fillShopValues();
 
   updateCartCount();
 }
 
+// Values from js/config.js and js/products.js used in page text, so pages stay correct when settings change
+function fillShopValues() {
+  const D = SHOP.delivery;
+  const brands = new Set(PRODUCTS.map((p) => p.brand).filter(Boolean));
+  const values = {
+    name: SHOP.name, phone: SHOP.phone, email: SHOP.email, address: SHOP.address, gps: SHOP.gps || "—", hours: SHOP.hours,
+    kumasiFee: moneyRound(D.kumasiFee), freeOver: moneyRound(D.freeOver), accraMinimum: moneyRound(D.accraMinimum), accraFee: moneyRound(D.accraFee),
+    productCount: `${PRODUCTS.length}+`, brandCount: `${brands.size}+`, categoryCount: String(CATEGORIES.length),
+    payments: (SHOP.paymentMethods || []).join(", "),
+  };
+  document.querySelectorAll("[data-fill]").forEach((el) => { if (values[el.dataset.fill] != null) el.textContent = values[el.dataset.fill]; });
+  document.querySelectorAll("[data-href=phone]").forEach((a) => { a.href = telHref(SHOP.phone); });
+  document.querySelectorAll("[data-href=email]").forEach((a) => { a.href = `mailto:${SHOP.email}`; });
+  document.querySelectorAll("[data-href=whatsapp]").forEach((a) => { a.href = waLink(`Hello ${SHOP.name}, `); });
+  document.querySelectorAll("[data-href=map]").forEach((a) => {
+    a.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${SHOP.name}, ${SHOP.address}`)}`;
+  });
+}
+
+// Placeholder icon for each product type (falls back to the category icon)
+const TYPE_ICONS = {
+  "LED bulb": "bulb", "Rechargeable light": "battery", "LED tube": "bulb", "Ceiling light": "bulb", Chandelier: "chandelier",
+  Floodlight: "flood", "Security light": "flood", "Solar light": "solar", "Industrial lamp": "bulb", "Lamp holder": "bulb",
+  "Light switch": "socket", "Wall socket": "socket", "Wall switch": "socket", "Plug & adapter": "plug", "Extension board": "plug", Box: "box",
+  "House wiring cable": "plug", "Armoured cable": "plug", "Flexible cord": "plug", "Extension cable": "plug", "Conduit & trunking": "box",
+  Fixings: "box", Earthing: "breaker",
+  Breaker: "breaker", "RCD / RCCB": "breaker", "Distribution board": "breaker", Fuse: "breaker", "Surge protector": "shield", "Changeover switch": "breaker",
+  "Air conditioner": "fan", "Fan part": "fan",
+  "Solar panel": "solar", "Solar kit": "solar", Inverter: "battery", Battery: "battery", "Charge controller": "battery", Stabilizer: "shield", UPS: "battery", Generator: "battery",
+  Fridge: "fridge", Freezer: "fridge", Television: "tv", Microwave: "tv", Blender: "kettle", Iron: "kettle", Kettle: "kettle", Cooker: "kettle",
+  "Washing machine": "washer", "Water heater": "kettle",
+  Tester: "wrench", "Hand tool": "wrench", "Power tool": "drill", "Tape & glue": "tape", Torch: "torch", "TV mount": "tv",
+  "CCTV camera": "camera", "CCTV kit": "camera", Doorbell: "doorbell", "Smart device": "plug", Sensor: "sensor",
+};
+
 // ---------- Product card ----------
-// The product's own photo; otherwise its example photo (labelled), otherwise the category icon
-function productMedia(p) {
+// The product's own photo; otherwise its example photo (labelled); otherwise a coloured block
+// with the category icon and the product name, so every product still looks complete
+function productMedia(p, { compact = false } = {}) {
   const cat = findCategory(p.category);
   if (p.image) return `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" loading="lazy">`;
   if (p.examplePhoto)
     return `<img class="example" src="${escapeHtml(p.examplePhoto)}" alt="" loading="lazy"><span class="tag example-tag">Example photo</span>`;
-  return `<span class="placeholder">${icon(cat?.icon || "bulb")}</span>`;
+  return `<span class="placeholder" style="--tint:${cat?.tint || "#eef1f6"}">
+      ${icon(TYPE_ICONS[p.type] || cat?.icon || "bulb")}${compact ? "" : `<span class="ph-name">${escapeHtml(p.name)}</span>
+      ${p.brand ? `<span class="ph-brand">${escapeHtml(p.brand)}</span>` : ""}`}
+    </span>`;
 }
 
 function productCard(p) {
   const out = p.stock === 0;
   const best = (p.bulk || []).reduce((a, t) => (!a || t.price < a.price ? t : a), null);
-  const href = `product.html?id=${encodeURIComponent(p.id)}`;
+  const href = productHref(p);
+  const pct = discountPct(p);
+  const tag = p.oldPrice ? `<span class="tag sale">−${pct}%</span>` : p.badge ? `<span class="tag hot">${escapeHtml(p.badge)}</span>` : "";
+  const versions = p.group ? PRODUCTS.filter((x) => x.group === p.group).length : 0;
   return `
     <article class="card">
-      <a class="card-media" href="${href}" tabindex="-1">${productMedia(p)}
-        ${p.oldPrice ? `<span class="tag sale">Sale</span>` : p.badge ? `<span class="tag hot">${escapeHtml(p.badge)}</span>` : ""}
-        ${out ? `<span class="tag out">Out of stock</span>` : ""}
+      <a class="card-media" href="${href}" tabindex="-1" aria-hidden="true">${productMedia(p)}
+        ${tag}
+        ${out ? `<span class="tag out">Out of stock</span>` : lowStock(p) ? `<span class="tag low">Only ${p.stock} left</span>` : ""}
       </a>
       <div class="card-body">
         <div class="card-cat">${escapeHtml(p.brand || findCategory(p.category)?.name || "")}</div>
         <h3><a href="${href}">${escapeHtml(p.name)}</a></h3>
-        ${best ? `<p class="bulk-hint">Bulk: ${money(best.price)} each for ${best.min}+</p>` : `<p class="bulk-hint"></p>`}
+        <p class="bulk-hint">${best ? `Bulk: ${money(best.price)} each for ${best.min}+` : versions > 1 ? `<span class="muted-hint">${versions} versions available</span>` : ""}</p>
         <div class="card-foot">
           ${askPrice(p)
             ? `<div class="price ask">Price on request</div>
@@ -423,11 +525,14 @@ function initHome() {
 
   document.getElementById("category-grid").innerHTML = CATEGORIES.map((c) => {
     const n = PRODUCTS.filter((p) => p.category === c.id).length;
-    const photo = c.photo;
-    return `<a class="cat-tile${photo ? " has-photo" : ""}" href="shop.html?cat=${c.id}">
-      ${photo ? `<span class="cat-media"><img class="cat-photo" src="${escapeHtml(photo)}" alt="" loading="lazy"></span>` : `<span class="cat-icon">${icon(c.icon)}</span>`}
-      <strong>${escapeHtml(c.name)}</strong><small>${n} products</small></a>`;
+    return `<a class="cat-tile${c.photo ? " has-photo" : ""}" href="shop.html?cat=${c.id}">
+      ${c.photo ? `<span class="cat-media"><img class="cat-photo" src="${escapeHtml(c.photo)}" alt="" loading="lazy"></span>` : `<span class="cat-icon">${icon(c.icon)}</span>`}
+      <span class="cat-label"><span class="cat-ico">${icon(c.icon)}</span><strong>${escapeHtml(c.name)}</strong><small>${n} products</small></span></a>`;
   }).join("");
+
+  const deals = PRODUCTS.filter((p) => p.oldPrice && !askPrice(p)).sort((a, b) => discountPct(b) - discountPct(a));
+  document.getElementById("deals-section").hidden = !deals.length;
+  document.getElementById("deals-grid").innerHTML = deals.slice(0, 4).map(productCard).join("");
   // brands come from the product list, most products first
   const brands = {};
   PRODUCTS.forEach((p) => { if (p.brand) brands[p.brand] = (brands[p.brand] || 0) + 1; });
@@ -477,64 +582,186 @@ function initHome() {
     <p><strong>${icon("clock")} Opening hours</strong><br>${escapeHtml(SHOP.hours)}</p>
     <p><strong>${icon("phone")} Phone</strong><br><a href="${telHref(SHOP.phone)}">${escapeHtml(SHOP.phone)}</a></p>
     <p><strong>${icon("mail")} Email</strong><br><a href="mailto:${SHOP.email}">${escapeHtml(SHOP.email)}</a></p>
-    <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(`Hello ${SHOP.name}, I have a question.`)}">Chat on WhatsApp</a>`;
+    <div class="send-btns"><a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(`Hello ${SHOP.name}, I have a question.`)}">Chat on WhatsApp</a>
+    <a class="btn btn-ghost" href="contact.html">Send a message</a></div>`;
 }
 
 // ---------- Shop page ----------
+// Filters live in the address bar (?cat=&q=&brand=&type=&min=&max=&avail=&deals=&sort=) so a filtered page can be shared
 function initShop() {
   const params = new URLSearchParams(location.search);
-  const state = { cat: params.get("cat") || "all", q: params.get("q") || "", sort: "default" };
+  const list = (k) => (params.get(k) ? params.get(k).split("|").filter(Boolean) : []);
+  const state = {
+    cat: findCategory(params.get("cat")) ? params.get("cat") : "all",
+    q: params.get("q") || "",
+    brands: list("brand"),
+    types: list("type"),
+    min: params.get("min") || "",
+    max: params.get("max") || "",
+    avail: params.get("avail") === "1",
+    deals: params.get("deals") === "1",
+    sort: params.get("sort") || "default",
+  };
 
-  const filters = document.getElementById("cat-filters");
-  const search = document.getElementById("search");
-  const sort = document.getElementById("sort");
-  const grid = document.getElementById("product-grid");
-  const count = document.getElementById("result-count");
+  const $ = (id) => document.getElementById(id);
+  const filters = $("cat-filters"), search = $("search"), sort = $("sort"), grid = $("product-grid"), count = $("result-count");
+  const facets = $("facets"), banner = $("shop-banner"), active = $("active-filters");
   search.value = state.q;
+  sort.value = state.sort;
 
-  const renderFilters = () => {
+  const matchesSearch = (p, q) => !q || [p.name, p.brand, p.type, p.description, findCategory(p.category)?.name].join(" ").toLowerCase().includes(q);
+  const inCat = (p) => state.cat === "all" || p.category === state.cat;
+  const priceOk = (p) => {
+    if (!state.min && !state.max) return true;
+    if (askPrice(p)) return false;
+    return (!state.min || p.price >= +state.min) && (!state.max || p.price <= +state.max);
+  };
+  const base = () => PRODUCTS.filter((p) => inCat(p) && matchesSearch(p, state.q.trim().toLowerCase()));
+
+  const renderBanner = () => {
+    const c = findCategory(state.cat);
+    banner.innerHTML = c
+      ? `<div class="shop-banner has-photo"><img src="${escapeHtml(c.photo)}" alt="">
+          <div class="shop-banner-text"><nav class="crumbs"><a href="index.html">Home</a> › <a href="shop.html">Shop</a> › ${escapeHtml(c.name)}</nav>
+          <h1>${escapeHtml(c.name)}</h1><p>${escapeHtml(c.blurb || "")}</p></div></div>`
+      : `<div class="shop-banner"><div class="shop-banner-text"><nav class="crumbs"><a href="index.html">Home</a> › Shop</nav>
+          <h1>${state.deals ? "Deals" : "Shop all products"}</h1>
+          <p>${state.deals ? "Discounted items while stocks last." : `${PRODUCTS.length} products across ${CATEGORIES.length} categories — lighting, wiring, protection, power, appliances and more.`}</p></div></div>`;
+    document.title = `${c ? c.name : state.deals ? "Deals" : "Shop"} — ${SHOP.name}`;
+  };
+
+  const renderChips = () => {
     filters.innerHTML = [{ id: "all", name: "All products", icon: "grid" }, ...CATEGORIES]
-      .map((c) => `<button class="chip ${state.cat === c.id ? "active" : ""}" data-cat="${c.id}">${icon(c.icon)} ${escapeHtml(c.name)}</button>`)
+      .map((c) => `<button class="chip ${state.cat === c.id ? "active" : ""}" data-cat="${c.id}" aria-pressed="${state.cat === c.id}">${icon(c.icon)} ${escapeHtml(c.name)}</button>`)
       .join("");
   };
 
-  const render = () => {
-    const q = state.q.trim().toLowerCase();
-    let list = PRODUCTS.filter(
-      (p) =>
-        (state.cat === "all" || p.category === state.cat) &&
-        (!q || [p.name, p.brand, p.description].join(" ").toLowerCase().includes(q))
-    );
-    const byPrice = (dir) => (a, b) => askPrice(a) - askPrice(b) || dir * (a.price - b.price);
-    if (state.sort === "price-asc") list = [...list].sort(byPrice(1));
-    if (state.sort === "price-desc") list = [...list].sort(byPrice(-1));
-    if (state.sort === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+  // brand and type lists only offer what's in the chosen category (with counts)
+  const renderFacets = () => {
+    const pool = base();
+    const tally = (key) => {
+      const t = {};
+      pool.forEach((p) => { if (p[key]) t[p[key]] = (t[p[key]] || 0) + 1; });
+      return Object.entries(t).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    };
+    const group = (title, name, entries, chosen) => entries.length ? `
+      <fieldset class="facet"><legend>${title}</legend>
+        <div class="facet-list">${entries.map(([v, n]) => `<label class="check"><input type="checkbox" name="${name}" value="${escapeHtml(v)}" ${chosen.includes(v) ? "checked" : ""}>
+          <span>${escapeHtml(v)}</span><small>${n}</small></label>`).join("")}</div>
+      </fieldset>` : "";
+    facets.innerHTML = `
+      ${group("Type", "type", tally("type"), state.types)}
+      ${group("Brand", "brand", tally("brand"), state.brands)}
+      <fieldset class="facet"><legend>Price (${escapeHtml(SHOP.currency)})</legend>
+        <div class="price-range">
+          <input type="number" name="min" min="0" inputmode="numeric" placeholder="Min" value="${escapeHtml(state.min)}" aria-label="Minimum price">
+          <span>–</span>
+          <input type="number" name="max" min="0" inputmode="numeric" placeholder="Max" value="${escapeHtml(state.max)}" aria-label="Maximum price">
+        </div>
+        <div class="price-quick">${[[0, 50], [50, 200], [200, 1000], [1000, ""]].map(([a, b]) =>
+          `<button type="button" data-range="${a}-${b}">${b === "" ? `${moneyRound(a)}+` : `${moneyRound(a)}–${moneyRound(b)}`}</button>`).join("")}</div>
+      </fieldset>
+      <fieldset class="facet"><legend>Availability</legend>
+        <label class="check"><input type="checkbox" name="avail" ${state.avail ? "checked" : ""}><span>Price shown, in stock</span></label>
+        <label class="check"><input type="checkbox" name="deals" ${state.deals ? "checked" : ""}><span>Deals only</span></label>
+      </fieldset>`;
+  };
 
-    count.textContent = `${list.length} product${list.length === 1 ? "" : "s"}`;
-    grid.innerHTML = list.length
-      ? list.map(productCard).join("")
-      : `<div class="empty">${icon("search", "empty-ico")}<h3>No products match your search</h3>
-         <p>Try a different word, or tell us what you need and we'll source it.</p>
-         <a class="btn btn-ghost" href="quote.html">Ask us for it</a></div>`;
+  const renderActive = () => {
+    const pills = [
+      ...state.types.map((v) => ["type", v, v]),
+      ...state.brands.map((v) => ["brand", v, v]),
+      ...(state.min || state.max ? [["price", "", `${state.min ? moneyRound(state.min) : "Any"} – ${state.max ? moneyRound(state.max) : "any"}`]] : []),
+      ...(state.avail ? [["avail", "", "In stock"]] : []),
+      ...(state.deals ? [["deals", "", "Deals"]] : []),
+      ...(state.q ? [["q", "", `“${state.q}”`]] : []),
+    ];
+    active.innerHTML = pills.length
+      ? pills.map(([k, v, label]) => `<button class="pill" data-clear="${k}" data-value="${escapeHtml(v)}">${escapeHtml(label)} ${icon("close")}</button>`).join("") +
+        `<button class="pill clear-all" data-clear="all">Clear all</button>`
+      : "";
+    const n = pills.length;
+    $("filter-toggle-count").textContent = n ? `(${n})` : "";
+  };
+
+  const render = () => {
+    let items = base().filter((p) =>
+      (!state.types.length || state.types.includes(p.type)) &&
+      (!state.brands.length || state.brands.includes(p.brand)) &&
+      priceOk(p) &&
+      (!state.avail || (!askPrice(p) && p.stock !== 0)) &&
+      (!state.deals || p.oldPrice));
+    const byPrice = (dir) => (a, b) => askPrice(a) - askPrice(b) || dir * (a.price - b.price);
+    if (state.sort === "price-asc") items = [...items].sort(byPrice(1));
+    if (state.sort === "price-desc") items = [...items].sort(byPrice(-1));
+    if (state.sort === "name") items = [...items].sort((a, b) => a.name.localeCompare(b.name));
+    if (state.sort === "discount") items = [...items].sort((a, b) => discountPct(b) - discountPct(a));
+
+    count.textContent = `${items.length} product${items.length === 1 ? "" : "s"}`;
+    grid.innerHTML = items.length
+      ? items.map(productCard).join("")
+      : `<div class="empty">${icon("search", "empty-ico")}<h3>No products match these filters</h3>
+         <p>Try removing a filter or searching for something else — or tell us what you need and we'll source it.</p>
+         <div class="send-btns"><button class="btn" data-clear="all">Clear filters</button><a class="btn btn-ghost" href="quote.html">Ask us for it</a></div></div>`;
 
     const url = new URL(location);
-    state.cat === "all" ? url.searchParams.delete("cat") : url.searchParams.set("cat", state.cat);
-    state.q ? url.searchParams.set("q", state.q) : url.searchParams.delete("q");
+    const set = (k, v) => (v ? url.searchParams.set(k, v) : url.searchParams.delete(k));
+    set("cat", state.cat === "all" ? "" : state.cat);
+    set("q", state.q); set("brand", state.brands.join("|")); set("type", state.types.join("|"));
+    set("min", state.min); set("max", state.max); set("avail", state.avail ? "1" : ""); set("deals", state.deals ? "1" : "");
+    set("sort", state.sort === "default" ? "" : state.sort);
     history.replaceState(null, "", url);
+    renderActive();
   };
+
+  const refresh = () => { renderBanner(); renderChips(); renderFacets(); render(); };
 
   filters.addEventListener("click", (e) => {
     const b = e.target.closest("[data-cat]");
     if (!b) return;
     state.cat = b.dataset.cat;
-    renderFilters();
+    state.types = []; state.brands = []; // these depend on the category
+    refresh();
+  });
+  facets.addEventListener("change", (e) => {
+    const t = e.target;
+    if (t.name === "type" || t.name === "brand") {
+      const key = t.name === "type" ? "types" : "brands";
+      state[key] = [...facets.querySelectorAll(`input[name=${t.name}]:checked`)].map((i) => i.value);
+    }
+    if (t.name === "min" || t.name === "max") state[t.name] = t.value;
+    if (t.name === "avail") state.avail = t.checked;
+    if (t.name === "deals") { state.deals = t.checked; renderBanner(); }
     render();
   });
-  search.addEventListener("input", () => { state.q = search.value; render(); });
+  facets.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-range]");
+    if (!b) return;
+    [state.min, state.max] = b.dataset.range.split("-");
+    renderFacets(); render();
+  });
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-clear]");
+    if (!b) return;
+    const k = b.dataset.clear, v = b.dataset.value;
+    if (k === "all") Object.assign(state, { q: "", brands: [], types: [], min: "", max: "", avail: false, deals: false });
+    if (k === "type") state.types = state.types.filter((x) => x !== v);
+    if (k === "brand") state.brands = state.brands.filter((x) => x !== v);
+    if (k === "price") { state.min = ""; state.max = ""; }
+    if (k === "avail") state.avail = false;
+    if (k === "deals") state.deals = false;
+    if (k === "q") state.q = "";
+    search.value = state.q;
+    refresh();
+  });
+  search.addEventListener("input", () => { state.q = search.value; renderFacets(); render(); });
   sort.addEventListener("change", () => { state.sort = sort.value; render(); });
+  $("filter-toggle").addEventListener("click", () => {
+    const open = document.querySelector(".shop-layout").classList.toggle("filters-open");
+    $("filter-toggle").setAttribute("aria-expanded", open);
+  });
 
-  renderFilters();
-  render();
+  refresh();
 }
 
 // ---------- Product detail page ----------
@@ -552,20 +779,28 @@ function initProduct() {
 
   const tiers = [{ min: 1, price: p.price }, ...(p.bulk || [])];
   const specs = Object.entries(p.specs || {});
+  const versions = p.group ? PRODUCTS.filter((x) => x.group === p.group) : [];
+  const stockLine = out ? `<p class="stock no">● Out of stock — ask us when it's back</p>`
+    : lowStock(p) ? `<p class="stock low">● Only ${p.stock} left in stock</p>`
+    : `<p class="stock yes">● In stock</p>`;
 
   root.innerHTML = `
-    <nav class="crumbs"><a href="shop.html">Shop</a> › <a href="shop.html?cat=${p.category}">${escapeHtml(cat?.name || "")}</a> › ${escapeHtml(p.name)}</nav>
+    <nav class="crumbs"><a href="index.html">Home</a> › <a href="shop.html">Shop</a> › <a href="shop.html?cat=${p.category}">${escapeHtml(cat?.name || "")}</a> › ${escapeHtml(p.name)}</nav>
     <div class="pd">
-      <div class="pd-media">${productMedia(p)}${p.oldPrice ? `<span class="tag sale">Sale</span>` : ""}</div>
+      <div class="pd-media">${productMedia(p)}${p.oldPrice ? `<span class="tag sale">−${discountPct(p)}%</span>` : p.badge ? `<span class="tag hot">${escapeHtml(p.badge)}</span>` : ""}</div>
       <div class="pd-info">
         ${p.brand ? `<div class="card-cat">${escapeHtml(p.brand)}</div>` : ""}
         <h1>${escapeHtml(p.name)}</h1>
         ${askPrice(p)
           ? `<div class="pd-price ask">Price on request</div>
              <p class="stock yes">● Ask us for today's price, sizes and brands</p>`
-          : `<div class="pd-price">${money(p.price)} <small>per ${escapeHtml(unitName(p))}</small>${p.oldPrice ? ` <s>${money(p.oldPrice)}</s>` : ""}</div>
-             <p class="stock ${out ? "no" : "yes"}">${out ? "● Out of stock — ask us when it's back" : "● In stock"}</p>`}
+          : `<div class="pd-price">${money(p.price)} <small>per ${escapeHtml(unitName(p))}</small>${p.oldPrice ? ` <s>${money(p.oldPrice)}</s> <span class="save-tag">Save ${money(p.oldPrice - p.price)}</span>` : ""}</div>
+             ${stockLine}`}
         <p>${escapeHtml(p.description || "")}</p>
+        ${versions.length > 1 ? `<div class="variants"><span class="variants-label">${escapeHtml(versionLabel(versions))}</span>
+          <div class="variant-list">${versions.map((v) => v.id === p.id
+            ? `<span class="variant active" aria-current="true">${escapeHtml(v.variant)}</span>`
+            : `<a class="variant" href="${productHref(v)}">${escapeHtml(v.variant)}<small>${askPrice(v) ? "Ask" : money(v.price)}</small></a>`).join("")}</div></div>` : ""}
         ${
           p.bulk?.length
             ? `<div class="tiers" id="bulk"><h3>Bulk prices</h3><table>
@@ -604,10 +839,19 @@ function initProduct() {
 
   if (!askPrice(p)) initBuyBox(root, p);
 
-  const related = PRODUCTS.filter((x) => x.category === p.category && x.id !== p.id).slice(0, 4);
+  const related = PRODUCTS.filter((x) => x.category === p.category && x.id !== p.id && (!p.group || x.group !== p.group)).slice(0, 4);
   document.getElementById("related").innerHTML = related.length
     ? `<h2>More in ${escapeHtml(cat?.name || "this category")}</h2><div class="grid">${related.map(productCard).join("")}</div>`
     : "";
+}
+
+// "Choose wattage" / "Choose size" … from what the versions differ by
+function versionLabel(versions) {
+  const v = versions.map((x) => x.variant).join(" ");
+  if (/\d+(\.\d+)?W\b/.test(v)) return "Choose wattage";
+  if (/HP|kVA/.test(v)) return "Choose capacity";
+  if (/mm|"|L\b/.test(v)) return "Choose size";
+  return "Choose version";
 }
 
 // Quantity box, live bulk-price line and "Add to cart" on the product page
@@ -637,38 +881,82 @@ function initBuyBox(root, p) {
   update();
 }
 
-// ---------- Cart / checkout page ----------
+// ---------- Orders (shared by cart and checkout) ----------
+function buildOrder({ kind = "order", method = "pickup", payment = "later", customer = {}, notes = "" } = {}) {
+  const items = cartItems();
+  const subtotal = items.reduce((s, i) => s + i.lineTotal, 0);
+  const delivery = deliveryFor(method, subtotal);
+  const online = payment === "online";
+  return {
+    kind,
+    ref: makeRef(kind === "proforma" ? "PF" : "LW"),
+    date: new Date(),
+    items, subtotal, method, delivery,
+    total: subtotal + (delivery.fee || 0),
+    paymentLabel: kind === "proforma" ? "To be agreed" : online ? "Paid online (Paystack)" : method === "pickup" ? "Pay at pickup" : "Pay on delivery",
+    customer: { name: "", company: "", phone: "", email: "", address: "", gps: "", ...customer },
+    notes,
+  };
+}
+
+function orderMessage(o) {
+  const c = o.customer;
+  const lines = [
+    `*NEW ORDER ${o.ref}* — ${SHOP.name}`,
+    "",
+    ...o.items.map((i) => `• ${i.qty} × ${i.product.name} @ ${money(i.unit)} = ${money(i.lineTotal)}`),
+    "",
+    `Subtotal: ${money(o.subtotal)}`,
+    `Delivery: ${o.delivery.fee === null ? "To be arranged" : o.delivery.fee ? money(o.delivery.fee) : "Free"}`,
+    `*TOTAL: ${money(o.total)}${o.delivery.fee === null ? " + delivery" : ""}*`,
+    `Payment: ${o.paymentLabel}`,
+    "",
+    `Name: ${c.name}`,
+    c.company ? `Company: ${c.company}` : null,
+    `Phone: ${c.phone}`,
+    c.email ? `Email: ${c.email}` : null,
+    `Method: ${DELIVERY_METHODS[o.method]}`,
+    c.address ? `Address: ${c.address}` : null,
+    c.gps ? `GPS: ${c.gps}` : null,
+    o.notes ? `Notes: ${o.notes}` : null,
+  ];
+  return lines.filter((l) => l !== null).join("\n");
+}
+
+const emptyCartHtml = () => `<div class="empty">${icon("cart", "empty-ico")}<h3>Your cart is empty</h3>
+  <p>Browse lighting, cables, sockets, breakers, solar and more.</p><a class="btn" href="shop.html">Start shopping</a></div>`;
+
+// Progress towards free delivery
+function freeDeliveryHtml(subtotal) {
+  const D = SHOP.delivery;
+  const pct = Math.min(100, Math.round((subtotal / D.freeOver) * 100));
+  return `<div class="free-progress">
+    <p>${subtotal >= D.freeOver
+      ? `${icon("check")} You qualify for <strong>free delivery</strong> in Kumasi &amp; Accra.`
+      : `Add <strong>${money(D.freeOver - subtotal)}</strong> more for free delivery in Kumasi &amp; Accra.`}</p>
+    <div class="bar"><span style="width:${pct}%"></span></div>
+  </div>`;
+}
+
+// ---------- Cart page ----------
 function initCart() {
   const list = document.getElementById("cart-items");
   const summary = document.getElementById("cart-summary");
-  const checkout = document.getElementById("checkout");
-  const result = document.getElementById("order-result");
-  const onlineEnabled = !!SHOP.paystackPublicKey;
-  const D = SHOP.delivery;
-
-  if (!onlineEnabled) checkout.querySelector("#pay-online-option").remove();
-  else loadScript("https://js.paystack.co/v1/inline.js");
-
-  const val = (name) => checkout.elements[name]?.value?.trim() || "";
-  const method = () => checkout.querySelector('input[name="method"]:checked')?.value || "pickup";
-  const payment = () => checkout.querySelector('input[name="payment"]:checked')?.value || "later";
 
   const render = () => {
     const items = cartItems();
     if (!items.length) {
-      list.innerHTML = `<div class="empty">${icon("cart", "empty-ico")}<h3>Your cart is empty</h3>
-        <p>Browse lighting, cables, sockets, breakers and more.</p><a class="btn" href="shop.html">Start shopping</a></div>`;
-      summary.innerHTML = "";
-      checkout.hidden = true;
+      list.innerHTML = emptyCartHtml();
+      summary.hidden = true;
       return;
     }
-    checkout.hidden = false;
+    summary.hidden = false;
     list.innerHTML = items
       .map(({ product: p, qty, unit, lineTotal, bulkApplied }) => `
         <div class="cart-row">
-          <a class="cart-thumb" href="product.html?id=${encodeURIComponent(p.id)}">${productMedia(p)}</a>
+          <a class="cart-thumb" href="${productHref(p)}">${productMedia(p, { compact: true })}</a>
           <div class="cart-info">
-            <a href="product.html?id=${encodeURIComponent(p.id)}"><strong>${escapeHtml(p.name)}</strong></a>
+            <a href="${productHref(p)}"><strong>${escapeHtml(p.name)}</strong></a>
             <small>${money(unit)} each${bulkApplied ? ` <span class="bulk-tag">bulk price</span>` : ""}</small>
           </div>
           <div class="qty">
@@ -680,12 +968,63 @@ function initCart() {
           <button class="remove" aria-label="Remove ${escapeHtml(p.name)}" data-remove="${p.id}">${icon("close")}</button>
         </div>`)
       .join("");
-    updateTotals();
+    const subtotal = items.reduce((s, i) => s + i.lineTotal, 0);
+    const count = items.reduce((s, i) => s + i.qty, 0);
+    summary.innerHTML = `
+      <h2>Order summary</h2>
+      <div class="sum-row"><span>Items (${count})</span><span>${money(subtotal)}</span></div>
+      <div class="sum-row"><span>Delivery</span><span class="muted">Chosen at checkout</span></div>
+      <div class="sum-row total"><span>Subtotal</span><span>${money(subtotal)}</span></div>
+      ${freeDeliveryHtml(subtotal)}
+      <a class="btn btn-lg btn-block" href="checkout.html">Proceed to checkout</a>
+      <button type="button" class="btn btn-ghost btn-block" id="proforma-btn">${icon("printer")} Print proforma invoice</button>
+      <a class="continue" href="shop.html">← Continue shopping</a>
+      <div class="pay-badges">${paymentBadgesHtml()}</div>`;
+    document.getElementById("proforma-btn").onclick = () => printInvoice(buildOrder({ kind: "proforma" }));
   };
 
+  list.addEventListener("click", (e) => {
+    const q = e.target.closest("[data-qty]");
+    const r = e.target.closest("[data-remove]");
+    if (q) setQty(q.dataset.qty, (getCart()[q.dataset.qty] || 0) + Number(q.dataset.d));
+    if (r) setQty(r.dataset.remove, 0);
+    if (q || r) render();
+  });
+  render();
+}
+
+// ---------- Checkout page ----------
+function initCheckout() {
+  const checkout = document.getElementById("checkout");
+  const summary = document.getElementById("order-summary");
+  const result = document.getElementById("order-result");
+  const layout = document.querySelector(".checkout-layout");
+  const onlineEnabled = !!SHOP.paystackPublicKey;
+  const D = SHOP.delivery;
+
+  if (!cartItems().length) {
+    layout.innerHTML = `<div class="checkout-empty">${emptyCartHtml()}</div>`;
+    return;
+  }
+
+  if (!onlineEnabled) checkout.querySelector("#pay-online-option").remove();
+  else loadScript("https://js.paystack.co/v1/inline.js");
+
+  const val = (name) => checkout.elements[name]?.value?.trim() || "";
+  const method = () => checkout.querySelector('input[name="method"]:checked')?.value || "pickup";
+  const payment = () => checkout.querySelector('input[name="payment"]:checked')?.value || "later";
+  const currentOrder = (kind = "order") => buildOrder({
+    kind, method: method(), payment: payment(), notes: val("notes"),
+    customer: {
+      name: val("name"), company: val("company"), phone: val("phone"), email: val("email"),
+      address: method() === "pickup" ? "" : val("address"), gps: method() === "pickup" ? "" : val("gps"),
+    },
+  });
+
   // Recalculate delivery & totals, and enforce the delivery rules on the form
-  const updateTotals = () => {
-    const subtotal = cartItems().reduce((s, i) => s + i.lineTotal, 0);
+  const update = () => {
+    const items = cartItems();
+    const subtotal = items.reduce((s, i) => s + i.lineTotal, 0);
 
     // Accra: only for big orders
     const accra = checkout.querySelector('input[value="accra"]');
@@ -695,9 +1034,8 @@ function initCart() {
       ? subtotal >= D.freeOver ? "Free delivery" : `${moneyRound(D.accraFee)} delivery fee`
       : `For orders of ${moneyRound(D.accraMinimum)}+ (add ${money(D.accraMinimum - subtotal)} more)`;
     if (!accraOk && accra.checked) checkout.querySelector('input[value="kumasi"]').checked = true;
-
     checkout.querySelector("#kumasi-note").textContent =
-      subtotal >= D.freeOver ? "Free delivery" : `${moneyRound(D.kumasiFee)} delivery fee`;
+      subtotal >= D.freeOver ? "Free delivery" : `${moneyRound(D.kumasiFee)} delivery fee · usually next working day`;
 
     const m = method();
     const del = deliveryFor(m, subtotal);
@@ -721,80 +1059,32 @@ function initCart() {
     const payingOnline = payment() === "online";
     checkout.elements.email.required = payingOnline;
     checkout.querySelector("#email-label").textContent = payingOnline ? "Email (for your payment receipt)" : "Email (optional)";
+    checkout.querySelector("#place-order").innerHTML = payingOnline
+      ? `${icon("lock")} Pay ${money(subtotal + (del.fee || 0))} now`
+      : `${icon("whatsapp")} Place order via WhatsApp`;
 
-    const submitBtn = checkout.querySelector("#place-order");
-    submitBtn.textContent = payingOnline
-      ? `Pay ${money(subtotal + (del.fee || 0))} now`
-      : "Place order via WhatsApp";
-
-    const freeGap = D.freeOver - subtotal;
     summary.innerHTML = `
+      <h2>Your order</h2>
+      <ul class="mini-items">${items.map((i) => `<li>
+        <span class="mini-thumb">${productMedia(i.product, { compact: true })}<b>${i.qty}</b></span>
+        <span class="mini-name">${escapeHtml(i.product.name)}</span><span>${money(i.lineTotal)}</span></li>`).join("")}</ul>
       <div class="sum-row"><span>Subtotal</span><span>${money(subtotal)}</span></div>
       <div class="sum-row"><span>Delivery</span><span>${del.label}</span></div>
       <div class="sum-row total"><span>Total</span><span>${money(subtotal + (del.fee || 0))}${del.fee === null ? " + delivery" : ""}</span></div>
-      ${freeGap > 0 && m !== "pickup" && m !== "other"
-        ? `<p class="hint">Add ${money(freeGap)} more for free delivery in Kumasi &amp; Accra.</p>` : ""}
-      ${m === "other" ? `<p class="hint">We'll call you to arrange transport and agree the delivery cost.</p>` : ""}
-      <button type="button" class="btn btn-ghost btn-sm" id="proforma-btn">${icon("printer")} Print proforma invoice</button>`;
-    document.getElementById("proforma-btn").onclick = () => printInvoice(buildOrder("proforma"));
-  };
-
-  const buildOrder = (kind) => {
-    const items = cartItems();
-    const subtotal = items.reduce((s, i) => s + i.lineTotal, 0);
-    const m = method();
-    const delivery = deliveryFor(m, subtotal);
-    const online = payment() === "online";
-    return {
-      kind,
-      ref: makeRef(kind === "proforma" ? "PF" : "LW"),
-      date: new Date(),
-      items,
-      subtotal,
-      method: m,
-      delivery,
-      total: subtotal + (delivery.fee || 0),
-      paymentLabel: kind === "proforma" ? "To be agreed" : online ? "Paid online (Paystack)" : m === "pickup" ? "Pay at pickup" : "Pay on delivery",
-      customer: {
-        name: val("name"), company: val("company"), phone: val("phone"), email: val("email"),
-        address: m === "pickup" ? "" : val("address"), gps: m === "pickup" ? "" : val("gps"),
-      },
-      notes: val("notes"),
-    };
-  };
-
-  const orderMessage = (o) => {
-    const c = o.customer;
-    const lines = [
-      `*NEW ORDER ${o.ref}* — ${SHOP.name}`,
-      "",
-      ...o.items.map((i) => `• ${i.qty} × ${i.product.name} @ ${money(i.unit)} = ${money(i.lineTotal)}`),
-      "",
-      `Subtotal: ${money(o.subtotal)}`,
-      `Delivery: ${o.delivery.fee === null ? "To be arranged" : o.delivery.fee ? money(o.delivery.fee) : "Free"}`,
-      `*TOTAL: ${money(o.total)}${o.delivery.fee === null ? " + delivery" : ""}*`,
-      `Payment: ${o.paymentLabel}`,
-      "",
-      `Name: ${c.name}`,
-      c.company ? `Company: ${c.company}` : null,
-      `Phone: ${c.phone}`,
-      c.email ? `Email: ${c.email}` : null,
-      `Method: ${DELIVERY_METHODS[o.method]}`,
-      c.address ? `Address: ${c.address}` : null,
-      c.gps ? `GPS: ${c.gps}` : null,
-      o.notes ? `Notes: ${o.notes}` : null,
-    ];
-    return lines.filter((l) => l !== null).join("\n");
+      ${m === "other" ? `<p class="hint">We'll call you to arrange transport and agree the delivery cost.</p>` : m !== "pickup" ? freeDeliveryHtml(subtotal) : ""}
+      <a class="continue" href="cart.html">← Edit cart</a>
+      <ul class="pd-assure">
+        <li>${icon("shield")} Genuine, original stock</li>
+        <li>${icon("check")} We confirm stock and price before you pay</li>
+      </ul>`;
   };
 
   // Show the confirmation + invoice once the order is placed
   const complete = (order) => {
     const text = orderMessage(order);
     saveCart({});
-    list.innerHTML = "";
-    summary.innerHTML = "";
-    checkout.hidden = true;
-    document.querySelector(".cart-layout h1").textContent = "Thank you!";
+    layout.hidden = true;
+    document.querySelector(".checkout-steps")?.classList.add("done");
     result.hidden = false;
     result.innerHTML = `
       <div class="success-box">
@@ -812,34 +1102,23 @@ function initCart() {
     box.innerHTML = invoiceHtml(order);
     box.classList.remove("print-only");
     window.scrollTo({ top: 0, behavior: "smooth" });
-    return text;
   };
 
-  checkout.addEventListener("change", updateTotals);
-
-  list.addEventListener("click", (e) => {
-    const q = e.target.closest("[data-qty]");
-    const r = e.target.closest("[data-remove]");
-    if (q) setQty(q.dataset.qty, (getCart()[q.dataset.qty] || 0) + Number(q.dataset.d));
-    if (r) setQty(r.dataset.remove, 0);
-    if (q || r) render();
-  });
+  checkout.addEventListener("change", update);
 
   checkout.addEventListener("submit", (e) => {
     e.preventDefault();
-    const order = buildOrder("order");
+    const order = currentOrder();
     if (!order.delivery.allowed) {
       toast(`Accra delivery is for orders of ${moneyRound(D.accraMinimum)} or more.`, false);
       return;
     }
-
     if (payment() !== "online") {
       // open WhatsApp straight away (needs to happen during the click)
       window.open(waLink(orderMessage(order)), "_blank");
       complete(order);
       return;
     }
-
     if (!window.PaystackPop) {
       toast("Online payment is still loading — please try again in a moment.", false);
       return;
@@ -865,7 +1144,40 @@ function initCart() {
     }).openIframe();
   });
 
-  render();
+  update();
+}
+
+// ---------- Contact page ----------
+// The form doesn't send by itself yet: it prepares the message for WhatsApp or email
+function initContact() {
+  const form = document.getElementById("contact-form");
+  const result = document.getElementById("contact-result");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const f = Object.fromEntries(new FormData(form));
+    const text = [
+      `*MESSAGE — ${f.subject}* — ${SHOP.name}`,
+      "",
+      `Name: ${f.name}`,
+      `Phone: ${f.phone}`,
+      f.email ? `Email: ${f.email}` : null,
+      "",
+      f.message,
+    ].filter((l) => l !== null).join("\n");
+    form.hidden = true;
+    result.hidden = false;
+    result.innerHTML = `
+      <div class="success-box">
+        <h2>${icon("check")} Thank you, ${escapeHtml(f.name.split(" ")[0] || "")}!</h2>
+        <p>Your message is ready. Tap a button to send it — we reply within working hours (${escapeHtml(SHOP.hours)}).</p>
+        <div class="send-btns">
+          <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(text)}">Send on WhatsApp</a>
+          <a class="btn btn-ghost" href="${mailLink(`${f.subject} — website message`, text.replace(/\*/g, ""))}">Send by email</a>
+          <button type="button" class="btn btn-ghost" id="contact-again">Write another message</button>
+        </div>
+      </div>`;
+    document.getElementById("contact-again").onclick = () => { form.reset(); form.hidden = false; result.hidden = true; };
+  });
 }
 
 // ---------- Quote request page ----------
@@ -937,6 +1249,9 @@ function loadScript(src) {
 // ---------- Boot ----------
 document.addEventListener("DOMContentLoaded", () => {
   renderLayout();
-  const init = { home: initHome, shop: initShop, product: initProduct, cart: initCart, quote: initQuote }[document.body.dataset.page];
+  const init = {
+    home: initHome, shop: initShop, product: initProduct, cart: initCart, checkout: initCheckout,
+    quote: initQuote, contact: initContact,
+  }[document.body.dataset.page];
   if (init) init();
 });

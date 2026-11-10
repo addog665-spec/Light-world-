@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Light World Electricals</title>
+  <meta name="description" content="Light World Electricals, Kumasi — lighting, cables, sockets, breakers, solar & backup power, appliances, tools and CCTV. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Light World Electricals">
+  <meta property="og:title" content="Checkout — Light World Electricals">
+  <meta property="og:description" content="Light World Electricals, Kumasi — lighting, cables, sockets, breakers, solar & backup power, appliances, tools and CCTV. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta property="og:image" content="images/stock/hero-banner.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#1656d6">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/minimal.css">
+  <link rel="stylesheet" href="css/liquid.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="checkout">
+  <header id="site-header"></header>
+
+  <main id="main" class="section">
+    <div class="container">
+      <ol class="checkout-steps no-print"><li class="past"><a href="cart.html"><span>1</span> Cart</a></li><li class="on"><span>2</span> Details &amp; delivery</li><li><span>3</span> Confirm order</li></ol>
+      <h1 class="no-print">Checkout</h1>
+      <div id="order-result" class="no-print" hidden></div>
+      <div class="checkout-layout no-print">
+        <form id="checkout" class="checkout">
+          <h2><span class="step-no">1</span> Your details</h2>
+          <div class="two-col">
+            <label>Full name
+              <input name="name" required autocomplete="name">
+            </label>
+            <label>Phone number
+              <input name="phone" type="tel" required autocomplete="tel" placeholder="024 000 0000"
+                     pattern="[0-9+\(\) \-]{9,}" title="Enter a valid phone number">
+            </label>
+            <label><span id="email-label">Email (optional)</span>
+              <input name="email" type="email" autocomplete="email">
+            </label>
+            <label>Company <small>(optional — for invoices)</small>
+              <input name="company" autocomplete="organization">
+            </label>
+          </div>
+
+          <h2><span class="step-no">2</span> Pickup or delivery</h2>
+          <fieldset>
+            <legend class="sr-only">Pickup or delivery</legend>
+            <label class="radio"><input type="radio" name="method" value="pickup" checked>
+              <span>Pick up at our Kumasi shop <small>Free · usually ready the same day</small></span></label>
+            <label class="radio"><input type="radio" name="method" value="kumasi">
+              <span>Delivery within Kumasi <small id="kumasi-note"></small></span></label>
+            <label class="radio"><input type="radio" name="method" value="accra">
+              <span>Delivery within Accra <small id="accra-note"></small></span></label>
+            <label class="radio"><input type="radio" name="method" value="other">
+              <span>Elsewhere in Ghana <small>We'll call to arrange transport and cost</small></span></label>
+          </fieldset>
+          <label id="address-field" hidden><span class="label-text">Delivery address</span>
+            <textarea name="address" rows="2" autocomplete="street-address"></textarea>
+          </label>
+          <label id="gps-field" hidden>GhanaPost GPS address <small>(optional)</small>
+            <input name="gps" placeholder="e.g. AK-123-4567">
+          </label>
+
+          <h2><span class="step-no">3</span> Payment</h2>
+          <fieldset>
+            <legend class="sr-only">Payment</legend>
+            <div class="pay-badges" data-pay-badges></div>
+            <label class="radio"><input type="radio" name="payment" value="later" checked>
+              <span>Pay on delivery / pickup <small>Cash, card or mobile money (MoMo)</small></span></label>
+            <label class="radio" id="pay-online-option"><input type="radio" name="payment" value="online">
+              <span>Pay online now <small id="online-note">Card or mobile money via Paystack</small></span></label>
+          </fieldset>
+
+          <label>Order notes <small>(optional)</small>
+            <textarea name="notes" rows="2" placeholder="e.g. preferred delivery time, landmark, colour of cable"></textarea>
+          </label>
+
+          <button type="submit" class="btn btn-wa btn-block btn-lg" id="place-order">Place order via WhatsApp</button>
+          <p class="hint">You'll get an order number and invoice. We confirm stock, price and delivery with you before anything is dispatched. By ordering you agree to our <a href="terms.html">terms</a>.</p>
+        </form>
+        <aside id="order-summary" class="summary-card"></aside>
+      </div>
+      <div id="invoice" class="print-only"></div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

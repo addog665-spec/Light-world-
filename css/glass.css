@@ -95,7 +95,7 @@ body::before {
 .pd-media { border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); background: var(--glass); }
 .tag { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35); }
 .tag.example-tag { background: rgba(20, 33, 61, .55); }
-.pack-icon, .perk-icon, .info-card span { background: rgba(255, 255, 255, .7); border-color: var(--glass-edge); }
+.pack-icon, .perk-icon, .info-card > span { background: rgba(255, 255, 255, .7); border-color: var(--glass-edge); }
 .pack li { border-bottom-color: rgba(20, 33, 61, .08); }
 .sample-note { background: rgba(255, 243, 205, .75); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 
