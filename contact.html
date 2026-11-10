@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Light World Electricals</title>
+  <meta name="description" content="Light World Electricals, Kumasi — lighting, cables, sockets, breakers, solar & backup power, appliances, tools and CCTV. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Light World Electricals">
+  <meta property="og:title" content="Contact Us — Light World Electricals">
+  <meta property="og:description" content="Light World Electricals, Kumasi — lighting, cables, sockets, breakers, solar & backup power, appliances, tools and CCTV. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta property="og:image" content="images/stock/hero-banner.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#1656d6">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/minimal.css">
+  <link rel="stylesheet" href="css/liquid.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="contact">
+  <header id="site-header"></header>
+
+  <section class="page-hero">
+    <img src="images/stock/page-contact.jpg" alt="">
+    <div class="container">
+      <nav class="crumbs"><a href="index.html">Home</a> › Contact</nav>
+      <h1>Talk to us</h1>
+      <p>Questions about a product, an order or a project? Call, WhatsApp, email or send us a message — we're happy to help.</p>
+    </div>
+  </section>
+  <main id="main">
+    <section class="section">
+      <div class="container contact-page">
+        <div class="contact-cards">
+          <div class="contact-card"><span data-icon="pin"></span><div><h3>Visit the shop</h3>
+            <p><span data-fill="address"></span><br>GPS: <span data-fill="gps"></span></p>
+            <a data-href="map" target="_blank" rel="noopener">Get directions →</a></div></div>
+          <div class="contact-card"><span data-icon="clock"></span><div><h3>Opening hours</h3>
+            <p><span data-fill="hours"></span><br>Closed on Sundays and public holidays</p></div></div>
+          <div class="contact-card"><span data-icon="phone"></span><div><h3>Call or WhatsApp</h3>
+            <p><a data-href="phone"><span data-fill="phone"></span></a></p>
+            <a data-href="whatsapp" target="_blank" rel="noopener">Chat on WhatsApp →</a></div></div>
+          <div class="contact-card"><span data-icon="mail"></span><div><h3>Email</h3>
+            <p><a data-href="email"><span data-fill="email"></span></a></p>
+            <small class="muted">We reply within one working day.</small></div></div>
+          <div class="contact-card trade-card"><span data-icon="building"></span><div><h3>Trade &amp; project quotes</h3>
+            <p>Electricians and contractors: send your materials list for a bulk price.</p>
+            <a href="quote.html">Request a quote →</a></div></div>
+        </div>
+
+        <div class="contact-form-wrap">
+          <h2>Send us a message</h2>
+          <p class="muted">Fill in the form and choose how to send it — WhatsApp or email.</p>
+          <div id="contact-result" hidden></div>
+          <form id="contact-form" class="checkout">
+            <div class="two-col">
+              <label>Full name <input name="name" required autocomplete="name"></label>
+              <label>Phone number <input name="phone" type="tel" required autocomplete="tel" pattern="[0-9+\(\) \-]{9,}" title="Enter a valid phone number"></label>
+              <label>Email <small>(optional)</small> <input name="email" type="email" autocomplete="email"></label>
+              <label>Subject
+                <select name="subject">
+                  <option>General question</option>
+                  <option>Product availability</option>
+                  <option>My order or delivery</option>
+                  <option>Returns or warranty</option>
+                  <option>Trade / bulk quote</option>
+                  <option>Other</option>
+                </select>
+              </label>
+            </div>
+            <label>Message <textarea name="message" rows="6" required placeholder="How can we help?"></textarea></label>
+            <button type="submit" class="btn btn-lg btn-block"><span data-icon="send"></span> Send message</button>
+            <p class="hint">Nothing is sent until you tap send in WhatsApp or your email app.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

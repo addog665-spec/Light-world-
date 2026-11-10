@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Light World Electricals — Electrical Supplies in Kumasi</title>
-  <meta name="description" content="Light World Electricals, Kumasi — lighting, cables, switches, breakers, fans and tools. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta name="description" content="Light World Electricals, Kumasi — lighting, cables, sockets, breakers, solar &amp; backup power, appliances, tools and CCTV. Order online for pickup or delivery in Kumasi and Accra.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Light World Electricals">
   <meta property="og:title" content="Light World Electricals — Electrical Supplies in Kumasi">
@@ -22,11 +22,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/minimal.css">
   <link rel="stylesheet" href="css/liquid.css">
+  <link rel="stylesheet" href="css/pages.css">
 </head>
 <body data-page="home">
   <header id="site-header"></header>
 
-  <main>
+  <main id="main">
     <section class="hero">
       <div class="container hero-inner">
         <div>
@@ -60,9 +61,21 @@
 
     <section class="section">
       <div class="container">
-        <p class="kicker">Categories</p>
-        <h2>Shop by category</h2>
+        <div class="section-head">
+          <div><p class="kicker">Categories</p><h2>Shop by category</h2></div>
+          <a href="shop.html">All products →</a>
+        </div>
         <div class="cat-grid" id="category-grid"></div>
+      </div>
+    </section>
+
+    <section class="section deals" id="deals-section" hidden>
+      <div class="container">
+        <div class="section-head">
+          <div><p class="kicker">Deals</p><h2>Deals of the week</h2></div>
+          <a href="shop.html?deals=1">See all deals →</a>
+        </div>
+        <div class="grid" id="deals-grid"></div>
       </div>
     </section>
 
@@ -120,6 +133,7 @@
           </ul>
           <a href="quote.html" class="btn btn-lg">Request a quote</a>
         </div>
+        <img class="trade-photo" src="images/stock/page-trade.jpg" alt="" loading="lazy">
       </div>
     </section>
 
@@ -128,6 +142,7 @@
         <p class="kicker">Delivery</p>
         <h2>Delivery &amp; pickup</h2>
         <div class="info-grid" id="delivery-info"></div>
+        <p class="section-more"><a href="delivery.html">Delivery times, returns and warranty →</a></p>
       </div>
     </section>
 
@@ -148,6 +163,7 @@
             <li>Same-day pickup on in-stock items</li>
             <li>Friendly, knowledgeable staff</li>
           </ul>
+          <a class="about-more" href="about.html">More about us →</a>
         </div>
       </div>
     </section>

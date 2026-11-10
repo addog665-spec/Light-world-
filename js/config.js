@@ -57,5 +57,9 @@ const SHOP = {
       text: "Sent my materials list on WhatsApp and got a quote the same day. The bulk price beat everywhere else I asked." },
     { name: "Efua O.", role: "Shop owner, Adum", stars: 4,
       text: "Good rechargeable bulbs for when the lights go off. Friendly staff who explain everything." },
+    { name: "Nana K.", role: "Facilities manager, Ahodwo", stars: 5,
+      text: "They sized our inverter and batteries properly and explained everything. The office now runs through every power cut." },
+    { name: "Abena D.", role: "Homeowner, Tafo", stars: 5,
+      text: "Ordered a CCTV kit and voltage guards on a Saturday and picked them up the same afternoon. Very professional." },
   ],
 };

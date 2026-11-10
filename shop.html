@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop — Light World Electricals</title>
-  <meta name="description" content="Light World Electricals, Kumasi — lighting, cables, switches, breakers, fans and tools. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta name="description" content="Light World Electricals, Kumasi — lighting, cables, sockets, breakers, solar & backup power, appliances, tools and CCTV. Order online for pickup or delivery in Kumasi and Accra.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Light World Electricals">
   <meta property="og:title" content="Shop — Light World Electricals">
-  <meta property="og:description" content="Light World Electricals, Kumasi — lighting, cables, switches, breakers, fans and tools. Order online for pickup or delivery in Kumasi and Accra.">
+  <meta property="og:description" content="Light World Electricals, Kumasi — lighting, cables, sockets, breakers, solar & backup power, appliances, tools and CCTV. Order online for pickup or delivery in Kumasi and Accra.">
   <meta property="og:image" content="images/stock/hero-banner.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#1656d6">
@@ -21,25 +21,36 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/minimal.css">
   <link rel="stylesheet" href="css/liquid.css">
+  <link rel="stylesheet" href="css/pages.css">
 </head>
 <body data-page="shop">
   <header id="site-header"></header>
 
-  <main class="section">
+  <main id="main" class="section shop-page">
     <div class="container">
-      <h1>Shop</h1>
-      <div class="toolbar">
-        <input type="search" id="search" placeholder="Search products or brands…" aria-label="Search products">
-        <select id="sort" aria-label="Sort products">
-          <option value="default">Sort: Featured</option>
-          <option value="price-asc">Price: low to high</option>
-          <option value="price-desc">Price: high to low</option>
-          <option value="name">Name A–Z</option>
-        </select>
+      <div id="shop-banner"></div>
+      <div class="chips" id="cat-filters" role="group" aria-label="Categories"></div>
+      <div class="shop-layout">
+        <aside class="filters" aria-label="Filters">
+          <div class="filters-head"><h2>Filters</h2><button type="button" class="pill clear-all" data-clear="all">Clear all</button></div>
+          <div id="facets"></div>
+        </aside>
+        <div class="results">
+          <div class="toolbar">
+            <button type="button" class="btn btn-ghost filter-toggle" id="filter-toggle" aria-expanded="false"><span data-icon="filter"></span> Filters <span id="filter-toggle-count"></span></button>
+            <input type="search" id="search" placeholder="Search products, brands or types…" aria-label="Search products">
+            <select id="sort" aria-label="Sort products">
+              <option value="default">Sort: Featured</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="discount">Biggest discount</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </div>
+          <div class="results-meta"><p class="muted" id="result-count"></p><div id="active-filters" class="active-filters"></div></div>
+          <div class="grid" id="product-grid"></div>
+        </div>
       </div>
-      <div class="chips" id="cat-filters"></div>
-      <p class="muted" id="result-count"></p>
-      <div class="grid" id="product-grid"></div>
     </div>
   </main>
 
