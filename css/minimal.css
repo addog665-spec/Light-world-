@@ -4,8 +4,9 @@
    this <link> for css/glass.css (or remove it) to change the look.
    ============================================================ */
 :root {
-  --brand: #f5b301;
-  --brand-dark: #8a6400;
+  --brand: #1656d6;
+  --brand-dark: #0f46b4;
+  --brand-light: #7aa9ff;
   --ink: #111418;
   --ink-soft: #5d646f;
   --bg: #ffffff;
@@ -32,7 +33,7 @@ h3 { letter-spacing: -.01em; }
 
 /* ---------- Header: one quiet line, then a clean white bar ---------- */
 .promo-strip { background: var(--ink); color: #e9eaec; font-weight: 500; font-size: .82rem; letter-spacing: .01em; }
-.promo-strip a { color: #fff; font-weight: 600; text-decoration-color: var(--brand); text-underline-offset: 3px; }
+.promo-strip a { color: #fff; font-weight: 600; text-decoration-color: var(--brand-light); text-underline-offset: 3px; }
 .promo-close { color: #c9ccd1; }
 .topbar { display: none; }
 #site-header { background: rgba(255, 255, 255, .92); -webkit-backdrop-filter: saturate(180%) blur(12px); backdrop-filter: saturate(180%) blur(12px);
@@ -44,7 +45,7 @@ h3 { letter-spacing: -.01em; }
 .nav-links a { font-weight: 500; color: var(--ink-soft); border-bottom: 1px solid transparent; padding: 4px 0; }
 .nav-links a:hover, .nav-links a.active { color: var(--ink); border-color: var(--ink); }
 .cart-btn { background: var(--ink); font-weight: 600; padding: 9px 16px; }
-.badge { background: var(--brand); color: var(--ink); font-weight: 700; }
+.badge { background: var(--brand); color: #fff; font-weight: 700; }
 .menu-btn { border-color: var(--line); border-radius: 10px; }
 
 /* ---------- Buttons: flat, black primary ---------- */
@@ -56,9 +57,9 @@ h3 { letter-spacing: -.01em; }
 .btn-ghost:hover { background: var(--stone); border-color: var(--ink); }
 .btn-wa { background: #1f9d55; color: #fff; }
 .btn-wa:hover { background: #18864a; }
-/* yellow is kept for the one action that matters most on a card: adding to the cart */
-.card .btn[data-add], #pd-add, .pack .btn { background: var(--brand); color: var(--ink); }
-.card .btn[data-add]:hover, #pd-add:hover, .pack .btn:hover { background: #e3a600; }
+/* the brand blue is kept for the one action that matters most: adding to the cart */
+.card .btn[data-add], #pd-add, .pack .btn { background: var(--brand); color: #fff; }
+.card .btn[data-add]:hover, #pd-add:hover, .pack .btn:hover { background: var(--brand-dark); }
 
 /* ---------- Hero: full-width photo, short headline ---------- */
 .hero { padding: 120px 0 110px; }
@@ -68,7 +69,7 @@ h3 { letter-spacing: -.01em; }
 .hero-inner { grid-template-columns: minmax(0, 640px); }
 .hero .eyebrow { color: #c7cad0; }
 .hero h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.04; margin-bottom: .45em; }
-.hero h1 span { color: var(--brand); }
+.hero h1 span { color: var(--brand-light); }
 .lead { color: #cfd2d7; font-size: 1.12rem; max-width: 34em; }
 .hero-search { border-radius: 12px; padding: 6px; background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); max-width: 560px; }
 .hero-search input { border-radius: 8px; }
@@ -82,7 +83,7 @@ h3 { letter-spacing: -.01em; }
 .hero .btn-ghost:hover { background: rgba(255, 255, 255, .08); border-color: #fff; }
 .hero .hero-search .btn { background: var(--ink); color: #fff; }
 .hero-note { color: #c7cad0; font-weight: 500; font-size: .92rem; }
-.hero-note::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--brand); margin-right: 10px; vertical-align: middle; }
+.hero-note::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-light); margin-right: 10px; vertical-align: middle; }
 
 /* ---------- Perks: a quiet row ---------- */
 .perks { border-bottom: 1px solid var(--line); background: #fff; }
@@ -163,9 +164,9 @@ h3 { letter-spacing: -.01em; }
 .trade { background: var(--ink); color: #e6e7ea; border: 0; }
 .trade .eyebrow { color: #a9adb4; }
 .trade h2 { color: #fff; }
-.trade .ticks li::before { border-color: var(--brand); }
-.trade .btn { background: var(--brand); color: var(--ink); }
-.trade .btn:hover { background: #e3a600; }
+.trade .ticks li::before { border-color: var(--brand-light); }
+.trade .btn { background: #fff; color: var(--brand-dark); }
+.trade .btn:hover { background: #e8f0ff; }
 .trade-inner { grid-template-columns: minmax(0, 720px); }
 
 /* ---------- Info, contact, about ---------- */
@@ -188,7 +189,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--ink); outli
 .pd-price { font-weight: 700; letter-spacing: -.02em; }
 .stock.yes { color: #1f7a45; }
 .tiers { background: var(--stone); }
-.tiers tr.on td { background: #fff3c4; }
+.tiers tr.on td { background: #e3edff; }
 .specs th { background: var(--stone); font-weight: 500; }
 .qty { border-color: #d9d9d4; }
 .checkout { background: var(--stone); border-radius: 18px; }
@@ -215,7 +216,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--ink); outli
 /* ---------- Floating button, toast ---------- */
 .wa-float { background: #1f9d55; box-shadow: 0 6px 18px rgba(17, 20, 24, .2); }
 #toast { background: var(--ink); border-radius: 12px; }
-#toast a { color: var(--brand); }
+#toast a { color: var(--brand-light); }
 
 /* ---------- Scroll reveal (added by app.js) ---------- */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
