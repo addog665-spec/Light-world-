@@ -49,7 +49,7 @@ const SHOP = {
     { kicker: "Beat dumsor", title: "Solar & inverter systems sized for your home",
       text: "Tell us what you want to run and our calculator recommends the inverter, batteries and panels.",
       image: "images/stock/inverter-system.jpg", link: "calculator.html", linkText: "Try the solar calculator" },
-    { kicker: "Stay cool", title: "Split air conditioners from GH₵4,850",
+    { kicker: "Stay cool", title: "Split air conditioners from GH₵3,900",
       text: "Midea 1HP, 1.5HP and 2HP — with stabilizers, switches and cable to install them properly.",
       image: "images/stock/air-conditioner.jpg", link: "shop.html?cat=fans&type=Air%20conditioner", linkText: "Shop air conditioners" },
     { kicker: "Protect what matters", title: "CCTV kits you can watch from your phone",
