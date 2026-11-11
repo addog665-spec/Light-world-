@@ -187,6 +187,8 @@ function initProductExtras() {
     const img = media.querySelector("img");
     if (img) img.src = photos[i];
     document.querySelectorAll(".pd-thumb").forEach((b, n) => b.classList.toggle("active", n === i));
+    const credit = document.getElementById("photo-credit");
+    if (credit) credit.innerHTML = photoCredit(photos[i]);
   };
   document.querySelectorAll(".pd-thumb").forEach((b, i) => b.addEventListener("click", () => show(i)));
   if (media?.hasAttribute("data-zoomable")) {
@@ -627,6 +629,22 @@ function initPlaceExtras() {
   });
 }
 
+// ---------- Photo credits page ----------
+function initCredits() {
+  const box = document.getElementById("credits-list");
+  if (!box || typeof PHOTO_CREDITS === "undefined") return;
+  const rows = Object.entries(PHOTO_CREDITS);
+  const group = (title, list) => list.length ? `<h2>${title} <small class="muted">(${list.length})</small></h2>
+    <div class="credit-grid">${list.map(([src, c]) => `
+      <figure class="credit-item">
+        <img src="${escapeHtml(src)}" alt="" loading="lazy">
+        <figcaption><a href="${escapeHtml(c.source)}" target="_blank" rel="noopener">${escapeHtml(c.by === "Unsplash" ? "Photo on Unsplash" : c.by)}</a>
+          <span><a href="${escapeHtml(c.licenseUrl)}" target="_blank" rel="noopener">${escapeHtml(c.license)}</a>${c.changes ? ` · ${escapeHtml(c.changes)}` : ""}</span></figcaption>
+      </figure>`).join("")}</div>` : "";
+  box.innerHTML = group("Wikimedia Commons", rows.filter(([, c]) => c.by !== "Unsplash")) +
+    group("Unsplash", rows.filter(([, c]) => c.by === "Unsplash"));
+}
+
 // ---------- Boot (after js/app.js has drawn the page) ----------
 document.addEventListener("DOMContentLoaded", () => {
   initSearchPanel();
@@ -637,7 +655,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderRecent(document.getElementById("recent-section"), { title: t("Recently viewed") });
   }
   const pages = { product: initProductExtras, wishlist: initWishlist, compare: initCompare, calculator: initCalculator,
-    guides: initGuides, guide: initGuide, track: initTrack };
+    guides: initGuides, guide: initGuide, track: initTrack, credits: initCredits };
   pages[page]?.();
   initPlaceExtras();
   refreshListButtons();

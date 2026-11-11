@@ -101,7 +101,7 @@ const GUIDES = [
     title: "Choosing a CCTV system for your home or shop",
     summary: "Wired kit or Wi-Fi cameras? How many cameras, what resolution and how much storage — explained simply.",
     image: "images/stock/cat-security.jpg", minutes: 4, tag: "Security",
-    related: ["hik-dvr-kit-4", "hik-bullet-2mp", "indoor-wifi-camera", "ups-1500va"],
+    related: ["hik-dvr-kit-4", "hik-bullet-2mp", "indoor-wifi-camera", "apc-ups-1000va"],
     body: `
       <h2>Wired kit or Wi-Fi cameras?</h2>
       <ul>
@@ -115,19 +115,19 @@ const GUIDES = [
       <h2>Storage</h2>
       <p>A 1TB hard drive usually keeps about 10–14 days of recording from four 2MP cameras before it records over the oldest footage.</p>
       <h2>Keep it running in power cuts</h2>
-      <p>Put the recorder and router on a <a href="product.html?id=ups-1500va">UPS</a> or your inverter — otherwise the cameras go off exactly when the lights do.</p>`,
+      <p>Put the recorder and router on a <a href="product.html?id=apc-ups-1000va">UPS</a> or your inverter — otherwise the cameras go off exactly when the lights do.</p>`,
   },
   {
     id: "home-safety",
     title: "Protect your home: breakers, RCDs and earthing",
     summary: "What each part of your distribution board does, and the protection every Ghanaian home should have.",
     image: "images/stock/circuit-breakers.jpg", minutes: 4, tag: "Safety",
-    related: ["db-12way", "rccb-63a", "mcb-single-pole", "earth-rod"],
+    related: ["focus-db-8way", "rccb-40a", "mcb-single-pole", "earth-rod"],
     body: `
       <h2>Breakers (MCBs) protect the cables</h2>
       <p>A miniature circuit breaker switches off when a circuit is overloaded or short-circuits, before the cable overheats. Each circuit needs a breaker matched to its cable size.</p>
       <h2>RCDs protect people</h2>
-      <p>An <a href="product.html?id=rccb-63a">RCD / RCCB (30mA)</a> watches for current leaking to earth — for example through a person touching a faulty appliance — and switches off in a fraction of a second. It can save a life, especially in kitchens, bathrooms and outside.</p>
+      <p>An <a href="product.html?id=rccb-40a">RCD / RCCB (30mA)</a> watches for current leaking to earth — for example through a person touching a faulty appliance — and switches off in a fraction of a second. It can save a life, especially in kitchens, bathrooms and outside.</p>
       <h2>Earthing makes it all work</h2>
       <p>A proper earth connection with an <a href="product.html?id=earth-rod">earth rod</a> lets fault current flow safely away, so breakers and RCDs can do their job and surge protectors can divert spikes.</p>
       <h2>Generators and inverters</h2>
