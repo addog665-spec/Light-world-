@@ -28,6 +28,7 @@ Every page has the same menu (with a search box) and footer.
 | `faq.html` | Ordering, payment, delivery and warranty questions, plus buying guides |
 | `delivery.html` | Delivery options and times, returns, warranty, damaged items |
 | `terms.html`, `privacy.html` | Terms & Conditions and Privacy Policy |
+| `credits.html` | Photo credits: who took each stock photo and its licence (from `js/credits.js`) |
 | `404.html` | Shown by GitHub Pages for a wrong address |
 
 Also on every page: **live search** (the magnifier in the header, or press `/`) suggests products, departments and guides as you type; hearts and compare buttons on every product; a **Twi (beta)** language switch. Product pages add a **photo gallery with zoom**, **frequently bought together** and **recently viewed**. The home page adds a **promotion slider**. `shop.html?brand=Newman` is a **brand page**.
@@ -65,12 +66,12 @@ Open **`js/config.js`** and fill in everything marked `TODO`:
 
 Then in **`js/products.js`**:
 
-- [ ] **Demo products.** Every product marked `sample: true` was added for the presentation, with an estimated price. Replace each with your real item, price and photo, or delete it. (Products without `sample` come from your sales book.)
+- [ ] **Demo products.** Every product marked `sample: true` was added for the presentation. Their prices were checked against Ghanaian online shops (mainly Jumia Ghana) in November 2026; the rest are estimates — see **`PRICES.md`** for the source of each price. Replace each with your real item, price and photo, or delete it. (Products without `sample` come from your sales book.)
 - [ ] **Prices on request.** Products with `price: null` show "Price on request". Add prices where you can.
 - [ ] **Bulb fittings.** Confirm B22 (pin) or E27 (screw) for the Fortune bulbs, Newman 10W, Newman tube bulb, UFO 50W and Brothers Union 50W.
 - [ ] **Labels.** Check which products really are "Best seller", "New" or "Popular", and which are on sale (`oldPrice`).
 - [ ] **Stock.** Add `stock: 0` to anything sold out (and `stock: 3` to show "Only 3 left").
-- [ ] **Photos.** Replace stock and placeholder images with your own photos — see **`IMAGES.md`** for every image spot.
+- [ ] **Photos.** Replace stock and placeholder images with your own photos — see **`IMAGES.md`** for every image spot. Stock photos marked CC BY or CC BY-SA must keep their credit (shown under the photo and on `credits.html`, from `js/credits.js`) for as long as they are used.
 
 Other files:
 

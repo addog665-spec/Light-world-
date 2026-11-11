@@ -1,6 +1,6 @@
 # Image spots — where every picture on the site comes from
 
-Use this list to swap in your own photos. **Your photo** = a real photo of your stock (keep). **Stock** = a free Unsplash photo of the same kind of item (shown labelled "Example photo" on products). **Placeholder** = a coloured block with an icon and the product name, until you add a photo.
+Use this list to swap in your own photos. **Your photo** = a real photo of your stock (keep). **Stock** = a free photo (Unsplash or Wikimedia Commons) of the same kind of item (shown labelled "Example photo" on products). **Placeholder** = a coloured block with an icon and the product name, until you add a photo.
 
 To add your own product photo: save it in `images/products/` (square, plain background works best) and set `image: "images/products/your-photo.jpg"` on the product in `js/products.js`. That replaces the stock photo or placeholder automatically. Extra photos go in `gallery: [...]`.
 
@@ -19,7 +19,7 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | Slide | File (`promoSlides` in `js/config.js`) |
 |---|---|
 | Solar & inverter systems sized for your home | `images/stock/inverter-system.jpg` |
-| Split air conditioners from GH₵4,850 | `images/stock/air-conditioner.jpg` |
+| Split air conditioners from GH₵3,900 | `images/stock/air-conditioner.jpg` |
 | CCTV kits you can watch from your phone | `images/stock/cat-security.jpg` |
 | Bulk prices for electricians & contractors | `images/stock/page-trade.jpg` |
 
@@ -86,7 +86,7 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | Round LED Ceiling Light 24W *(demo)* | `led-ceiling-24w` | Stock — `images/stock/ceiling-light.jpg` |
 | Opal Globe Ceiling Light *(demo)* | `globe-ceiling-light` | Stock — `images/stock/globe-light.jpg` |
 | Recessed LED Downlight 9W *(demo)* | `led-downlight-9w` | Stock — `images/stock/recessed-lights.jpg` |
-| LED Panel Light 600 × 600 48W *(demo)* | `led-panel-600` | Placeholder |
+| LED Panel Light 600 × 600 48W *(demo)* | `led-panel-600` | Stock — `images/stock/led-panel.jpg` |
 | Crystal Chandelier 6-Light *(demo)* | `crystal-chandelier-6` | Stock — `images/stock/chandelier.jpg` |
 | Newman LED Floodlight 30W | `newman-floodlight-30w` | Placeholder |
 | Newman LED Floodlight 100W | `newman-floodlight-100w` | Your photo — `images/products/newman-floodlight-100w.jpg` |
@@ -101,23 +101,23 @@ To add your own product photo: save it in `images/products/` (square, plain back
 
 | Product | id | Image now |
 |---|---|---|
-| 1-Gang 1-Way Light Switch *(demo)* | `switch-1gang` | Placeholder |
+| 1-Gang 1-Way Light Switch *(demo)* | `switch-1gang` | Stock — `images/stock/light-switch-1gang.jpg` |
 | 2-Gang 2-Way Light Switch *(demo)* | `switch-2gang` | Stock — `images/stock/light-switch.jpg` |
-| LED Dimmer Switch 400W *(demo)* | `dimmer-switch` | Placeholder |
+| Click 1-Gang Rotary Dimmer Switch 400W *(demo)* | `dimmer-switch` | Stock — `images/stock/dimmer.jpg` |
 | Focus Double Socket (PC-Series) | `focus-double-socket` | Your photo — `images/products/focus-double-socket.jpg` |
 | BG Double Socket | `bg-double-socket` | Stock — `images/stock/sockets-switches.jpg` |
 | Double Socket with 2 USB Ports *(demo)* | `usb-double-socket` | Placeholder |
-| Weatherproof Outdoor Socket *(demo)* | `outdoor-socket` | Placeholder |
+| Weatherproof Outdoor Socket *(demo)* | `outdoor-socket` | Stock — `images/stock/outdoor-socket.jpg` |
 | Cooker / Water Heater Switch 45A *(demo)* | `cooker-switch` | Placeholder |
 | 2-Way Main Switch | `two-way-main-switch` | Placeholder |
 | Space Plug | `space-plug` | Placeholder |
 | 3-Way Multi Plug Adapter *(demo)* | `multi-adapter-3way` | Placeholder |
-| Universal Travel Adapter *(demo)* | `travel-adapter` | Placeholder |
-| Extension Board | `extension-board` | Placeholder |
-| 4-Way Surge-Protected Extension with USB, 3m *(demo)* | `extension-4way-usb` | Placeholder |
+| Universal Travel Adapter *(demo)* | `travel-adapter` | Stock — `images/stock/travel-adapter.jpg` |
+| Extension Board | `extension-board` | Stock — `images/stock/extension-lead.jpg` |
+| 6-Way Universal Extension Board with 4 USB Ports *(demo)* | `extension-6way-usb` | Stock — `images/stock/extension-usb.jpg` |
 | Pattress Box 3×6 | `pattress-box-3x6` | Placeholder |
 | Metal Box 3×6 | `metal-box-3x6` | Placeholder |
-| Circular Box | `circular-box` | Placeholder |
+| Circular Box | `circular-box` | Stock — `images/stock/circular-box.jpg` |
 
 ### Cables & Wiring
 
@@ -129,12 +129,12 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | 6mm Cable — Roll | `cable-roll-6mm` | Stock — `images/stock/cable-rolls.jpg` |
 | Armoured Cable 4mm² 3-Core *(demo)* | `armoured-cable-4mm` | Placeholder |
 | Flexible Cord 3-Core 1.5mm² — 100m *(demo)* | `flex-cord-3core` | Placeholder |
-| Extension Cable Reel 25m, 4 Sockets *(demo)* | `extension-reel-25m` | Placeholder |
-| PVC Conduit Pipe 20mm (White) | `pvc-conduit-20mm` | Placeholder |
+| Heavy-Duty Extension Cable Reel 25m (2.5mm) *(demo)* | `extension-reel-25m` | Placeholder |
+| PVC Conduit Pipe 20mm (White) | `pvc-conduit-20mm` | Stock — `images/stock/pvc-conduit.jpg` |
 | PVC Trunking 25 × 16mm, 2m *(demo)* | `trunking-25x16` | Placeholder |
-| Cable Ties 200mm — Pack of 100 *(demo)* | `cable-ties-200` | Placeholder |
-| Cable Clips 6mm — Box | `cable-clips-6mm` | Placeholder |
-| Cable Clips 10mm — Box | `cable-clips-10mm` | Placeholder |
+| Cable Ties 200mm — Pack of 100 *(demo)* | `cable-ties-200` | Stock — `images/stock/cable-ties.jpg` |
+| Cable Clips 6mm — Box | `cable-clips-6mm` | Stock — `images/stock/cable-clips.jpg` |
+| Cable Clips 10mm — Box | `cable-clips-10mm` | Stock — `images/stock/cable-clips.jpg` |
 | Copper-Bonded Earth Rod 1.2m with Clamp *(demo)* | `earth-rod` | Placeholder |
 
 ### Circuit Protection
@@ -142,14 +142,14 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | Product | id | Image now |
 |---|---|---|
 | MCB Breaker (Single Pole) | `mcb-single-pole` | Stock — `images/stock/circuit-breakers.jpg` |
-| 2-Pole Breaker | `two-pole-breaker` | Placeholder |
-| RCCB 63A 30mA 2-Pole *(demo)* | `rccb-63a` | Placeholder |
+| 2-Pole Breaker | `two-pole-breaker` | Stock — `images/stock/mcb-2pole.jpg` |
+| RCCB 40A 30mA 2-Pole *(demo)* | `rccb-40a` | Stock — `images/stock/rccb.jpg` |
 | Distribution Board | `distribution-board` | Stock — `images/stock/circuit-breakers.jpg` |
-| Distribution Board 12-Way (Flush) *(demo)* | `db-12way` | Stock — `images/stock/circuit-breakers.jpg` |
-| Cut-Out Fuse | `cut-out-fuse` | Placeholder |
-| Surge Protection Device (SPD) 2-Pole *(demo)* | `spd-surge` | Placeholder |
+| Focus 8-Way Distribution Board *(demo)* | `focus-db-8way` | Stock — `images/stock/circuit-breakers.jpg` |
+| Cut-Out Fuse | `cut-out-fuse` | Stock — `images/stock/cutout-fuse.jpg` |
+| Surge Protection Device (SPD) 2-Pole *(demo)* | `spd-surge` | Stock — `images/stock/spd-surge.jpg` |
 | Manual Changeover Switch 63A *(demo)* | `changeover-63a` | Placeholder |
-| Fridge & TV Voltage Guard *(demo)* | `voltage-guard` | Placeholder |
+| Fridge & TV Voltage Guard *(demo)* | `voltage-guard` | Stock — `images/stock/voltage-guard.jpg` |
 | Main Isolator Switch 100A *(demo)* | `isolator-100a` | Placeholder |
 
 ### Fans & Cooling
@@ -159,34 +159,34 @@ To add your own product photo: save it in `images/products/` (square, plain back
 | Focus Ceiling Fan 24" (Crystal White) | `focus-ceiling-fan-24` | Your photo — `images/products/focus-ceiling-fan-24.jpg` |
 | Ceiling Fan (Other Sizes) | `ceiling-fan` | Stock — `images/stock/ceiling-fan.jpg` |
 | Standing Fan | `standing-fan` | Stock — `images/stock/standing-fan.jpg` |
-| Nasco Standing Fan 18" with Remote *(demo)* | `nasco-standing-fan-18` | Stock — `images/stock/standing-fan.jpg` |
+| Tornado 18" Standing Fan with Remote *(demo)* | `tornado-standing-fan-18` | Stock — `images/stock/standing-fan.jpg` |
 | Binatone Table Fan 16" *(demo)* | `table-fan-16` | Stock — `images/stock/table-fan.jpg` |
 | Rechargeable Desk Fan 8" (USB) *(demo)* | `rechargeable-desk-fan` | Stock — `images/stock/rechargeable-fan.jpg` |
-| Rechargeable Standing Fan 16" with Light *(demo)* | `rechargeable-fan-16` | Placeholder |
-| Wall Fan 16" with Pull Cord *(demo)* | `wall-fan-16` | Placeholder |
-| Bathroom / Kitchen Exhaust Fan 8" *(demo)* | `exhaust-fan-8` | Placeholder |
+| 16" Rechargeable Solar Standing Fan with Remote *(demo)* | `rechargeable-fan-16` | Stock — `images/stock/standing-fan.jpg` |
+| Kepas 16" Heavy-Duty Wall Fan *(demo)* | `wall-fan-16` | Stock — `images/stock/wall-fan.jpg` |
+| Bathroom / Kitchen Exhaust Fan 8" *(demo)* | `exhaust-fan-8` | Stock — `images/stock/exhaust-fan.jpg` |
 | Midea Split Air Conditioner 1HP *(demo)* | `midea-ac-1hp` | Stock — `images/stock/air-conditioner.jpg` |
 | Midea Split Air Conditioner 1.5HP *(demo)* | `midea-ac-1-5hp` | Stock — `images/stock/air-conditioner.jpg` |
 | Midea Split Air Conditioner 2HP *(demo)* | `midea-ac-2hp` | Stock — `images/stock/air-conditioner.jpg` |
-| Fan Regulator | `fan-regulator` | Placeholder |
-| Fan Capacitor 2.5µF | `fan-capacitor-2.5` | Placeholder |
+| Fan Regulator | `fan-regulator` | Stock — `images/stock/fan-regulator.jpg` |
+| Fan Capacitor 2.5µF | `fan-capacitor-2.5` | Stock — `images/stock/fan-capacitor.jpg` |
 | Fan Hook | `fan-hook` | Placeholder |
 
 ### Power & Backup
 
 | Product | id | Image now |
 |---|---|---|
-| Jinko Mono Solar Panel 300W *(demo)* | `solar-panel-300w` | Stock — `images/stock/cat-power.jpg` + gallery `images/stock/solar-field.jpg` |
-| Jinko Mono Solar Panel 450W *(demo)* | `solar-panel-450w` | Stock — `images/stock/cat-power.jpg` + gallery `images/stock/solar-field.jpg` |
+| Jinko Mono Solar Panel 300W *(demo)* | `solar-panel-300w` | Stock — `images/stock/cat-power.jpg` |
+| Jinko Mono Solar Panel 450W *(demo)* | `solar-panel-450w` | Stock — `images/stock/cat-power.jpg` |
 | Felicity Hybrid Inverter 3kVA 24V *(demo)* | `felicity-inverter-3kva` | Stock — `images/stock/inverter-system.jpg` |
 | Felicity Hybrid Inverter 5kVA 48V *(demo)* | `felicity-inverter-5kva` | Stock — `images/stock/inverter-system.jpg` |
-| Deep-Cycle Battery 12V 200Ah *(demo)* | `tubular-battery-200ah` | Stock — `images/stock/battery.jpg` |
+| Ritar Deep-Cycle Gel Battery 12V 200Ah *(demo)* | `tubular-battery-200ah` | Stock — `images/stock/deep-cycle-battery.jpg` |
 | Lithium Battery 48V 100Ah (5kWh) *(demo)* | `lithium-battery-5kwh` | Stock — `images/stock/inverter-system.jpg` |
 | MPPT Solar Charge Controller 60A *(demo)* | `charge-controller-60a` | Placeholder |
 | Sollatek Voltage Stabilizer 2kVA *(demo)* | `sollatek-avs-2kva` | Placeholder |
 | Sollatek Voltage Stabilizer 5kVA *(demo)* | `sollatek-avs-5kva` | Placeholder |
-| UPS 1500VA Line-Interactive *(demo)* | `ups-1500va` | Placeholder |
-| Firman Petrol Generator 2.8kVA *(demo)* | `firman-gen-2-8kva` | Stock — `images/stock/generator.jpg` + gallery `images/stock/generator-side.jpg` |
+| APC Easy UPS 1000VA (BV1000I) *(demo)* | `apc-ups-1000va` | Stock — `images/stock/ups.jpg` |
+| Firman Petrol Generator 2.8kVA *(demo)* | `firman-gen-2-8kva` | Stock — `images/stock/generator.jpg` |
 | Firman Petrol Generator 7.5kVA Key Start *(demo)* | `firman-gen-7-5kva` | Stock — `images/stock/generator-large.jpg` |
 | Solar Home System 3kVA (Complete Kit) *(demo)* | `solar-home-kit-3kva` | Stock — `images/stock/inverter-system.jpg` |
 
@@ -194,36 +194,36 @@ To add your own product photo: save it in `images/products/` (square, plain back
 
 | Product | id | Image now |
 |---|---|---|
-| Nasco Single-Door Fridge 90L *(demo)* | `nasco-fridge-90l` | Stock — `images/stock/fridge-single.jpg` |
-| Nasco Double-Door Fridge 205L *(demo)* | `nasco-fridge-205l` | Stock — `images/stock/fridge.jpg` |
-| Hisense Chest Freezer 200L *(demo)* | `hisense-freezer-200l` | Placeholder |
-| Nasco 32" LED TV *(demo)* | `nasco-tv-32` | Stock — `images/stock/tv.jpg` + gallery `images/stock/tv-wall.jpg` |
-| Hisense 43" Smart TV (Full HD) *(demo)* | `hisense-tv-43` | Stock — `images/stock/tv.jpg` + gallery `images/stock/tv-wall.jpg` |
-| Samsung 55" 4K UHD Smart TV *(demo)* | `samsung-tv-55` | Stock — `images/stock/tv-wall.jpg` + gallery `images/stock/tv.jpg` |
-| Sharp Microwave Oven 20L *(demo)* | `sharp-microwave-20l` | Stock — `images/stock/microwave.jpg` |
-| Binatone Blender 1.5L with Grinder *(demo)* | `binatone-blender` | Stock — `images/stock/blender.jpg` |
-| Binatone Steam Iron *(demo)* | `binatone-iron` | Stock — `images/stock/iron.jpg` |
+| Nasco 95L Double-Door Fridge (Top Freezer) *(demo)* | `nasco-fridge-95l` | Stock — `images/stock/fridge-top-freezer.jpg` |
+| Nasco 210L Double-Door Fridge *(demo)* | `nasco-fridge-210l` | Stock — `images/stock/fridge-silver.jpg` |
+| Nasco 200L Chest Freezer *(demo)* | `nasco-freezer-200l` | Stock — `images/stock/chest-freezer.jpg` |
+| Nasco 32" LED TV (Digital Satellite) *(demo)* | `nasco-tv-32` | Stock — `images/stock/tv-wall.jpg` |
+| Nasco 43" Full HD LED TV (Digital Satellite) *(demo)* | `nasco-tv-43` | Stock — `images/stock/tv-wall.jpg` |
+| Samsung 55" Crystal UHD 4K Smart TV *(demo)* | `samsung-tv-55` | Stock — `images/stock/tv.jpg` |
+| Haier 20L Microwave Oven *(demo)* | `haier-microwave-20l` | Stock — `images/stock/microwave-solo.jpg` |
+| Binatone Blender 1.5L with Grinder (BLG-452) *(demo)* | `binatone-blender` | Stock — `images/stock/blender.jpg` |
+| Binatone Steam Iron (SI-1605) *(demo)* | `binatone-iron` | Stock — `images/stock/iron.jpg` |
 | Electric Kettle 1.7L *(demo)* | `electric-kettle` | Stock — `images/stock/kettle.jpg` |
 | Rice Cooker 1.8L *(demo)* | `rice-cooker-1-8l` | Stock — `images/stock/rice-cooker.jpg` |
-| Instant Pot Electric Pressure Cooker 6L *(demo)* | `pressure-cooker-6l` | Stock — `images/stock/pressure-cooker.jpg` |
-| Electric Hot Plate — Double *(demo)* | `hot-plate-double` | Placeholder |
-| Hisense Twin-Tub Washing Machine 7kg *(demo)* | `twin-tub-7kg` | Placeholder |
-| LG Front-Load Washing Machine 7kg *(demo)* | `front-load-7kg` | Stock — `images/stock/washing-machine.jpg` + gallery `images/stock/washing-machine-2.jpg` |
-| Ariston Water Heater 50L *(demo)* | `water-heater-50l` | Placeholder |
+| Electric Pressure Cooker 5L *(demo)* | `pressure-cooker-5l` | Stock — `images/stock/pressure-cooker-electric.jpg` |
+| Electric Hot Plate — Single *(demo)* | `hot-plate-single` | Stock — `images/stock/hot-plate.jpg` |
+| Binatone 7kg Twin-Tub Washing Machine *(demo)* | `twin-tub-7kg` | Stock — `images/stock/twin-tub.jpg` |
+| Bruhm 7kg Front-Load Washing Machine *(demo)* | `front-load-7kg` | Stock — `images/stock/washing-machine.jpg` |
+| Midea 30L Water Heater *(demo)* | `midea-water-heater-30l` | Placeholder |
 
 ### Tools & Accessories
 
 | Product | id | Image now |
 |---|---|---|
-| Tester Screwdriver | `tester` | Placeholder |
-| Digital Multimeter *(demo)* | `digital-multimeter` | Stock — `images/stock/multimeter.jpg` |
+| Tester Screwdriver | `tester` | Stock — `images/stock/voltage-tester.jpg` |
+| Digital Multimeter (DT9205A) *(demo)* | `digital-multimeter` | Stock — `images/stock/multimeter.jpg` |
 | Screwdriver | `screwdriver` | Stock — `images/stock/screwdriver.jpg` |
-| Screwdriver Set — 6 Pieces *(demo)* | `screwdriver-set` | Stock — `images/stock/tester-screwdriver.jpg` |
+| Magnetic Screwdriver Set — 9 Pieces *(demo)* | `screwdriver-set` | Stock — `images/stock/tester-screwdriver.jpg` |
 | Combination Pliers 8" (Insulated) *(demo)* | `pliers-combination` | Stock — `images/stock/pliers.jpg` |
 | Side Cutter 6" *(demo)* | `side-cutter` | Stock — `images/stock/side-cutter.jpg` |
-| Automatic Wire Stripper *(demo)* | `wire-stripper` | Placeholder |
+| Self-Adjusting Wire Stripper *(demo)* | `wire-stripper` | Stock — `images/stock/wire-stripper.jpg` |
 | DeWalt 20V Cordless Drill/Driver *(demo)* | `dewalt-drill` | Stock — `images/stock/cordless-drill.jpg` |
-| Ingco Impact Hammer Drill 800W *(demo)* | `hammer-drill-800w` | Placeholder |
+| Ingco Impact Drill 710W (ID7118) *(demo)* | `ingco-impact-drill-710w` | Stock — `images/stock/corded-drill.jpg` |
 | Stanley PowerLock Tape Measure 5m *(demo)* | `stanley-tape-5m` | Stock — `images/stock/tape-measure.jpg` |
 | Soldering Iron 60W with Stand *(demo)* | `soldering-iron-60w` | Stock — `images/stock/soldering-iron.jpg` |
 | Rechargeable LED Torch *(demo)* | `rechargeable-torch` | Stock — `images/stock/torch.jpg` |
@@ -237,17 +237,17 @@ To add your own product photo: save it in `images/products/` (square, plain back
 
 | Product | id | Image now |
 |---|---|---|
-| Hikvision 2MP Outdoor Bullet Camera *(demo)* | `hik-bullet-2mp` | Stock — `images/stock/cat-security.jpg` |
-| Hikvision 4-Camera CCTV Kit with 1TB DVR *(demo)* | `hik-dvr-kit-4` | Placeholder |
+| Hikvision 2MP ColorVu Outdoor Camera *(demo)* | `hik-bullet-2mp` | Stock — `images/stock/bullet-camera.jpg` |
+| Hikvision 4-Camera CCTV Kit with 1TB DVR *(demo)* | `hik-dvr-kit-4` | Stock — `images/stock/dvr.jpg` |
 | Outdoor Wi-Fi PTZ Camera 4MP *(demo)* | `ptz-wifi-camera` | Stock — `images/stock/cctv-dome.jpg` |
 | Indoor Wi-Fi Security Camera 2MP *(demo)* | `indoor-wifi-camera` | Stock — `images/stock/wifi-camera.jpg` |
 | Wi-Fi Video Doorbell *(demo)* | `video-doorbell` | Stock — `images/stock/video-doorbell.jpg` |
-| Wireless Doorbell with Plug-In Chime *(demo)* | `wireless-doorbell` | Placeholder |
-| Smart Wi-Fi Plug 13A (UK) *(demo)* | `smart-plug-13a` | Placeholder |
+| Wireless Doorbell with Plug-In Chime *(demo)* | `wireless-doorbell` | Stock — `images/stock/wireless-doorbell.jpg` |
+| Smart Wi-Fi Plug 16A (UK) *(demo)* | `smart-plug-13a` | Placeholder |
 | Smart Wi-Fi LED Bulb 9W (Colour) *(demo)* | `smart-bulb-9w` | Stock — `images/stock/smart-bulb.jpg` |
-| PIR Motion Sensor (Ceiling) *(demo)* | `motion-sensor-switch` | Placeholder |
-| Smoke Alarm (10-Year Battery) *(demo)* | `smoke-alarm` | Placeholder |
+| PIR Motion Sensor (Wall/Corner Mount) *(demo)* | `motion-sensor-switch` | Stock — `images/stock/pir-sensor.jpg` |
+| Smoke Alarm (10-Year Battery) *(demo)* | `smoke-alarm` | Stock — `images/stock/smoke-alarm.jpg` |
 
-**Totals:** 140 products — 13 with your photos, 65 with stock example photos, 62 with placeholders.
+**Totals:** 140 products — 13 with your photos, 98 with stock example photos, 29 with placeholders.
 
-Stock photo sources and licence: `images/stock/CREDITS.md`.
+Stock photo sources, authors and licences: `images/stock/CREDITS.md` (shown on the site at `credits.html`).

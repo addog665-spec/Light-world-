@@ -372,7 +372,7 @@ function renderLayout() {
     ${SHOP.paymentMethods?.length ? `<div class="container pay-row"><span>${escapeHtml(t("We accept"))}</span><div class="pay-badges">${paymentBadgesHtml()}</div></div>` : ""}
     <div class="copyright"><div class="container">
       <span>© ${new Date().getFullYear()} ${escapeHtml(SHOP.name)}. All rights reserved.</span>
-      <span class="legal"><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Policy</a></span>
+      <span class="legal"><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Policy</a><a href="credits.html">Photo credits</a></span>
     </div></div>`;
 
   document.querySelectorAll("[data-pay-badges]").forEach((el) => { el.innerHTML = paymentBadgesHtml(); });
@@ -851,6 +851,16 @@ function initShop() {
 }
 
 // ---------- Product detail page ----------
+// Small-print credit for a stock photo (licence terms require it for CC BY / CC BY-SA photos).
+function photoCredit(src) {
+  const c = typeof PHOTO_CREDITS !== "undefined" && PHOTO_CREDITS[src];
+  if (!c) return "";
+  const by = c.by === "Unsplash" ? "Unsplash" : escapeHtml(c.by);
+  return `Example photo: <a href="${escapeHtml(c.source)}" target="_blank" rel="noopener">${by}</a>, ` +
+    `<a href="${escapeHtml(c.licenseUrl)}" target="_blank" rel="noopener">${escapeHtml(c.license)}</a>` +
+    (c.changes && c.changes !== "resized" ? ` (${escapeHtml(c.changes.replace(/^resized, /, ""))})` : "");
+}
+
 function initProduct() {
   const root = document.getElementById("product");
   const p = findProduct(new URLSearchParams(location.search).get("id"));
@@ -879,6 +889,7 @@ function initProduct() {
           ${photos.length ? `<span class="zoom-hint">${icon("zoom")}</span>` : ""}</div>
         ${photos.length > 1 ? `<div class="pd-thumbs">${photos.map((src, i) =>
           `<button type="button" class="pd-thumb${i === 0 ? " active" : ""}" data-photo="${escapeHtml(src)}" aria-label="Photo ${i + 1}"><img src="${escapeHtml(src)}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}
+        ${!p.image && photos.length ? `<p class="photo-credit" id="photo-credit">${photoCredit(photos[0])}</p>` : ""}
       </div>
       <div class="pd-info">
         ${p.brand ? `<div class="card-cat">${escapeHtml(p.brand)}</div>` : ""}
