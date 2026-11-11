@@ -122,12 +122,12 @@ const GUIDES = [
     title: "Protect your home: breakers, RCDs and earthing",
     summary: "What each part of your distribution board does, and the protection every Ghanaian home should have.",
     image: "images/stock/circuit-breakers.jpg", minutes: 4, tag: "Safety",
-    related: ["focus-db-8way", "rccb-63a", "mcb-single-pole", "earth-rod"],
+    related: ["focus-db-8way", "rccb-40a", "mcb-single-pole", "earth-rod"],
     body: `
       <h2>Breakers (MCBs) protect the cables</h2>
       <p>A miniature circuit breaker switches off when a circuit is overloaded or short-circuits, before the cable overheats. Each circuit needs a breaker matched to its cable size.</p>
       <h2>RCDs protect people</h2>
-      <p>An <a href="product.html?id=rccb-63a">RCD / RCCB (30mA)</a> watches for current leaking to earth — for example through a person touching a faulty appliance — and switches off in a fraction of a second. It can save a life, especially in kitchens, bathrooms and outside.</p>
+      <p>An <a href="product.html?id=rccb-40a">RCD / RCCB (30mA)</a> watches for current leaking to earth — for example through a person touching a faulty appliance — and switches off in a fraction of a second. It can save a life, especially in kitchens, bathrooms and outside.</p>
       <h2>Earthing makes it all work</h2>
       <p>A proper earth connection with an <a href="product.html?id=earth-rod">earth rod</a> lets fault current flow safely away, so breakers and RCDs can do their job and surge protectors can divert spikes.</p>
       <h2>Generators and inverters</h2>
